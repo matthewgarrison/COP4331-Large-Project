@@ -42,6 +42,7 @@
 			$stmt->close();
 		}
 		if(!$error_occurred){
+			$in_use = false;
 			$stmt = $conn->stmt_init();
 			if(!$stmt->prepare("SELECT ClassID FROM Class WHERE ClassID = ?")){
 				$error_occurred = true;
