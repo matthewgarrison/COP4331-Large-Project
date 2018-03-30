@@ -12,8 +12,7 @@ $(document).ready(function() {
 
 function addProfessor() {
 	var name = document.getElementById("form-name").value;
-
-	var email = document.getElementById("form-email")
+	var email = document.getElementById("form-email").value;
 
 	var password = document.getElementById("form-password").value;
 	var passwordConfirm = document.getElementById("form-password-confirm").value;
