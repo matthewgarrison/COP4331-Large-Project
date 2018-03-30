@@ -4,9 +4,9 @@
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Queue & A - Register</title>
+        <title>Queue & A - Register</title>
 	  
-   <!-- BootStrap -->
+        <!-- BootStrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 	  
 	<!-- Stylesheets -->
@@ -27,12 +27,12 @@
 	  <nav class = "navbar navbar-default">
 	  	<div class = "container-fluid">
 			<div class = "navbar-header">
-				<a class = "navbar-brand" href="#">Queue & A</a>
+				<a class = "navbar-brand" href="index.html">Queue & A</a>
 			</div>
 			
 			<ul class = "nav navbar-nav navbar-right">
-				<li><a href="#">Login</a></li>
-				<li><a href="#">Register</a></li>
+				<li><a href="Login.html">Login</a></li>
+				<li><a href="register.html">Register</a></li>
 			</ul>
 		</div>
 	  </nav>
@@ -46,8 +46,8 @@
 				<input type="email" id="form-email" placeholder="Email Address" required>
 				<input type="password" id="form-password" placeholder="Password" required>
 				<input type="password" id="form-password-confirm" placeholder="Confirm Password" required>
+                                <input type="submit" id="form-submit" value="Register" class="btn-custom" onclick="addProfessor()" required>
 			</form>
-			<div><button class="btn btn-defualt" type="button" id="form-create" onclick="addProfessor()">Register</button></div>
 			
 			<div class="login-help">
 				<a href="#">Login with an existing account</a><br>
