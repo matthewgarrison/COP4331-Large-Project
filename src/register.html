@@ -38,15 +38,18 @@
 		<div class="cardRegister">
 			<h1 class="cardTitle">Register</h1>
 			<form>
-				<input type="text" name="name" placeholder="Full Name" required>
-				<input type="email" name="email" placeholder="Email Address" required>
-				<input type="password" name="password" placeholder="Password" required>
-				<input type="password" name="Confirmpassword" placeholder="Confirm Password" required>
-				<input type="submit" value="Register" class="btn-custom">
+				<input type="text" id="form-name" placeholder="Full Name" required>
+				<input type="email" id="form-email" placeholder="Email Address" required>
+				<input type="password" id="form-password" placeholder="Password" required>
+				<input type="password" id="form-password-confirm" placeholder="Confirm Password" required>
 			</form>
+			<div><button class="btn btn-defualt" type="button" id="form-create" onclick="addProfessor()">Register</button></div>
+			
 			<div class="login-help">
 				<a href="#">Login with an existing account</a><br>
 			</div>
+
+			<p id="passwordCompareAndCreateResult"></p>
 		</div>
 	  </div>
   </body>

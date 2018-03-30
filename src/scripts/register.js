@@ -11,7 +11,9 @@ $(document).ready(function() {
 });
 
 function addProfessor() {
-	var userName = document.getElementById("form-username").value;
+	var name = document.getElementById("form-name").value;
+
+	var email = document.getElementById("form-email")
 
 	var password = document.getElementById("form-password").value;
 	var passwordConfirm = document.getElementById("form-password-confirm").value;
@@ -25,10 +27,10 @@ function addProfessor() {
 	document.getElementById("passwordCompareAndCreateResult").innerHTML = "";
 
 	// replace with appropriate varaible names
-	var payload = '{"username" : "' + userName + '", "password" : "' + password + '"}';
+	var payload = '{"name" : "' + name + '", "email" : "' + email + '", "password" : "' + password + '"}';
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/AddUser.php", false);
+	xhr.open("POST", baseURL + "/AddProf.php", false);
 	xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
 
 	try {
