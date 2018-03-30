@@ -1,0 +1,28 @@
+@charset "utf-8";
+/* CSS Document */
+
+.navbar-default .navbar-nav > li > a {
+	color: #B6B6B6;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+color: #1E805E; 
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active >   
+ a:hover, .navbar-default .navbar-nav > .active > a:focus {
+color: #1E805E; 
+background-color: #1E0ED5;
+}
+
+  .navbar-default {
+	border-radius: 0px;
+    background-color: #222222;
+	margin-bottom: 0px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border: none;  
+	box-shadow: 0px 2px 5px black;
+	font-family: 'Barlow', sans-serif;
+	font-size: 17px;
+}
