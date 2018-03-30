@@ -5,10 +5,10 @@ function login(){
     var userID;
     var username;
 
-	var email = document.getElementsByName("email").value;
-	var password = md5(document.getElementsByName("password").value);
+	var email = document.getElementsByName("email")[0].value;
+	var password = document.getElementsByName("password")[0].value;
 
-	var payload = '{"username" : "' + email + '", "password" : "' + password + '"}';
+	var payload = '{"email" : "' + email + '", "password" : "' + password + '"}';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", baseURL + "/ProfLogin.php", false);
@@ -29,8 +29,8 @@ function login(){
         
         console.log("UserID: " + userID + " username: " + username + " error: " + error);
 
-		document.getElementsByName("email").value = "";
-		document.getElementsByName("password").value = "";
+		document.getElementsByName("email")[0].value = "";
+		document.getElementsByName("password")[0].value = "";
 
 		// implement when more features complete
 	}
