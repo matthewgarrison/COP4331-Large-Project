@@ -6,7 +6,7 @@ function login(){
     var username;
 
 	var email = document.getElementsByName("email")[0].value;
-	var password = document.getElementsByName("password")[0].value;
+	var password = md5(document.getElementsByName("password")[0].value);
 
 	var payload = '{"email" : "' + email + '", "password" : "' + password + '"}';
 
