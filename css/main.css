@@ -20,6 +20,7 @@ body{
 	text-align: center;
 	
 	font-family: 'Barlow', sans-serif;
+	font-size: 14px;
 
 
 }
@@ -30,10 +31,13 @@ body{
 	
 	border-radius: 36px 8px 36px 8px;
 	
-    margin: 0 auto 0px;
-    margin-top: 0px;
+   	margin: 0 auto 0px;
+   	margin-top: 0px;
+	
+	padding-top: 10px;
 	
 	align-content: center;
+	
 	box-shadow: 2px 2px 25px black;
 	
 	max-width: 300px;
@@ -46,8 +50,10 @@ body{
 	
 	border-radius: 36px 8px 36px 8px;
 	
-    margin: 0 auto 0px;
-    margin-top: 0px;
+    	margin: 0 auto 0px;
+    	margin-top: 0px;
+    	
+    	padding-top: 10px;
 	
 	align-content: center;
 	box-shadow: 2px 2px 25px black;
