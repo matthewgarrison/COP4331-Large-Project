@@ -1,7 +1,7 @@
 <?php
 	// Assumes the input is a JSON file in the format of {"professorID":""}
 	// Output is JSON in the form of {"result":"", "error":""}
-	// result is a string formatted as "id: name: #students|id: name: #students|..."
+	// result is a string formatted as "id: name: #students: #sessions|id: name: #students: #sessions|..."
 	
 	$inData = getRequestInfo();
 	
@@ -40,6 +40,7 @@
 				$classID = $id;
 				$className = $name;
 				
+				// Count number of students in each class
 				$stmt2 = $conn->stmt_init();
 				if (!$stmt2->prepare("Select StudentID from Registration where ClassID = ?")){
 					returnWithError("Failed to count students");
@@ -57,13 +58,30 @@
 					$stmt2->close();
 				}
 				
+				// Count number of sessions associated with each class
+				$stmt3 = $conn->stmt_init();
+				if (!$stmt3->prepare("Select SessionID from Session where ClassID = ?")){
+					returnWithError("Failed to count sessions");
+					exit();
+				}
+				else{
+					$numSessions = 0;
+					$stmt3->bind_param("i", $classID);
+					$stmt3->execute();
+					$stmt3->store_result();
+					$stmt3->bind_result($session);
+					while ($stmt3->fetch()){
+						$numSessions += 1;
+					}
+					$stmt3->close();
+				}
 				
 				if (!$found_class){
-					$result .= $classID . ": " . $className . ": " . $numStudents;
+					$result .= $classID . ": " . $className . ": " . $numStudents . ": " . $numSessions;
 					$found_class = true;
 				}
 				else{
-					$result .= "|" . $classID . ": " . $className . ": " . $numStudents;
+					$result .= "|" . $classID . ": " . $className . ": " . $numStudents . ": " . $numSessions;
 				}
 			}
 			if($found_class){
