@@ -1,7 +1,7 @@
 <?php
 	// Assumes the input is a JSON file in the format of {"professorID":""}
 	// Output is JSON in the form of {"result":"", "error":""}
-	// result is a string formatted as "id: name|id: name|..."
+	// result is a string formatted as "id: name: #students|id: name: #students|..."
 	
 	$inData = getRequestInfo();
 	
@@ -34,15 +34,37 @@
 		else{
 			$stmt->bind_param("i", $professorID);
 			$stmt->execute();
+			$stmt->store_result();
 			$stmt->bind_result($id, $name);
 			while($stmt->fetch()){
-				if (!$found_class){
-					$result .= $id . ": " . $name;
+				$classID = $id;
+				$className = $name;
+				
+				$stmt2 = $conn->stmt_init();
+				if (!$stmt2->prepare("Select StudentID from Registration where ClassID = ?")){
+					returnWithError("Failed to count students");
+					exit();
 				}
 				else{
-					$result .= "|" . $id . ": " . $name;
+					$numStudents = 0;
+					$stmt2->bind_param("i", $classID);
+					$stmt2->execute();
+					$stmt2->store_result();
+					$stmt2->bind_result($student);
+					while ($stmt2->fetch()){
+						$numStudents += 1;
+					}
+					$stmt2->close();
 				}
-				$found_class = true;
+				
+				
+				if (!$found_class){
+					$result .= $classID . ": " . $className . ": " . $numStudents;
+					$found_class = true;
+				}
+				else{
+					$result .= "|" . $classID . ": " . $className . ": " . $numStudents;
+				}
 			}
 			if($found_class){
 				returnWithInfo($result);
