@@ -16,13 +16,10 @@
 	$result = "";
 	$session = trimAndSanitize($inData["session"]);
 	
-	if ($session == ""){
-		session_start();
-	}
-	else{
+	if ($session != ""){
 		session_id($session);
-		session_start();
 	}
+	session_start();
 	
 	$professorID = $_SESSION["professorID"];
 	
