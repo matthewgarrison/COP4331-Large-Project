@@ -1,5 +1,5 @@
 <?php
-	// Assumes the input is a JSON file in the format of {"professorID":""}
+	// Assumes the input is a JSON file in the format of {"session":""}
 	// Output is JSON in the form of {"result":"", "error":""}
 	// result is a string formatted as "id: name: #students: #sessions|id: name: #students: #sessions|..."
 	
@@ -14,7 +14,22 @@
 	$id = 0;
 	$name = "";
 	$result = "";
-	$professorID = trimAndSanitize($inData["professorID"]);
+	$session = trimAndSanitize($inData["session"]);
+	
+	if ($session == ""){
+		session_start();
+	}
+	else{
+		session_id($session);
+		session_start();
+	}
+	
+	$professorID = $_SESSION["professorID"];
+	
+	if ($professorID == null){
+		returnWithError("Could not find professor.");
+		exit();
+	}
 	
 	$error_occurred = false;
 	$found_class = false;
