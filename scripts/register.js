@@ -8,7 +8,7 @@ function addProfessor() {
 	var password = document.getElementById("form-password").value;
 	var passwordConfirm = document.getElementById("form-password-confirm").value;
 	if (password !== passwordConfirm) {
-		document.getElementsByName("response")[0].innerHTML = "Your passwords do not match. Please try again.";
+		document.getElementsByName("response")[0].innerHTML = "Your passwords must match";
 		return;
 	}
 
