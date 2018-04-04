@@ -81,6 +81,13 @@ body{
 	padding: 6px;
 }
 
+.login-screen p{
+	color: #ff0033;
+	text-align: left;
+	padding-left: 35px;
+	margin-bottom: 0px;
+}
+
 .btn-custom {
 	background-color: #222222;
 	color: white;
