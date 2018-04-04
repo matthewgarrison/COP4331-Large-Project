@@ -46,10 +46,10 @@ function login(){
 
 function printError(error){
 	if(error == "Could not find account"){
-		document.getElementsByName("response")[0].value = badLogin;
+		document.getElementsByName("response")[0].innerHTML = badLogin;
 	}
 	else{
-		document.getElementsByName("response")[0].value = genError;
+		document.getElementsByName("response")[0].innerHTML = genError;
 		console.log("Got error: "+error);
 	}
 }
