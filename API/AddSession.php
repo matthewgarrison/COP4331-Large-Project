@@ -1,10 +1,12 @@
 <?php
-	// Assumes the input is a JSON file in the format of {"classID":"", "name":"", "date":""}
+	// Assumes the input is a JSON file in the format of {"session":"", "name":"", "date":""}, and the session already has classID set
+	// *** IMPORTANT NOTE: the "session" field in the above JSON refers to a PHP session, NOT a class session in the database ***
+	// *** If both are needed, "session" always refers to a PHP session and "sessionID" always refers to a class session ***
 	// If date is left blank, it defaults to the current date in the format of Month DD, YYYY (e.g. April 03, 2018)
 	
 	$inData = getRequestInfo();
 	
-	$classID = trimAndSanitize($inData["classID"]);
+	$session = trimAndSanitize($inData["session"]);
 	$name = trimAndSanitize($inData["name"]);
 	$date = trimAndSanitize($inData["date"]);
 	
@@ -16,6 +18,21 @@
 	
 	$error_occurred = false;
 	$in_use = false;
+	
+	if ($session != ""){
+		session_ID($session);
+	}
+	if (!session_start()){
+		returnWithError("Unable to access session");
+		exit();
+	}
+	
+	$classID = $_SESSION["classID"];
+	
+	if ($classID == null){
+		returnWithError("classID must be set before adding a session");
+		exit();
+	}
 	
 	if($name == ""){
 		returnWithError("Name cannot be empty" );
