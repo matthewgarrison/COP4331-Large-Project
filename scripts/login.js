@@ -39,7 +39,7 @@ function login(){
 		xhr.send(payload);
 	}
 	catch(error) {
-		printError(error);
+		printError(error.message);
 	}
 }
 

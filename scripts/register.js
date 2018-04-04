@@ -17,13 +17,13 @@ function addProfessor() {
 	var password = document.getElementById("form-password").value;
 	var passwordConfirm = document.getElementById("form-password-confirm").value;
 	if (password !== passwordConfirm) {
-		document.getElementById('passwordCompareAndCreateResult').innerHTML = "Your passwords do not match. Please try again.";
+		document.getElementsByName("response")[0].innerHTML = "Your passwords do not match. Please try again.";
 		return;
 	}
 
 	password = md5(password);
 
-	document.getElementById("passwordCompareAndCreateResult").innerHTML = "";
+	document.getElementsByName("response")[0].innerHTML = "";
 
 	// replace with appropriate varaible names
 	var payload = '{"name" : "' + name + '", "email" : "' + email + '", "password" : "' + password + '"}';
@@ -52,6 +52,6 @@ function addProfessor() {
 	}
 	catch(error) {
 		// include result of creation in HTML
-		document.getElementById('passwordCompareAndCreateResult').innerHTML = error.message;
+		document.getElementsByName("response")[0].innerHTML = error.message;
 	}
 }
