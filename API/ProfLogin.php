@@ -48,8 +48,8 @@
 					returnWithError("Failed to initialize session");
 					exit();
 				}
-				$_SESSION["name"] = name;
-				$_SESSION["professorID"] = id;
+				$_SESSION["name"] = $name;
+				$_SESSION["professorID"] = $id;
 				returnWithInfo(session_id());
 			}
 			else{
