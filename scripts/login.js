@@ -2,7 +2,6 @@ var baseURL = "http://cop4331-2.com/API";
 
 // Login error responses
 var badLogin = "Incorrect username or password";
-var genError = "Internal server error";
 
 function login(){
 
@@ -49,7 +48,6 @@ function printError(error){
 		document.getElementsByName("response")[0].innerHTML = badLogin;
 	}
 	else{
-		document.getElementsByName("response")[0].innerHTML = genError;
-		console.log("Got error: "+error);
+		document.getElementsByName("response")[0].innerHTML = error;
 	}
 }

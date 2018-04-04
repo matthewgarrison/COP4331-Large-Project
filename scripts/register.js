@@ -33,18 +33,22 @@ function addProfessor() {
 	xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
 
 	try {
-		xhr.send(payload);
-
-		var data = JSON.parse(xhr.responseText);
-		var error = data.error;
-
-		if(error !== "") {
-			document.getElementById('passwordCompareAndCreateResult').innerHTML = error;
-			return;
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				var data = JSON.parse(xhr.responseText);
+				var error = data.error;
+		
+				if(error !== "") {
+					document.getElementsByName("response")[0].innerHTML = error;
+					return;
+				}
+		
+				// return the to login page
+				window.location.href = "http://cop4331-2.com/";
+			}
 		}
 
-		// return the to login page
-		window.location.href = "http://cop4331-2.com/";
+		xhr.send(payload);
 	}
 	catch(error) {
 		// include result of creation in HTML
