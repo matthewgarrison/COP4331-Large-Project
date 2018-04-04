@@ -1,10 +1,15 @@
 <?php
-	// Assumes the input is a JSON file in the format of {"professorID":"", "name":""}
+	// Assumes the input is a JSON file in the format of {"session":"", "name":""}
 	
 	$inData = getRequestInfo();
 	
-	$professorID = trimAndSanitize($inData["professorID"]);
+	$session = trimAndSanitize($inData["session"]);
 	$name = trimAndSanitize($inData["name"]);
+	
+	if ($session != ""){
+		session_id($session);
+	}
+	session_start();
 	
 	// Server info for connection
 	$servername = "localhost";
@@ -17,6 +22,12 @@
 	
 	if($name == ""){
 		returnWithError("Name cannot be empty" );
+		exit();
+	}
+	
+	$professorID = $_SESSION["professorID"];
+	if ($professorID == null){
+		returnWithError("Failed to find session.");
 		exit();
 	}
 	
