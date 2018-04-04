@@ -1,15 +1,6 @@
 var baseURL = "http://cop4331-2.com/API"
 var userID = 0;
 
-$(document).ready(function() {
-	$('#form-password-confirm').keydown(function (event) {
-	    var keypressed = event.keyCode || event.which;
-	    if (keypressed == 13) {
-	        addUser();
-	    }
-	});
-});
-
 function addProfessor() {
 	var name = document.getElementById("form-name").value;
 	var email = document.getElementById("form-email").value;
@@ -22,9 +13,6 @@ function addProfessor() {
 	}
 
 	password = md5(password);
-
-	document.getElementsByName("response")[0].innerHTML = "";
-
 	// replace with appropriate varaible names
 	var payload = '{"name" : "' + name + '", "email" : "' + email + '", "password" : "' + password + '"}';
 
