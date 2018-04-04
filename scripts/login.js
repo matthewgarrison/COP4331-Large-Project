@@ -1,5 +1,9 @@
 var baseURL = "http://cop4331-2.com/API";
 
+// Login error responses
+var badLogin = "Incorrect username or password";
+var genError = "Internal server error";
+
 function login(){
 
     var userID;
@@ -15,25 +19,37 @@ function login(){
 	xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
 
 	try {
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				var data = JSON.parse(xhr.responseText);
+				userID = data.id;
+				username = data.name;
+				var error = data.error;
+
+				if(error != '') {
+					printError(error);
+					return;
+				}
+
+				document.getElementsByName("email")[0].value = "";
+				document.getElementsByName("password")[0].value = "";
+				// Goto class view
+			}
+		}
+
 		xhr.send(payload);
-
-		var data = JSON.parse(xhr.responseText);
-        userID = data.id;
-        username = data.name;
-        var error = data.error;
-
-		if(error != '') {
-            // Process errors!!
-            return;
-        }
-        
-        console.log("UserID: " + userID + " username: " + username + " error: " + error);
-
-		document.getElementsByName("email")[0].value = "";
-		document.getElementsByName("password")[0].value = "";
-
-		// implement when more features complete
 	}
 	catch(error) {
+		printError(error);
+	}
+}
+
+function printError(error){
+	if(error == "Could not find account"){
+		document.getElementsByName("response")[0].value = badLogin;
+	}
+	else{
+		document.getElementsByName("response")[0].value = genError;
+		console.log("Got error: "+error);
 	}
 }
