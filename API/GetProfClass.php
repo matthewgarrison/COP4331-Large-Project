@@ -81,7 +81,7 @@
 					$stmt3->bind_param("i", $classID);
 					$stmt3->execute();
 					$stmt3->store_result();
-					$stmt3->bind_result($session);
+					$stmt3->bind_result($sessionID);
 					while ($stmt3->fetch()){
 						$numSessions += 1;
 					}
