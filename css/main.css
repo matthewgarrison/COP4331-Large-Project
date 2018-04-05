@@ -32,9 +32,9 @@ body{
    	margin: 0 auto 0px;
    	margin-top: 0px;
 	
-	padding-top: 10px;
-	
-	align-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	
 	box-shadow: 2px 2px 25px black;
 	
@@ -51,9 +51,10 @@ body{
     	margin: 0 auto 0px;
     	margin-top: 0px;
     	
-    	padding-top: 10px;
+    	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	
-	align-content: center;
 	box-shadow: 2px 2px 25px black;
 	
 	max-width: 300px;
