@@ -21,8 +21,6 @@ body{
 	
 	font-family: 'Barlow', sans-serif;
 	font-size: 14px;
-
-
 }
 
 
@@ -96,7 +94,8 @@ body{
 
 .btn-custom:hover {
 	background-color: #1C1C1C;
-	color: #1E805E;
+	color: #16966A;
+	cursor: pointer;
 }
 
 .login-help {
@@ -104,7 +103,7 @@ body{
 }
 
 .login-help a{
-	color: #1E805E;
+	color: #16966A;
 	font-weight: 500;
 }
 
