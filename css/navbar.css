@@ -1,28 +1,40 @@
 @charset "utf-8";
 /* CSS Document */
 
+/*Links in the navbar */
 .navbar-default .navbar-nav > li > a {
 	color: #B6B6B6;
 }
 
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-color: #1E805E; 
+.navbar-default .navbar-nav > li > a:hover{
+	color: #16966A; 
 }
 
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active >   
- a:hover, .navbar-default .navbar-nav > .active > a:focus {
-color: #1E805E; 
-background-color: #1E0ED5;
+.navbar-default .navbar-nav > li {
+	margin-right: 10px;
 }
 
-  .navbar-default {
+
+.navbar-default .navbar-nav .active a{
+	color: #16966A;
+	background-color: #0D0D0D;
+}
+
+.navbar-default { 
 	border-radius: 0px;
-    background-color: #222222;
+    	background-color: #222222;
+	 
 	margin-bottom: 0px;
+	margin-top: 0px;
 	padding-left: 20px;
-	padding-right: 20px;
+	padding-right: 40px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	 
 	border: none;  
 	box-shadow: 0px 2px 5px black;
+	 
 	font-family: 'Barlow', sans-serif;
 	font-size: 17px;
 }
+
