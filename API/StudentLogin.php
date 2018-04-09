@@ -1,5 +1,7 @@
 <?php
 	// Assumes the input is a JSON file in the format of {"email":"", "password":""}
+	// Outputs as {"error":"", "session":""}
+	
 	
 	$inData = getRequestInfo();
 	
@@ -43,7 +45,13 @@
 				}
 			}
 			if($found_user){
-				returnWithInfo($name, $id);
+				if (!session_start()){
+					returnWithError("Failed to initialize session");
+					exit();
+				}
+				$_SESSION["name"] = $name;
+				$_SESSION["studentID"] = $id;
+				returnWithInfo(session_id());
 			}
 			else{
 				returnWithError("Could not find account");
@@ -75,14 +83,14 @@
 	// Return in the case of an error
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"name":"","error":"' . $err . '"}';
+		$retValue = '{"session":"", "error":"' . $err . '"}';
 		sendAsJson( $retValue );
 	}
 	
 	// Return and send the user's name and id
-	function returnWithInfo( $name, $id )
+	function returnWithInfo( $session )
 	{
-		$retValue = '{"id":' . $id . ',"name":"' . $name . '","error":""}';
+		$retValue = '{"session":"' . $session . '","error":""}';
 		sendAsJson( $retValue );
 	}
 ?>
