@@ -1,5 +1,5 @@
 <?php
-	// Assumes the input is a JSON file in the format of {"studentID":""}
+	// Assumes the input is a JSON file in the format of {"session":""}
 	// Output is JSON in the form of {"result":"", "error":""}
 	// result is a string formatted as "id: name|id: name|..."
 	
@@ -11,11 +11,22 @@
 	$dbPwd = "Group7Pass";
 	$dbName = "queueNA";
 	
+	
 	$id = 0;
 	$name = "";
 	$result = "";
 	$count = 0;
-	$studentID = trimAndSanitize($inData["studentID"]);
+	$session = trimAndSanitize($inData["session"]);
+	
+	if ($session != ""){
+		session_id($session);
+	}
+	if(!session_start()){
+		returnWithError("Unable to start session");
+		exit();
+	}
+	
+	$studentID = $_SESSION["studentID"];
 	
 	$error_occurred = false;
 	$found_class = false;
