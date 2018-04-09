@@ -1,9 +1,9 @@
 <?php
-	// Assumes the input is a JSON file in the format of {"studentID":"", "classID":""}
+	// Assumes the input is a JSON file in the format of {"session":"", "classID":""}
 	
 	$inData = getRequestInfo();
 	
-	$studentID = trimAndSanitize($inData["studentID"]);
+	$session = trimAndSanitize($inData["session"]);
 	$classID = trimAndSanitize($inData["classID"]);
 	
 	// Server info for connection
@@ -11,6 +11,16 @@
 	$dbUName = "Group7User";
 	$dbPwd = "Group7Pass";
 	$dbName = "queueNA";
+	
+	if ($session != ""){
+		session_id($session);
+	}
+	if(!session_start()){
+		returnWithError("Unable to start session");
+		exit();
+	}
+	
+	$studentID = $_SESSION["studentID"];
 	
 	$error_occurred = false;
 	$in_use = false;
