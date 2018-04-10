@@ -33,6 +33,7 @@
 	}
 	else{
 		$stmt = $conn->stmt_init();
+		// Check that the student exists
 		if(!$stmt->prepare("SELECT studentID FROM Student WHERE studentID = ?")){
 			$error_occurred = true;
 			returnWithError($conn->errno());
@@ -51,6 +52,8 @@
 			}
 			$stmt->close();
 		}
+		
+		//Check that the class exists
 		if(!$error_occurred){
 			$in_use = false;
 			$stmt = $conn->stmt_init();
@@ -69,6 +72,30 @@
 				if (!$in_use){
 					$error_occurred = true;
 					returnWithError("Invalid class id");
+				}
+				$stmt->close();
+			}
+		}
+		
+		//Check that the student is not banned from the class
+		if (!$error_occurred){
+			$banned = false;
+			$stmt = $conn->stmt_init();
+			if(!$stmt->prepare("SELECT BanID FROM Ban WHERE ClassID = ? and StudentID = ?")){
+				$error_occurred = true;
+				returnWithError($conn->errno());
+			}
+			else{
+				$stmt->bind_param("ii", $classID, $studentID);
+				$stmt->execute();
+				
+				$stmt->bind_result($ban);
+				while($stmt->fetch()){
+					$banned = true;
+				}
+				if ($banned){
+					$error_occurred = true;
+					returnWithError("You have been banned from joining this class.  See your professor for details.");
 				}
 				$stmt->close();
 			}
