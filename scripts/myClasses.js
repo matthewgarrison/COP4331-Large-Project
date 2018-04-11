@@ -23,7 +23,7 @@ function insertClass(className, classID, numStudents, numSessions){
 
     // Class element
     var classElement = document.createElement("div");
-    classElement.innerHTML = "COP 4331 - 12:30 <br>\n<hr>";
+    classElement.innerHTML = className+"<br>\n<hr>";
     classElement.className = "class-container";
     classElement.appendChild(classStatsContainer);
     classElement.appendChild(goButton);
