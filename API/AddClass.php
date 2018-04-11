@@ -7,7 +7,7 @@
 	$name = trimAndSanitize($inData["name"]);
 	
 	if ($session != ""){
-		session_ID($session);
+		session_id($session);
 	}
 	if (!session_start()){
 		returnWithError("Unable to access session");
