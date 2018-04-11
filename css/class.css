@@ -1,0 +1,393 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/* TITLE BAR */
+.class-title-bar {
+	height: 100px;
+	padding-bottom: 20px;
+	
+	box-shadow: 0px 2px 5px #222222;
+	
+	display: flex;
+	
+	background-color: #16966A;
+	color: white;
+	
+	font-size: 25px;
+	font-family: 'Barlow', sans-serif;
+	font-weight: 500;
+	
+}
+
+.class-title-bar p{
+	padding-left: 8px;
+	padding-right: 50px;
+	width: 400px;
+	margin-top: -10px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.class-title-bar img{
+	margin-bottom: 0px;
+	height: 70%;
+}
+
+.left-title-container{
+	height: 100px;
+	float: left;
+	flex:1;
+	
+}
+
+.title-bar-buttons-container {
+	float:right;
+	padding-top: 20px;
+	width: 260px;	
+}
+
+.home-container {
+	float: left;
+	height: 100px;
+	width: 75px;
+}
+
+.btn-home {
+	cursor: pointer;
+	
+	height: 60px;
+	width: 60px;
+	
+	background-color: #222222;
+	border: none;
+	border-radius: 10px;
+	
+	box-shadow: 3px 3px 2px #080808; 
+	
+	background-image: url(../images/home.png);
+	background-size: 43px;
+	background-repeat: no-repeat;
+	background-position: center;
+	
+}
+
+.btn-home:hover {
+	background-image: url(../images/homeHover.png);
+	background-size: 43px;
+	background-repeat: no-repeat;
+	background-position: center;
+	
+	background-color: #010101;
+}
+
+.btn-home:active {
+	background-image: url(../images/homeHover.png);
+	background-size: 43px;
+	background-repeat: no-repeat;
+	background-position: center;
+	
+	background-color: #010101;
+	box-shadow: none;
+	transform: translate3d(3px,3px,0px);
+}
+
+
+.btn-utility {
+	cursor: pointer;
+	height: 25px;
+	width: 150px;
+	display: block;
+	margin-bottom: 10px;
+	
+	background-color: #222222;
+	border: none;
+	border-radius: 10px;
+	
+	box-shadow: 3px 3px 2px #080808; 
+	
+	color: white;
+	font-size: 15px;
+	line-height: 25px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.btn-utility:hover, .btn-new-session:hover, .btn-session:hover {
+	background-color: #010101;
+	color:#B9B9B9;
+}
+
+.btn-utility:active, .btn-new-session:active, .btn-session:active {
+	background-color: #010101;
+	color:#B9B9B9;
+	box-shadow: none;
+	transform: translate3d(3px,3px,0px);
+}
+
+
+
+/*BACK BUTTON*/
+
+.btn-back {
+	cursor: pointer;
+	height: 25px;
+	width: 175px;
+	margin-top: 10px;
+	margin-bottom: 2px;
+	margin-left: 7px;
+	
+	padding-left: 30px;
+	
+	background-color: #222222;
+	background-image: url(../images/back.png);
+	background-repeat: no-repeat;
+	background-position: 5% 50%;
+	background-size: 20px 20px;
+	
+	border: none;
+	border-radius: 0px;
+		
+	box-shadow: 3px 3px 2px #080808; 
+	
+	color: white;
+	font-size: 15px;
+	line-height: 25px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.btn-back:hover {
+	
+}
+
+.btn-back:active {
+	
+}
+
+
+.overhead-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+	
+	padding-top: 20px;
+	
+}
+
+/*SESSIONS*/
+
+
+.session-container {
+	margin-top: 15px;
+	margin-bottom: 50px;
+	margin-left: 40px;
+	margin-right: 40px;
+	width: 800px;
+	
+	font-size: 25px;
+	font-family: 'Barlow', sans-serif;
+	font-weight: 500;
+	color: #222222;
+	
+	display: flex;
+	flex-direction: column;
+	
+}
+
+.session-container h1{
+	font-size: 30px;
+	font-weight: 500;
+	
+}
+
+.session-container hr {
+ 	border-color: #C6C6C6;
+ 	border-style: solid none;
+ 	border-width: 1.5px 0;
+	
+	width: 100%;
+ 	margin-top: 0px;
+ 	margin-left: 0px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+  
+}
+
+.session-header{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.session {
+	font-size: 23px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	display: flex;
+	flex-direction: row;
+}
+
+.session a{
+	flex: 1;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 5px;
+	padding-right: 20px;
+	
+	color: black;
+	
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+
+.btn-session {
+	cursor: pointer;
+	height: 25px;
+	width: 150px;
+	margin-bottom: 0px;
+	margin-top: 5px;
+	
+	
+	background-color: #222222;
+	border: none;
+	border-radius: 0px;
+	
+	box-shadow: 3px 3px 2px #080808; 
+	
+	color: white;
+	font-size: 15px;
+	line-height: 25px;
+	font-family: 'Roboto', sans-serif;
+}
+
+
+.btn-new-session {
+	cursor: pointer;
+	height: 25px;
+	width: 175px;
+	margin-bottom: 2px;
+	
+	margin-left: 20px;
+	
+	background-color: #222222;
+	border: none;
+	border-radius: 0px;
+		
+	box-shadow: 3px 3px 2px #080808; 
+	
+	color: white;
+	font-size: 15px;
+	line-height: 25px;
+	font-family: 'Roboto', sans-serif;
+}
+
+
+/*ARCHIVE*/
+
+.archive-container{
+	margin-top: 15px;
+	margin-left: 40px;
+	margin-right: 40px;
+	width: 800px;
+	
+	font-size: 17px;
+	font-family: 'Barlow', sans-serif;
+	font-weight: 400;
+	color: #222222;
+	
+	display: flex;
+	flex-direction: column;
+}
+
+
+.archive-container h1{
+	font-size: 30px;
+	font-weight: 500;
+	flex:1;
+}
+
+.archive-container hr {
+ 	border-color: #C6C6C6;
+ 	border-style: solid none;
+ 	border-width: 1.5px 0;
+	
+	width: 100%;
+ 	margin-top: 0px;
+ 	margin-left: 0px;
+	margin-right: 10px;
+	margin-bottom: 10px; 
+}
+
+.archive-container select{
+	height: 27px;
+}
+
+.archive-container p{
+	margin-right: 6px;
+	transform: translateY(30%);
+}
+
+.archive-header{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.archive-entry {
+	font-size: 23px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	
+	display: flex;
+	align-items: center;
+}
+
+.archive-entry a{
+	flex: 1;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 5px;
+	padding-right: 20px;
+	
+	color: black;
+	
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.archive-date {
+	font-size: 17px;
+	width: 120px;
+	color:#B9B9B9;
+	text-align: center;
+}
+
+.btn-menu {
+	width: 20px;
+	height: 20px;
+	
+	background-color: white;
+	
+	background-image: url(../images/menu.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	
+	border: none;
+	
+	
+}
+
+.btn-menu:hover, .btn-menu:active, .btn-menu:focus {
+	background-image: url(../images/menuHover.png);
+}
+
+
