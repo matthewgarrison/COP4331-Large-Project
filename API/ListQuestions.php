@@ -19,19 +19,22 @@
 	if ($session != ""){
 		session_id($session);
 	}
-	session_start();
+	if (!session_start()){
+		returnWithError("Unable to access session");
+		exit();
+	}
 
 	$sessionID = $_SESSION["sessionID"];
-  $professorID = $_SESSION["professorID"];
+  	$professorID = $_SESSION["professorID"];
 
 	if ($sessionID == null){
 		returnWithError("Could not find professor.");
 		exit();
 	}
-  if ($professorID == null){
-  	returnWithError("Only professors can view questions");
-    exit();
-  }
+  	if ($professorID == null){
+		returnWithError("Only professors can view questions");
+		exit();
+  	}
 
 	$error_occurred = false;
 
