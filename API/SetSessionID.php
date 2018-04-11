@@ -12,8 +12,8 @@
 	if ($session != ""){
 		session_id($session);
 	}
-	if(!session_start()){
-		returnWithError("Could not find PHP session.");
+	if (!session_start()){
+		returnWithError("Unable to access session");
 		exit();
 	}
 	
