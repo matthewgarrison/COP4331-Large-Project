@@ -68,11 +68,13 @@ function refreshClasses(){
                     if(error == invalidSessionError){
                         window.location.href = "http://cop4331-2.com/myClasses.html";
                         console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
                     if(error == invalidProfError){
                         window.location.href = "http://cop4331-2.com/myClasses.html";
                         console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
                     else console.log("API ERROR: "+error);
@@ -144,6 +146,7 @@ function logout(){
                     if(error == invalidSessionError){
                         window.location.href = "http://cop4331-2.com/myClasses.html";
                         console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
                     else console.log("API ERROR: "+error);
