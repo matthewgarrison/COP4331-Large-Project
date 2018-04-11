@@ -27,7 +27,7 @@ function login(){
 
 				document.getElementsByName("email")[0].value = "";
 				document.getElementsByName("password")[0].value = "";
-				// Goto class view
+				window.location.href = "http://cop4331-2.com/myClasses.html";
 			}
 		}
 

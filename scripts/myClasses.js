@@ -1,4 +1,5 @@
 var invalidSessionError = "Unable to access session.";
+var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
 
 function insertClass(className, classID, numStudents, numSessions){
@@ -65,12 +66,16 @@ function refreshClasses(){
 				if(error != '') {
 
                     if(error == invalidSessionError){
-                        // GOTO login screen
+                        window.location.href = "http://cop4331-2.com/myClasses.html";
+                        console.log("INVALID SESSION");
+                    }
+
+                    if(error == invalidProfError){
+                        window.location.href = "http://cop4331-2.com/myClasses.html";
                         console.log("INVALID SESSION");
                     }
 
                     else console.log("API ERROR: "+error);
-
 					return;
                 }
                 
