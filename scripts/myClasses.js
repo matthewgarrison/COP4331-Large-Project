@@ -203,8 +203,6 @@ function addClass(){
 
 					return;
                 }
-
-                refreshClasses();
 			}
 		}
 
