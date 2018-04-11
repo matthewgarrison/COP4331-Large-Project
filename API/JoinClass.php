@@ -15,8 +15,8 @@
 	if ($session != ""){
 		session_id($session);
 	}
-	if(!session_start()){
-		returnWithError("Unable to start session");
+	if (!session_start()){
+		returnWithError("Unable to access session");
 		exit();
 	}
 	
