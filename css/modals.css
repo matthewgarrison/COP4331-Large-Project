@@ -1,0 +1,92 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+.modal-header {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.close {
+	cursor: pointer;
+}
+.new-session-form-container input{
+	padding-left: 7px;
+	width: 400px;
+}
+
+.edit-class-form-container input{
+	padding-left: 7px;
+	width: 400px;
+}
+
+.add-class-form-container input {
+	padding-left: 7px;
+	width: 400px;
+}
+
+.btn-modal-black {
+	cursor: pointer;
+	height: 25px;
+	width: 100px;
+	margin-left: 10px;
+	padding-top: 0px;
+	line-height: 25px;
+	
+	background-color: #222222;
+	border: none;
+	border-radius: 0px;
+		
+	box-shadow: 3px 3px 2px #080808; 
+	
+	color: white;
+	font-size: 15px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.btn-modal-black:hover {
+	background-color: #010101;
+	color:#B9B9B9;
+}
+
+.btn-modal-black:active {
+	background-color: #010101;
+	color:#B9B9B9;
+	box-shadow: none;
+	border:none;
+	transform: translate3d(3px,3px,0px);
+}
+
+.btn-modal-green {
+	cursor: pointer;
+	height: 25px;
+	width: 100px;
+	margin-left: 10px;
+	padding-top: 0px;
+	line-height: 25px;
+	
+	background-color: #16966A;
+	border: none;
+	border-radius: 0px;
+		
+	box-shadow: 3px 3px 2px #062E20; 
+	
+	color: white;
+	font-size: 15px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.btn-modal-green:hover {
+	background-color: #0F6C4C;
+	color:#B9B9B9;
+}
+
+.btn-modal-green:active, .btn-modal-green:focus {
+	background-color: #0F6C4C;
+	color:#B9B9B9;
+	box-shadow: none;
+	border:none;
+	transform: translate3d(3px,3px,0px);
+}
+
