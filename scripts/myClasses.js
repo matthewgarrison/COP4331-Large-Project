@@ -1,3 +1,5 @@
+var invalidSessionError = "Unable to access session.";
+
 function insertClass(className, classID, numStudents, numSessions){
     // Stats information
     var classIDElement = document.createElement("p");
@@ -43,5 +45,71 @@ function clearClasses(){
 
     while(classes.length > 0){
         container.removeChild(classes[0]);
+    }
+}
+
+function refreshClasses(){
+	var payload = '{"username" : "' + userName + '", "password" : "' + password + '"}';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", baseURL + "/Login.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+				if(error != '') {
+
+                    if(error == invalidSessionError){
+                        // GOTO login screen
+                        console.log("INVALID SESSION");
+                    }
+
+					return;
+                }
+                
+                console.log("VALID SESSION");
+
+                clearClasses();
+                var rawClasses = data.result;
+                var idx = 0;
+                while(idx < rawClasses.length){
+                    var classID = "";
+                    var className = "";
+                    var numStudents = "";
+                    var numSessions = "";
+
+                    while(rawClasses.charAt(idx) != ':'){
+                        classID = classID + rawClasses.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawClasses.charAt(idx) != ':'){
+                        className = className + rawClasses.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawClasses.charAt(idx) != ':'){
+                        numStudents = numStudents + rawClasses.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(idx < rawClasses.length && rawClasses.charAt(idx) != '|'){
+                        numSessions = numSessions + rawClasses.charAt(idx++);
+                    }
+
+                    insertClass(className, classID, numStudents, numSessions);
+                }
+			}
+		}
+
+		xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("Refresh Classes Error: "+error);
     }
 }
