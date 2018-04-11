@@ -121,3 +121,7 @@ function refreshClasses(){
         console.log("Refresh Classes Error: "+error);
     }
 }
+
+function refreshPage(){
+    refreshClasses();
+}
