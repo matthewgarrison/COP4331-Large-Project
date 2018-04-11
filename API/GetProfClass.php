@@ -20,6 +20,11 @@
 		session_id($session);
 	}
 	session_start();
+
+	if(!isset($_SESSION)){
+		returnWithError("Could not find session.");
+		exit();
+	}
 	
 	$professorID = $_SESSION["professorID"];
 	
