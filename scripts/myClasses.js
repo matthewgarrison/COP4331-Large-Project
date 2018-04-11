@@ -79,7 +79,7 @@ function refreshClasses(){
 
                     else{
                         console.log("API ERROR: "+error);
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
                 }
@@ -153,7 +153,7 @@ function logout(){
 
                     else{
                         console.log("API ERROR: "+error);
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
                 }
@@ -198,7 +198,7 @@ function addClass(){
 
                     else{
                         console.log("API ERROR: "+error);
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 
 					return;
