@@ -7,12 +7,10 @@
 	$name = trimAndSanitize($inData["name"]);
 	
 	if ($session != ""){
-		session_id($session);
+		session_ID($session);
 	}
-	session_start();
-
-	if(!isset($_SESSION)){
-		returnWithError("Could not find session.");
+	if (!session_start()){
+		returnWithError("Unable to access session");
 		exit();
 	}
 	
