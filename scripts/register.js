@@ -31,8 +31,7 @@ function addProfessor() {
 					return;
 				}
 		
-				// return the to login page
-				window.location.href = "http://cop4331-2.com/";
+				window.location.href = "http://cop4331-2.com/Login.html";
 			}
 		}
 

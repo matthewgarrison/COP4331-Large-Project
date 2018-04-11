@@ -125,3 +125,39 @@ function refreshClasses(){
 function refreshPage(){
     refreshClasses();
 }
+
+function logout(){
+    var payload = '{"session" : ""}';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", baseURL + "/Logout.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+				if(error != '') {
+
+                    if(error == invalidSessionError){
+                        window.location.href = "http://cop4331-2.com/myClasses.html";
+                        console.log("INVALID SESSION");
+                    }
+
+                    else console.log("API ERROR: "+error);
+					return;
+                }
+
+				window.location.href = "http://cop4331-2.com/Login.html";
+			}
+		}
+
+		xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("Logout Error: "+error);
+    }
+}
