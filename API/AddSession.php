@@ -23,7 +23,7 @@
 		session_ID($session);
 	}
 	if (!session_start()){
-		returnWithError("Unable to access session");
+		returnWithError("Could not find session");
 		exit();
 	}
 	
