@@ -69,6 +69,8 @@ function refreshClasses(){
                         console.log("INVALID SESSION");
                     }
 
+                    else console.log("API ERROR: "+error);
+
 					return;
                 }
                 
