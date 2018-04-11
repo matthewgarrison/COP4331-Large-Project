@@ -34,5 +34,5 @@ function insertClass(className, classID, numStudents, numSessions){
 }
 
 function hexString(value){
-    return "INSERTHEXHERE("+valeu+")";
+    return "INSERTHEXHERE("+value+")";
 }
