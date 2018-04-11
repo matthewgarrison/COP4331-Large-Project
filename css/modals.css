@@ -8,23 +8,52 @@
 	padding-bottom: 5px;
 }
 
+.modal-title {
+	font-size: 24px;
+}
+
+.modal-dialog {
+    transform: translate(0, -35%);
+    top: 35%;
+    margin: 0 auto;
+}
+
 .close {
 	cursor: pointer;
 }
+
+
+/* NEW SESSION MODAL*/
+
 .new-session-form-container input{
 	padding-left: 7px;
 	width: 400px;
 }
+
+/* EDIT SESSION MODAL*/
+
+.edit-session-form-container input{
+	padding-left: 7px;
+	width: 400px;
+}
+
+/* ADD CLASS MODAL*/
+
+.add-class-form-container input {
+	padding-left: 7px;
+	width: 400px;
+}
+
+/* EDIT CLASS MODAL*/
 
 .edit-class-form-container input{
 	padding-left: 7px;
 	width: 400px;
 }
 
-.add-class-form-container input {
-	padding-left: 7px;
-	width: 400px;
-}
+
+
+/* MODAL BUTTONS */
 
 .btn-modal-black {
 	cursor: pointer;
@@ -89,4 +118,3 @@
 	border:none;
 	transform: translate3d(3px,3px,0px);
 }
-
