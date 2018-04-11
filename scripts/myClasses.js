@@ -1,4 +1,5 @@
 var invalidSessionError = "Unable to access session.";
+var baseURL = "http://cop4331-2.com/API";
 
 function insertClass(className, classID, numStudents, numSessions){
     // Stats information
@@ -49,10 +50,10 @@ function clearClasses(){
 }
 
 function refreshClasses(){
-	var payload = '{"username" : "' + userName + '", "password" : "' + password + '"}';
+	var payload = '{"session" : ""}';
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/Login.php", false);
+	xhr.open("POST", baseURL + "/GetProfClass.php", false);
     xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
     
     try{
