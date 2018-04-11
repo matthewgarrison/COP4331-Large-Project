@@ -5,9 +5,6 @@ var badLogin = "Incorrect username or password";
 
 function login(){
 
-    var userID;
-    var username;
-
 	var email = document.getElementsByName("email")[0].value;
 	var password = md5(document.getElementsByName("password")[0].value);
 
@@ -21,8 +18,6 @@ function login(){
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState === 4){
 				var data = JSON.parse(xhr.responseText);
-				userID = data.id;
-				username = data.name;
 				var error = data.error;
 
 				if(error != '') {
