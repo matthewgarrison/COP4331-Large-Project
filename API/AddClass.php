@@ -5,6 +5,7 @@
 	
 	$session = trimAndSanitize($inData["session"]);
 	$name = trimAndSanitize($inData["name"]);
+	$name = sanitizeName($name);
 	
 	if ($session != ""){
 		session_id($session);
@@ -67,6 +68,12 @@
 		$str = str_replace("'", "", $str );
 		$str = str_replace(";", "", $str);
 		return $str;
+	}
+
+	// Makes sure the class name cannot have colons or pipes
+	function sanitizeName($str){
+		$str = str_replace(":", "", $str);
+		$str = str_replace("|", "", $str);
 	}
 	
 	function getRequestInfo()
