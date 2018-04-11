@@ -36,3 +36,12 @@ function insertClass(className, classID, numStudents, numSessions){
 function hexString(value){
     return "INSERTHEXHERE("+value+")";
 }
+
+function clearClasses(){
+    var container = document.getElementsByClassName("class-list-container")[0];
+    var classes = container.getElementsByClassName("class-containter");
+
+    while(classes.length > 0){
+        container.removeChild(classes[0]);
+    }
+}
