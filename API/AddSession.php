@@ -20,10 +20,10 @@
 	$in_use = false;
 	
 	if ($session != ""){
-		session_ID($session);
+		session_id($session);
 	}
 	if (!session_start()){
-		returnWithError("Could not find session.");
+		returnWithError("Unable to access session");
 		exit();
 	}
 	
