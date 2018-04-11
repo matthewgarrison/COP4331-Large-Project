@@ -70,10 +70,10 @@
 					$stmt->bind_result($name);
 					if ($stmt->fetch()){
 						if ($i == 0){
-							$result .= $id . ": " . $name;
+							$result .= $classes[$i] . ": " . $name;
 						}
 						else{
-							$result .= "|" . $id . ": " . $name;
+							$result .= "|" . $classes[$i] . ": " . $name;
 						}
 					}
 				}
