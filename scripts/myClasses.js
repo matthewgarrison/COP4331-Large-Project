@@ -39,7 +39,7 @@ function hexString(value){
 
 function clearClasses(){
     var container = document.getElementsByClassName("class-list-container")[0];
-    var classes = container.getElementsByClassName("class-containter");
+    var classes = container.getElementsByClassName("class-container");
 
     while(classes.length > 0){
         container.removeChild(classes[0]);
