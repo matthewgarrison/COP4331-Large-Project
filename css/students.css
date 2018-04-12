@@ -1,0 +1,136 @@
+@charset "utf-8";
+/* CSS Document */
+
+.student-list-container {
+	padding-top: 30px;
+	padding-left: 100px;
+	padding-right: 100px;
+	margin-bottom: 70px;
+	display: flex;
+	flex-direction: column;
+}
+
+.student-list-container hr {
+	border-color: #C6C6C6;
+ 	border-style: solid none;
+ 	border-width: 1.5px 0;
+	
+	width: 100%;
+ 	margin-top: 0px;
+ 	margin-left: 0px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.student-list-container h1{
+	font-size: 32px;
+	margin-bottom: 20px;
+}
+
+.list-header-name {
+	font-size: 22px;
+	margin: 0px;
+	font-weight: 500;
+	width: 200px;
+}
+
+.list-header-email {
+	font-size: 22px;
+	margin: 0px;
+	font-weight: 500;
+	width: 280px;
+}
+
+.list-header-date {
+	font-size: 22px;
+	margin: 0px;
+	font-weight: 500;
+	width: 200px;
+	flex: 1;
+}
+
+.student {
+	display: flex;
+	align-items: center;
+	margin-bottom: 7px;
+}
+
+.student-name {
+	font-size: 17px;
+	margin: 0px;
+	width: 200px;
+	
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.student-email {
+	font-size: 17px;
+	margin: 0px;
+	width: 280px;
+	
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.date-joined {
+	font-size: 17px;
+	margin: 0px;
+	width: 200px;
+	
+	flex: 1;
+	
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.btn-ban {
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+
+	border:none;
+	background-image: url(../images/remove.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: white;
+}
+
+.btn-ban:hover, .btn-ban:active {
+	background-image: url(../images/removeHover.png);
+}
+
+.btn-unban {
+	cursor: pointer;
+	height: 25px;
+	width: 60px;
+	margin-left: 10px;
+	padding-top: 0px;
+	line-height: 25px;
+	
+	background-color: #222222;
+	border: none;
+	border-radius: 0px;
+		
+	box-shadow: 3px 3px 2px #080808; 
+	
+	color: white;
+	font-size: 15px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.btn-unban:hover {
+	background-color: #010101;
+	color:#B9B9B9;
+}
+
+.btn-unban:active {
+	background-color: #010101;
+	color:#B9B9B9;
+	box-shadow: none;
+	border:none;
+	transform: translate3d(3px,3px,0px);
+}
