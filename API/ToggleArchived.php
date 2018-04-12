@@ -35,32 +35,32 @@
 			returnWithError($conn->errno());
 		}
 		else{
-    	$stmt->bind_param("i", $sessionID);
-		  $stmt->execute();
-		  $stmt->store_result();
-		  $stmt->bind_result($old_value);
-		  $stmt->fetch();
-		  $stmt->close();
+			$stmt->bind_param("i", $sessionID);
+			$stmt->execute();
+			$stmt->store_result();
+			$stmt->bind_result($old_value);
+			$stmt->fetch();
+			$stmt->close();
 		}
 		if(!$error_occurred){
 			if ($old_value == 0){
-			$new_value = 1;
-			$date = date("F d, Y");
-		  }
-		  else{
-			$new_value = 0;
-			$date = "";
-		  }
-		  $stmt = $conn->stmt_init();
-		  if(!$stmt->prepare("Update Session set Archived = ?, DateArchived = ? where SessionID = ?")){
-			$error_occurred = true;
-					returnWithError($conn->errno());
-				}
-		  else{
-			$stmt->bind_param("isi", $new_value, $date, $sessionID);
-			$stmt->execute();
-			$stmt->close();
-		 }
+				$new_value = 1;
+				$date = date("F d, Y");
+			}
+			else{
+				$new_value = 0;
+				$date = "";
+			}
+			$stmt = $conn->stmt_init();
+		    if(!$stmt->prepare("Update Session set Archived = ?, DateArchived = ? where SessionID = ?")){
+				$error_occurred = true;
+				returnWithError($conn->errno());
+			}
+		    else{
+				$stmt->bind_param("isi", $new_value, $date, $sessionID);
+				$stmt->execute();
+				$stmt->close();
+			}
 		}
 	}
     if (!$error_occurred){
@@ -78,7 +78,7 @@
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);
-	
+	}
 	
 	function sendAsJson( $obj )
 	{
