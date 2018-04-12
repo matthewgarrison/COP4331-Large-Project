@@ -13,6 +13,7 @@
 	// Connect to database
 	$session = trimAndSanitize($inData["session"]);
 	$questionID = trimAndSanitize($inData["questionID"]);
+	$error_occurred = false;
 
 	if ($session != ""){
 		session_id($session);
