@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Class Title</title>
+	  
+    <!-- BootStrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+	  
+	<!-- Stylesheets -->
+	<link href="css/main.css" rel="stylesheet" type="text/css">
+	<link href="css/navbar.css" rel="stylesheet" type="text/css">
+	<link href="css/classes.css" rel="stylesheet" type="text/css">
+	<link href="css/class.css" rel="stylesheet" type="text/css">
+	<link href="css/modals.css" rel="stylesheet" type="text/css">
+	<link href="css/students.css" rel="stylesheet" type="text/css">
+	
+	  
+	<!-- Fonts  -->
+	 <link href="https://fonts.googleapis.com/css?family=Barlow:400,500" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+	 
+  </head>
+	
+	
+  <body>
+	  
+	  
+	 <!-- NAVBAR  -->
+	 <nav class="navbar navbar-expand-sm navbar-default">
+		<img src="banner.png" width="275px" height="auto" alt="">
+		
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">My Classes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">My Account</a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" href="#">Log Out</a>
+            </li>
+        </ul>
+	 </nav>
+	  
+	  
+	
+	  <div class="class-title-bar">
+		  <div class = "left-title-container">
+			  <!-- MyClasses image -->
+			  <img src="images/MyClasses.png" alt="blah">
+			  <!-- Class title -->
+			  <p>Super long class title that doesn't fit</p>
+		  </div>
+		  
+		  <div class = "title-bar-buttons-container">
+			<div class = "home-container">
+				<button type="button" class="btn-home"></button>  
+			</div>
+			<button type="button" class="btn-utility" data-toggle="modal" data-target="#studentsModal">Students</button>
+			<button type="button" class="btn-utility" data-toggle="modal" data-target="#editClassModal">Edit Class</button>
+		  </div>
+		  
+	  </div>
+	 
+	  
+	<div class="student-list-container">
+		<h1>Current Students</h1>
+		<div class="student">
+			<p class="list-header-name" >Name</p>
+			<p class="list-header-email" >Email</p>
+			<p class="list-header-date" >Date Joined</p>
+		</div>
+		<hr>
+						
+		<!-- Students example 1 -->
+		<div class="student">
+			<p class="student-name">Student Name</p>
+			<p class="student-email">student@student.com</p>
+			<p class="date-joined">10-10-2018</p>
+			<button class="btn-ban" data-toggle="modal" data-target="#banStudentModal"></button>
+		</div>
+		
+		<!-- Students example 2 -->
+		<div class="student">
+			<p class="student-name">Student Name</p>
+			<p class="student-email">student@student.com</p>
+			<p class="date-joined">10-9-2018</p>
+			<button class="btn-ban" data-toggle="modal" data-target="#banStudentModal"></button>
+		</div>
+		
+		<!-- Students example 3 -->
+		<div class="student">
+			<p class="student-name">Student Name</p>
+			<p class="student-email">student@student.com</p>
+			<p class="date-joined">10-11-2018</p>
+			<button class="btn-ban" data-toggle="modal" data-target="#banStudentModal"></button>
+		</div>
+						
+	</div>
+	  
+	<div class="student-list-container">
+		<h1>Banned Students</h1>
+		<div class="student">
+			<p class="list-header-name" >Name</p>
+			<p class="list-header-email" >Email</p>
+			<p class="list-header-date" >Date Joined</p>
+		</div>
+		<hr>
+						
+		<!-- Banned example 1 -->
+		<div class="student">
+			<p class="student-name">Student Name</p>
+			<p class="student-email">student@student.com</p>
+			<p class="date-joined">10-10-2018</p>
+			<button class="btn-unban" data-toggle="modal" data-target="#unbanStudentModal">Unban</button>
+		</div>
+		
+		<!-- Banned example 2 -->
+		<div class="student">
+			<p class="student-name">Student Name</p>
+			<p class="student-email">student@student.com</p>
+			<p class="date-joined">10-9-2018</p>
+			<button class="btn-unban" data-toggle="modal" data-target="#unbanStudentModal">Unban</button>
+		</div>
+		
+		<!-- Banned example 3 -->
+		<div class="student">
+			<p class="student-name">Student Name</p>
+			<p class="student-email">student@student.com</p>
+			<p class="date-joined">10-11-2018</p>
+			<button class="btn-unban" data-toggle="modal" data-target="#unbanStudentModal">Unban</button>
+		</div>
+						
+	</div>
+	  
+	<!-- Ban student modal -->
+	<div class="modal fade" id="banStudentModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+					
+				<div class="modal-header">
+					<h5 class="modal-title">Are you sure?</h5>
+					<button type="button" class="close" data-dismiss="modal">
+					  <span>&times;</span>
+					</button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="edit-class-form-container">
+						Are you sure you want to ban "Student Name" from contributing to "Class Name"? You can always unban them in the future.
+					</div>
+				</div>
+					
+				<div class="modal-footer">
+					<button type="button" class="btn btn-modal-black" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-modal-green">Yes</button>
+				</div>
+					
+			</div>
+		</div>
+	</div>
+	  
+	<!-- Unban student modal -->
+	<div class="modal fade" id="unbanStudentModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+					
+				<div class="modal-header">
+					<h5 class="modal-title">Are you sure?</h5>
+					<button type="button" class="close" data-dismiss="modal">
+					  <span>&times;</span>
+					</button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="edit-class-form-container">
+						Are you sure you want to unban "Student Name" from "Class Name"? They will be able to fully participate in the class once again.
+					</div>
+				</div>
+					
+				<div class="modal-footer">
+					<button type="button" class="btn btn-modal-black" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-modal-green">Yes</button>
+				</div>
+					
+			</div>
+		</div>
+	</div>
+	  
+	  
+	
+	  
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+	<script src="js/jquery-1.11.3.min.js"></script>
+	 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed --> 
+	<script src="js/bootstrap.js"></script>
+  </body>
+</html>
