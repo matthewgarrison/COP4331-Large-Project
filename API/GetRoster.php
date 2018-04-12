@@ -44,6 +44,7 @@
 	}
 	else{
 		$stmt = $conn->stmt_init();
+		// Find the students' IDs and dates they joined the class
 		if(!$stmt->prepare("Select StudentID, DateJoined from Registration where ClassID = ?")){
 			$error_occurred = true;
 			returnWithError($conn->errno());
@@ -54,7 +55,7 @@
 			$stmt->store_result();
 			$stmt->bind_result($id, $date);
 			while($stmt->fetch()){
-				// Count number of students in each class
+				// Get each student's name and email
 				$stmt2 = $conn->stmt_init();
 				if (!$stmt2->prepare("Select Name, Email from Student where StudentID = ?")){
 					returnWithError("Failed to find students");
