@@ -4,6 +4,8 @@
 	// *** If both are needed, "session" always refers to a PHP session and "sessionID" always refers to a class session ***
 	
 	$inData = getRequestInfo();
+
+	date_default_timezone_set('America/New_York');
 	
 	$session = trimAndSanitize($inData["session"]);
 	$name = trimAndSanitize($inData["name"]);
