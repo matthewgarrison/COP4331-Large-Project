@@ -4,6 +4,8 @@
 	// *** NOTE: "session" is a PHP session, and "sessionID" is a class session ***
 	
 	$inData = getRequestInfo();
+
+	date_default_timezone_set('America/New_York');
 	
 	// Server info for connection
 	$servername = "localhost";
