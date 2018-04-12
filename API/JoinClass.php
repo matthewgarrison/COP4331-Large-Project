@@ -24,6 +24,7 @@
 	
 	$error_occurred = false;
 	$in_use = false;
+	$date = date("F d, Y");
 	
 	// Connect to database
 	$conn = new mysqli($servername, $dbUName, $dbPwd, $dbName);
@@ -100,13 +101,37 @@
 				$stmt->close();
 			}
 		}
+		
+		// Check that the student is not already in the class
 		if (!$error_occurred){
+			$already_registered = false;
 			$stmt = $conn->stmt_init();
-			if(!$stmt->prepare("INSERT INTO Registration (StudentID, ClassID) VALUES (?, ?)")){
+			if(!$stmt->prepare("SELECT RegID FROM Registration WHERE ClassID = ? and StudentID = ?")){
 				$error_occurred = true;
 				returnWithError($conn->errno());
 			}
-			$stmt->bind_param("ii", $studentID, $classID);
+			else{
+				$stmt->bind_param("ii", $classID, $studentID);
+				$stmt->execute();
+				
+				$stmt->bind_result($ban);
+				while($stmt->fetch()){
+					$already_registered = true;
+				}
+				if ($already_registered){
+					$error_occurred = true;
+					returnWithError("You are already in this class.");
+				}
+				$stmt->close();
+			}
+		}
+		if (!$error_occurred){
+			$stmt = $conn->stmt_init();
+			if(!$stmt->prepare("INSERT INTO Registration (StudentID, ClassID, DateJoined) VALUES (?, ?, ?)")){
+				$error_occurred = true;
+				returnWithError($conn->errno());
+			}
+			$stmt->bind_param("iis", $studentID, $classID, $date);
 			if (!$stmt->execute()){
 				$error_occurred = true;
 				returnWithError("Failed to register for class.");
