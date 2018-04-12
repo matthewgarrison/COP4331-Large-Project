@@ -2,8 +2,9 @@
 	// Assumes the input is a JSON file in the format of {"session":""}
 	// *** NOTE: "session" refers to a PHP session, and "sessionID" refers to a class session ***
 	// It's unfortunate that we have to deal with two things called sessions, but ¯\_(ツ)_/¯
-	// Output is JSON in the form of {"result":"", "error":""}
-	// result is a string formatted as "id: name: date|id: name: date|..."
+	// Output is JSON in the form of {"active":"", "archived":"", "error":""}
+	// "active" is the info on active sessions, and is a string formatted as "id: name: dateCreated|id: name: dateCreated|..."
+	// "archived" is the info on archives sessions, and is a string formatted as "id: name: dateCreated: dateArchived|id: name: dateCreated: dateArchived|..."
 	
 	$inData = getRequestInfo();
 	
@@ -15,8 +16,11 @@
 	
 	$id = 0;
 	$name = "";
-	$date = "";
-	$result = "";
+	$dateCreated = "";
+	$dateArchived = "";
+	$active = "";
+	$archived = "";
+	$archivedFlag = 0;
 	$session = trimAndSanitize($inData["session"]);
 	
 	if ($session != ""){
@@ -35,7 +39,8 @@
 	}
 	
 	$error_occurred = false;
-	$found_session = false;
+	$found_active = false;
+	$found_archived = false;
 	
 	// Connect to database
 	$conn = new mysqli($servername, $dbUName, $dbPwd, $dbName);
@@ -45,7 +50,7 @@
 	}
 	else{
 		$stmt = $conn->stmt_init();
-		if(!$stmt->prepare("Select SessionID, Name, Date from Session where ClassID = ?")){
+		if(!$stmt->prepare("Select SessionID, Name, DateCreated, Archived, DateArchived from Session where ClassID = ?")){
 			$error_occurred = true;
 			returnWithError($conn->errno());
 		}
@@ -53,19 +58,29 @@
 			$stmt->bind_param("i", $classID);
 			$stmt->execute();
 			$stmt->store_result();
-			$stmt->bind_result($id, $name, $date);
+			$stmt->bind_result($id, $name, $dateCreated, $archivedFlag, $dateArchived);
 			while($stmt->fetch()){
-				
-				if (!$found_session){
-					$result .= $id . ": " . $name . ": " . $date;
-					$found_session = true;
+				if ($archivedFlag == 0){
+					if (!$found_active){
+						$active .= $id . ": " . $name . ": " . $dateCreated;
+						$found_active = true;
+					}
+					else{
+						$active .= "|" . $id . ": " . $name . ": " . $dateCreated;
+					}
 				}
 				else{
-					$result .= "|" . $id . ": " . $name . ": " . $date;
+					if (!$found_archived){
+						$archived .= $id . ": " . $name . ": " . $dateCreated . ": " . $dateArchived;
+						$found_archived = true;
+					}
+					else{
+						$archived .= "|" . $id . ": " . $name . ": " . $dateCreated . ": " . $dateArchived;
+					}
 				}
 			}
-			if($found_session){
-				returnWithInfo($result);
+			if($found_active or $found_archived){
+				returnWithInfo($active, $archived);
 			}
 			else{
 				returnWithError("No sessions found");
@@ -98,14 +113,14 @@
 	// Return in the case of an error
 	function returnWithError( $err )
 	{
-		$retValue = '{"result":"","error":"' . $err . '"}';
+		$retValue = '{"active":"", "archived":"", "error":"' . $err . '"}';
 		sendAsJson( $retValue );
 	}
 	
 	// Return and send the user's name and id
-	function returnWithInfo( $result )
+	function returnWithInfo( $active, $archived )
 	{
-		$retValue = '{"result":"' . $result . '","error":""}';
+		$retValue = '{"active":"' . $active . '", "archived":"' . $archived . '", "error":""}';
 		sendAsJson( $retValue );
 	}
 ?>
