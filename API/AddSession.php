@@ -1,8 +1,7 @@
 <?php
-	// Assumes the input is a JSON file in the format of {"session":"", "name":"", "date":""}, and the session already has classID set
+	// Assumes the input is a JSON file in the format of {"session":"", "name":""}, and the session already has classID set
 	// *** IMPORTANT NOTE: the "session" field in the above JSON refers to a PHP session, NOT a class session in the database ***
 	// *** If both are needed, "session" always refers to a PHP session and "sessionID" always refers to a class session ***
-	// If date is left blank, it defaults to the current date in the format of Month DD, YYYY (e.g. April 03, 2018)
 	
 	$inData = getRequestInfo();
 	
@@ -38,9 +37,9 @@
 		returnWithError("Name cannot be empty" );
 		exit();
 	}
-	if ($date == ""){
-		$date = date("F d, Y");
-	}
+	
+	$date = date("F d, Y");
+	
 	
 	// Connect to database
 	$conn = new mysqli($servername, $dbUName, $dbPwd, $dbName);
@@ -50,7 +49,7 @@
 	}
 	else{
 		$stmt = $conn->stmt_init();
-		if(!$stmt->prepare("INSERT INTO Session (ClassID, Name, Date) VALUES (?, ?, ?)")){
+		if(!$stmt->prepare("INSERT INTO Session (ClassID, Name, DateCreated, Archived) VALUES (?, ?, ?, 0)")){
 			$error_occurred = true;
 			returnWithError("Failed to prepare statement");
 		}
