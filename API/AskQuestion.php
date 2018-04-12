@@ -5,8 +5,10 @@
 	
 	$inData = getRequestInfo();
 	
+	date_default_timezone_set('America/New_York');
+	
 	$session = trimAndSanitize($inData["session"]);
-	$text = substr(htmlspecialchars($inData["text"]), 0, 280);
+	$text = sanitizeText(substr(htmlspecialchars($inData["text"]), 0, 280));
 	
 	// Server info for connection
 	$servername = "localhost";
@@ -27,18 +29,19 @@
   $sessionID = $_SESSION["sessionID"];  
   $name = $_SESSION["name"];
   $studentID = $_SESSION["studentID"];
+  $dateTime = date("m/d/y, H:i T");
 	
   if ($sessionID == null){
-  	returnWithError("sessionID must be set before asking a question");
-    exit();
+	returnWithError("sessionID must be set before asking a question");
+	exit();
   }
   if ($name == null){
-  	returnWithError("name must be set before asking a question");
-    exit();
+	returnWithError("name must be set before asking a question");
+	exit();
   }
   if ($studentID == null){
-  	returnWithError("studentID must be set before asking a question");
-    exit();
+	returnWithError("studentID must be set before asking a question");
+	exit();
   }
 	
 	// Connect to database
@@ -48,7 +51,7 @@
 		returnWithError($conn->connect_error );
 	}
 	else{
-  	//Check that the student is not banned from the class
+	//Check that the student is not banned from the class
 		if (!$error_occurred){
 			$banned = false;
 			$stmt = $conn->stmt_init();
@@ -67,19 +70,19 @@
 				if ($banned){
 					$error_occurred = true;
 					returnWithError("You have been banned from this class.  See your professor for details.");
-          exit();
+		  exit();
 				}
 				$stmt->close();
 			}
 		}
   
 		$stmt = $conn->stmt_init();
-		if(!$stmt->prepare("INSERT INTO Question (SessionID, User, UserID, Text, IsRead) VALUES (?, ?, ?, ?, 0)")){
+		if(!$stmt->prepare("INSERT INTO Question (SessionID, User, UserID, Text, DateTime, IsRead) VALUES (?, ?, ?, ?, ?, 0)")){
 			$error_occurred = true;
 			returnWithError("Failed to prepare insert statement");
 		}
 		else{
-			$stmt->bind_param("isis", $sessionID, $name, $studentID, $text);
+			$stmt->bind_param("isiss", $sessionID, $name, $studentID, $text, $dateTime);
 			if(!$stmt->execute()){
 				$error_occurred = true;
 				returnWithError( "Error adding to database" );
@@ -98,6 +101,10 @@
 		$str = trim($str);
 		$str = str_replace("'", "", $str );
 		$str = str_replace(";", "", $str);
+		return $str;
+	}
+	function sanitizeText($str){
+		$str = str_replace("|", "", $str);
 		return $str;
 	}
 	
