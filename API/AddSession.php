@@ -7,6 +7,7 @@
 	
 	$session = trimAndSanitize($inData["session"]);
 	$name = trimAndSanitize($inData["name"]);
+	$name = sanitizeName($name);
 	$date = trimAndSanitize($inData["date"]);
 	
 	// Server info for connection
@@ -73,6 +74,13 @@
 		$str = trim($str);
 		$str = str_replace("'", "", $str );
 		$str = str_replace(";", "", $str);
+		return $str;
+	}
+	
+	// Makes sure the session name cannot have colons or pipes
+	function sanitizeName($str){
+		$str = str_replace(":", "", $str);
+		$str = str_replace("|", "", $str);
 		return $str;
 	}
 	
