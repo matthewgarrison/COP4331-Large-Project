@@ -2,7 +2,8 @@
 	// Assumes the input is a JSON file in the format of {"session":"", "showRead":""} and classID and setID have previously been set
   // If "showRead" is non-zero, both read and unread questions will be shown.  Otherwise, only unread will be shown
 	// Output is JSON in the form of {"result":"", "error":""}
-	// result is a string formatted as "questionID: text: studentID: studentName|questionID: text: studentID: studentName|..."
+	// result is a string formatted as "questionID| text| studentID| studentName| dateTime||questionID| text| studentID| studentName| dateTime||..."
+	// Note that two pipes separates each question, with one pipe separating the fields inside.  This is so that : can be used in questions/dates
 
 	$inData = getRequestInfo();
 
@@ -31,10 +32,6 @@
 		returnWithError("Could not find professor.");
 		exit();
 	}
-  	if ($professorID == null){
-		returnWithError("Only professors can view questions");
-		exit();
-  	}
 
 	$error_occurred = false;
 
@@ -49,10 +46,10 @@
 		$stmt = $conn->stmt_init();
 
 		if($showRead == 0){
-			$sql = "Select QuestionID, Text, User, UserID from Question where SessionID = ? and IsRead = 0";
+			$sql = "Select QuestionID, Text, User, UserID, DateTime from Question where SessionID = ? and IsRead = 0";
 		}
 		else{
-			$sql = "Select QuestionID, Text, User, UserID from Question where SessionID = ?";
+			$sql = "Select QuestionID, Text, User, UserID, DateTime from Question where SessionID = ?";
 		}
 
 		if(!$stmt->prepare($sql)){
@@ -63,15 +60,15 @@
 			$stmt->bind_param("i", $sessionID);
 			$stmt->execute();
 			$stmt->store_result();
-			$stmt->bind_result($questionID, $text, $studentID, $name);
+			$stmt->bind_result($questionID, $text, $name, $studentID, $dateTime);
       $i = 0;
 
 			while($stmt->fetch()){
 				if ($i == 0){
-          $result .= $questionID . ": " . $text . ": " . $studentID . ": " . $name;
+          $result .= $questionID . "| " . $text . "| " . $studentID . "| " . $name . "| " . $dateTime;
         }
         else{
-          $result .= "|" . $questionID . ": " . $text . ": " . $studentID . ": " . $name;
+          $result .= "||" . $questionID . "| " . $text . "| " . $studentID . "| " . $name . "| " . $dateTime;
         }
         $i++;
 			}
