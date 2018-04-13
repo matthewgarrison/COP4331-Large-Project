@@ -1,6 +1,6 @@
 <?php
 	// Assumes the input is a JSON file in the format of {"session":"", "questionID":""}
-	// Removes the specified class and all associated sessions, questions, join records, and bans
+	// Removes the specified question from the current session
 	
 	$inData = getRequestInfo();
 	
