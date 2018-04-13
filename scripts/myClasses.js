@@ -1,6 +1,7 @@
 var invalidSessionError = "Unable to access session.";
 var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
+var deleteTarget = -1;
 
 function insertClass(className, classID, numStudents, numSessions){
     // Stats information
@@ -34,7 +35,7 @@ function insertClass(className, classID, numStudents, numSessions){
     deleteButton.className = "btn-deleteClass";
     deleteButton.setAttribute("data-toggle", "modal");
     deleteButton.setAttribute("data-target", "#deleteClassModal");
-    deleteButton.setAttribute("onclick", "deleteClass("+classID+")");
+    deleteButton.setAttribute("onclick", "setDeleteTarget("+classID+")");
 
     var classHeader = document.createElement("div");
     classHeader.className = "class-header";
@@ -314,6 +315,49 @@ function gotoClass(id){
     }
 }
 
-function deleteClass(id){
+function deleteClass(){
+    if(deleteTarget == -1) return;
 
+    var payload = '{"session" : "", "classID" : "'+deleteTarget+'"}';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", baseURL + "/DeleteClass.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+				if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        console.log("API ERROR: "+error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+					return;
+                }
+
+                refreshClasses();
+                deleteTarget = -1;
+			}
+		}
+
+		xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("deleteClass Error: "+error);
+    }
+
+}
+
+function setDeleteTarget(id){
+    deleteTarget = id;
 }
