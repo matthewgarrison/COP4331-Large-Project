@@ -42,7 +42,7 @@
                 <a class="nav-link" href="#">My Account</a>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="#">Log Out</a>
+                <a class="nav-link" href="#" onclick="logout()">Log Out</a>
             </li>
         </ul>
 	 </nav>
@@ -145,7 +145,7 @@
 					
 				<div class="modal-header">
 					<h5 class="modal-title">Are you sure?</h5>
-					<button type="button" class="close" data-dismiss="modal">
+					<button type="button" class="close" data-dismiss="modal" onclick="setBanTarget(-1, '')">
 					  <span>&times;</span>
 					</button>
 				</div>
@@ -157,8 +157,8 @@
 				</div>
 					
 				<div class="modal-footer">
-					<button type="button" class="btn btn-modal-black" data-dismiss="modal">No</button>
-					<button type="button" class="btn btn-modal-green">Yes</button>
+					<button type="button" class="btn btn-modal-black" data-dismiss="modal" onclick="setBanTarget(-1, '')">No</button>
+					<button type="button" class="btn btn-modal-green" data-dismiss="modal" onclick="banStudent()">Yes</button>
 				</div>
 					
 			</div>
@@ -172,7 +172,7 @@
 					
 				<div class="modal-header">
 					<h5 class="modal-title">Are you sure?</h5>
-					<button type="button" class="close" data-dismiss="modal">
+					<button type="button" class="close" data-dismiss="modal" onclick="setUnbanTarget(-1, '')">
 					  <span>&times;</span>
 					</button>
 				</div>
@@ -184,8 +184,8 @@
 				</div>
 					
 				<div class="modal-footer">
-					<button type="button" class="btn btn-modal-black" data-dismiss="modal">No</button>
-					<button type="button" class="btn btn-modal-green">Yes</button>
+					<button type="button" class="btn btn-modal-black" data-dismiss="modal" onclick="setUnbanTarget(-1, '')">No</button>
+					<button type="button" class="btn btn-modal-green" data-dismiss="modal" onclick="unbanStudent()">Yes</button>
 				</div>
 					
 			</div>
