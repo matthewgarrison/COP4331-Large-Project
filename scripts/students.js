@@ -46,8 +46,8 @@ function logout(){
 }
 
 function refreshPage(){
-    refreshCurrentStudents();
-    refreshBannedStudents();
+    //refreshCurrentStudents();
+    //refreshBannedStudents();
 }
 
 function clearCurrentStudents(){
