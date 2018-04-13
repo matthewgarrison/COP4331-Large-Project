@@ -26,10 +26,25 @@ function insertClass(className, classID, numStudents, numSessions){
     goButton.className = "btn-custom";
     goButton.setAttribute("onclick", "gotoClass("+classID+")");
 
+    // Class header
+    var classTitle = document.createElement("p");
+    classTitle.innerHTML = className;
+
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "btn-deleteClass";
+    goButton.setAttribute("data-toggle", "modal");
+    goButton.setAttribute("data-target", "#deleteClassModal");
+    goButton.setAttribute("onclick", "deleteClass("+classID+")");
+
+    var classHeader = document.createElement("div");
+    classHeader.className = "class-header";
+    classHeader.appendChild(classTitle);
+    classHeader.appendChild(deleteButton);
+
     // Class element
     var classElement = document.createElement("div");
-    classElement.innerHTML = className+"<br>\n<hr>";
     classElement.className = "class-container";
+    classElement.appendChild(classHeader);
     classElement.appendChild(classStatsContainer);
     classElement.appendChild(goButton);
 
@@ -297,4 +312,8 @@ function gotoClass(id){
     catch(error){
         console.log("gotoClass Error: "+error);
     }
+}
+
+function deleteClass(id){
+
 }
