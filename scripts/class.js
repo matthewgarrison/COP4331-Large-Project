@@ -131,7 +131,7 @@ function createNewSession() {
                     } 
 					return;
                 }
-                refreshClasses();
+                refreshSessions();
 			}
 		}
 
