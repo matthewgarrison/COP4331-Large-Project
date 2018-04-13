@@ -19,6 +19,8 @@
 	
 	$_SESSION["classID"] = $classID;
 	$_SESSION["className"] = $className;
+
+	returnWithError("");
 	
 	// Removes whitespace at the front and back, and removes single quotes and semi-colons
 	function trimAndSanitize($str){
