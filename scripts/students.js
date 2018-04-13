@@ -76,7 +76,7 @@ function insertStudent(name, email, joinDate, id){
     banButton.className = "btn-ban";
     banButton.setAttribute("data-toggle", "modal");
     banButton.setAttribute("data-target", "#banStudentModal");
-    banButton.setAttribute("onclick", "setBanTarget("+id+", \""+name+"\"");
+    banButton.setAttribute("onclick", "setBanTarget("+id+", \""+name+"\")");
 
     var studentContainer = document.createElement("div");
     studentContainer.className = "student";
@@ -183,7 +183,7 @@ function insertBannedStudent(name, email, joinDate, id){
     unbanButton.className = "btn-unban";
     unbanButton.setAttribute("data-toggle", "modal");
     unbanButton.setAttribute("data-target", "#unbanStudentModal");
-    unbanButton.setAttribute("onclick", "setUnbanTarget("+id+", \""+name+"\"");
+    unbanButton.setAttribute("onclick", "setUnbanTarget("+id+", \""+name+"\")");
     unbanButton.innerHTML = "Unban";
 
     var studentContainer = document.createElement("div");
