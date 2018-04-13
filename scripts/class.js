@@ -297,5 +297,5 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
     var container = "";
     if (isActiveSession) container = document.getElementsByClassName("session-container")[0];
     else container = document.getElementsByClassName("archive-container")[0];
-    container.appendChild(classElement);
+    container.appendChild(sessionElement);
 }
