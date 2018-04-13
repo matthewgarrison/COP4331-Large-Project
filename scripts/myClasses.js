@@ -24,7 +24,7 @@ function insertClass(className, classID, numStudents, numSessions){
     var goButton = document.createElement("button");
     goButton.type = "button";
     goButton.className = "btn-custom";
-    goButton.onclick = "gotoClass("+classID+")";
+    goButton.onclick = gotoClass(classID);
 
     // Class element
     var classElement = document.createElement("div");
