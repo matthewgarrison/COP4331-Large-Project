@@ -20,6 +20,8 @@
 	
 	$_SESSION["sessionID"] = $sessionID;
 	$_SESSION["sessionName"] = $sessionName;
+
+	returnWithError("");
 	
 	// Removes whitespace at the front and back, and removes single quotes and semi-colons
 	function trimAndSanitize($str){
