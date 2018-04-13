@@ -159,6 +159,7 @@ function refreshClasses(){
                     }
 
                     insertClass(className, classID, numStudents, numSessions);
+                    idx++;
                 }
 			}
 		}
