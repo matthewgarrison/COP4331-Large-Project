@@ -200,10 +200,9 @@ function addClass(){
                         console.log("API ERROR: "+error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
-
-                    refreshClasses();
 					return;
                 }
+                refreshClasses();
 			}
 		}
 
