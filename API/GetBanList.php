@@ -83,9 +83,6 @@
 			if($found_student){
 				returnWithInfo($result);
 			}
-			else{
-				returnWithError("No students found");
-			}
 			$stmt->close();
 		}
 		
