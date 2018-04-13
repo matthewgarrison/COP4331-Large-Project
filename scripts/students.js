@@ -46,8 +46,8 @@ function logout(){
 }
 
 function refreshPage(){
-    //refreshCurrentStudents();
-    //refreshBannedStudents();
+    refreshCurrentStudents();
+    refreshBannedStudents();
 }
 
 function clearCurrentStudents(){
@@ -237,7 +237,7 @@ function refreshBannedStudents(){
                     }
                     idx += 2;
 
-                    while(rawStudents.charAt(idx) != '|'){
+                    while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
                         studentName = studentName + rawStudents.charAt(idx++);
                     }
                     idx += 2;
