@@ -1,6 +1,6 @@
 <?php
 	// Assumes the input is a JSON file in the format of {"session":""}
-	// Outputs as {"error":"", "professorID":"", "studentID":"", "name":"", "classID":"", "sessionID":""}
+	// Outputs as {"error":"", "professorID":"", "studentID":"", "name":"", "classID":"", "className":"", "sessionID":"", "sessionName":""}
 	// Some of the above may be null
 	
 	
@@ -44,7 +44,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"error":"' . $err . '", "professorID":"", "studentID":"", "name":"", "classID":"", "sessionID":""}';
+		$retValue = '{"error":"' . $err . '", "professorID":"", "studentID":"", "name":"", "classID":"", "className":"", "sessionID":"", "sessionName":""}';
 		sendAsJSON( $retValue );
 	}
 	
