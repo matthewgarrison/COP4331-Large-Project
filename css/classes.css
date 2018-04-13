@@ -121,21 +121,14 @@ footer {
 	margin-bottom: 30px
 }
 
-.btn-newClass span {
-	line-height: 14px;
-    	font-size: 14px;
-    	padding: 2px;
-	
-    	vertical-align: middle;
-	
-	font-family: 'Roboto', sans-serif;
-	font-weight: 500;
-}
 
 
 .btn-newClass {
 	background: #222222;
 	color: #FFFFFF;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 14px;
 	
 	padding: 2px;
 	height: 30px;
@@ -144,7 +137,7 @@ footer {
 }
 
 .btn-newClass:hover {
-	color: #16966A;
+	color: #B9B9B9;
 	background-color: #010101;
 	cursor: pointer;
 }
