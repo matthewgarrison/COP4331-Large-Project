@@ -41,6 +41,9 @@ function getClassName() {
 
 		xhr.send(payload);
     }
+    catch(error){
+        console.log("Get Class Name Error: "+error);
+    }
 
 	return "";
 }
@@ -82,6 +85,9 @@ function getClassID() { // Returns it in hex
         }
 
         xhr.send(payload);
+    }
+    catch(error){
+        console.log("Get Class ID Error: "+error);
     }
 
     return "";
@@ -133,7 +139,7 @@ function createNewSession() {
     }
 
     catch(error){
-        console.log("Add Session Error: "+error);
+        console.log("Create New Session Error: "+error);
     }
 }
 
@@ -220,7 +226,7 @@ function refreshSessions(){
     }
 
     catch(error){
-        console.log("Refresh Classes Error: "+error);
+        console.log("Refresh Sessions Error: "+error);
     }
 }
 
