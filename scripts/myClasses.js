@@ -261,5 +261,40 @@ function addClass(){
 }
 
 function gotoClass(id){
+    var payload = '{"session" : "", "classID" : "'+id+'"}';
 
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", baseURL + "/SetClassID.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+				if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        console.log("API ERROR: "+error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+					return;
+                }
+
+				window.location.href = "http://cop4331-2.com/Class.html";
+			}
+		}
+
+		xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("gotoClass Error: "+error);
+    }
 }
