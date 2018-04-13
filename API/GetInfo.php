@@ -21,7 +21,9 @@
 	$result .= ', "studentID":"' . $_SESSION["studentID"] . '"';
 	$result .= ', "name":"' . $_SESSION["name"] . '"';
 	$result .= ', "classID":"' . $_SESSION["classID"] . '"';
+	$result .= ', "className":"' . $_SESSION["className"] . '"';
 	$result .= ', "sessionID":"' . $_SESSION["sessionID"] . '"';
+	$result .= ', "sessionName":"' . $_SESSION["sessionName"] . '"';
 	$result .= '}';
 	
 	sendAsJSON($result);
