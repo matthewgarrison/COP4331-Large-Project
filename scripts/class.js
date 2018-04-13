@@ -261,6 +261,7 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
     if (isActiveSession) {
         var endButton = document.createElement("button");
         endButton.type = "button";
+        endButton.innerHTML = "End Session";
         endButton.className = "btn-session";
         endButton.setAttribute("data-toggle", "modal");
         endButton.setAttribute("data-target", "#endSessionModal");
