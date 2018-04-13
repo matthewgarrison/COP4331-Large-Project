@@ -46,8 +46,8 @@ function logout(){
 }
 
 function refreshPage(){
-    //refreshCurrentStudents();
-    //refreshBannedStudents();
+    refreshCurrentStudents();
+    refreshBannedStudents();
 }
 
 function clearCurrentStudents(){
@@ -229,8 +229,8 @@ function refreshBannedStudents(){
                 while(idx < rawStudents.length){
                     var studentID = "";
                     var studentName = "";
-                    var studentEmail = "";
-                    var joinDate = "";
+                    var studentEmail = "???";
+                    var joinDate = "???";
 
                     while(rawStudents.charAt(idx) != '|'){
                         studentID = studentID + rawStudents.charAt(idx++);
@@ -242,6 +242,7 @@ function refreshBannedStudents(){
                     }
                     idx += 2;
 
+                    /*
                     while(rawStudents.charAt(idx) != '|'){
                         studentEmail = studentEmail + rawStudents.charAt(idx++);
                     }
@@ -250,9 +251,9 @@ function refreshBannedStudents(){
                     while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
                         joinDate = joinDate + rawStudents.charAt(idx++);
                     }
-
+                    */
                     insertBannedStudent(studentName, studentEmail, joinDate, studentID);
-                    idx+=2;
+                    //idx+=2;
                 }
 			}
 		}
