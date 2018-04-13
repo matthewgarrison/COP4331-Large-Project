@@ -98,9 +98,9 @@ function updateClassName() {
 }
 
 function createNewSession() {
-	var sessionName = document.getElementById("new-session-form-container").value;
+	var sessionName = document.getElementById("create-new-session-input").value;
     console.log("create new session: " + sessionName);
-    document.getElementById("new-session-form-container").value = "";
+    document.getElementById("create-new-session-input").value = "";
     var payload = '{"session" : "", "name" : "'+sessionName+'"}';
 
 	var xhr = new XMLHttpRequest();
