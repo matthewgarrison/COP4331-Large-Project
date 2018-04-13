@@ -232,10 +232,14 @@ function refreshSessions(){
 
 
 function clearSessions(activeSessions) {
-    var container = "";
-    if (activeSessions) container = document.getElementsByClassName("session-container")[0];
-    else container = document.getElementsByClassName("archive-container")[0];
-    var classes = container.getElementsByClassName("session-container");
+    var container = "", classes = "";
+    if (activeSessions) {
+        container = document.getElementsByClassName("session-container")[0];
+        classes = container.getElementsByClassName("session");
+    } else {
+        container = document.getElementsByClassName("archive-container")[0];
+        classes = container.getElementsByClassName("archive-entry");
+    }
 
     while(classes.length > 0){
         container.removeChild(classes[0]);
@@ -250,7 +254,8 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
 
     // Class element
     var sessionElement = document.createElement("div");
-    sessionElement.className = "session-container";
+    if (isActiveSession) sessionElement.className = "session";
+    else sessionElement.className = "archive-entry";
     sessionElement.appendChild(sessionLink);
 
     if (isActiveSession) {
