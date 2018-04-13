@@ -163,7 +163,7 @@ footer {
 	background-image: url(../images/deleteClass.png);
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-color: white;
+	background-color: #F0F0F0;
 }
 
 .btn-deleteClass:hover, .btn-deleteClass:active {
