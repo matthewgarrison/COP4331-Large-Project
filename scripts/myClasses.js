@@ -175,7 +175,7 @@ function addClass(){
     var payload = '{"session" : "", "name" : "'+className+'"}';
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/Logout.php", false);
+	xhr.open("POST", baseURL + "/AddClass.php", false);
     xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
     
     try{
