@@ -99,9 +99,7 @@
 					$result .= "|" . $classID . ": " . $className . ": " . $numStudents . ": " . $numSessions;
 				}
 			}
-			if($found_class){
-				returnWithInfo($result);
-			}
+			returnWithInfo($result);
 			$stmt->close();
 		}
 		
