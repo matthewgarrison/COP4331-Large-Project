@@ -102,9 +102,6 @@
 			if($found_class){
 				returnWithInfo($result);
 			}
-			else{
-				returnWithError("No classes found");
-			}
 			$stmt->close();
 		}
 		
