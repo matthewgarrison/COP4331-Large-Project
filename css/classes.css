@@ -149,6 +149,34 @@ footer {
 	cursor: pointer;
 }
 
+.class-header {
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.class-header p{
+	flex: 1;
+	margin: 0px;
+}
+
+
+.btn-deleteClass {
+	cursor: pointer;
+	height: 25px;
+	width: 25px;
+
+	border:none;
+	background-image: url(../images/deleteClass.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: white;
+}
+
+.btn-deleteClass:hover, .btn-deleteClass:active {
+	background-image: url(../images/deleteClassHover.png);
+}
+
 
 button:focus {outline:0 !important;}
 
