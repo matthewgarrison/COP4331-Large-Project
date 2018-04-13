@@ -19,12 +19,16 @@
 	<!-- Fonts  -->
 	 <link href="https://fonts.googleapis.com/css?family=Barlow:400,500" rel="stylesheet">
 	 <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+
+	<!-- Scripts -->
+	<script src="http://cop4331-2.com/scripts/class.js"></script>
+	<script src="http://cop4331-2.com/scripts/main.js"></script>
 	 
   </head>
 	
 	
-  <body>
-	  
+  <body onload="refreshPage()">
+
 	  
 	 <!-- NAVBAR  -->
 	 <nav class="navbar navbar-expand-sm navbar-default">
@@ -38,7 +42,7 @@
                 <a class="nav-link" href="#">My Account</a>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="#">Log Out</a>
+                <a class="nav-link" href="#" onclick="logout()">Log Out</a>
             </li>
         </ul>
 	 </nav>
@@ -47,13 +51,13 @@
 	
 	  <div class="class-title-bar">
 		  <div class = "left-title-container">
-			  <p class= "class-title">Class Title</p>
-			  <p class="class-id">Class ID: 12345</p>
+			  <p class="class-title"></p>
+			  <p class="class-id"></p>
 		  </div>
 		  
 		  <div class = "title-bar-buttons-container">
 			<div class = "home-container">
-				<button type="button" class="btn-home" href="myClasses.html"></button>  
+				<a href="myClasses.html"><button type="button" class="btn-home"></button></a>  
 			</div>
 			<button type="button" class="btn-utility" href="#">Students</button>
 			<button type="button" class="btn-utility" data-toggle="modal" data-target="#editClassModal">Edit Class</button>
@@ -76,16 +80,6 @@
 			
 			<hr>
 			  
-			<!-- Session example element 1 -->
-			<div class="session">
-				<a href="#">Session 1 has a really long name that doesn't fit into this space</a>
-				<button type="button" class="btn-session" data-toggle="modal" data-target="#endSessionModal">End Session</button>
-			</div>
-			<!-- Session example element 2 -->
-			<div class="session">
-				<a href="#">Session 2</a>
-				<button type="button" class="btn-session" data-toggle="modal" data-target="#endSessionModal">End Session</button>
-			</div>
 			    
 		  </div>
 		  
@@ -104,33 +98,8 @@
 			</div>
 			<hr>
 			  
-			<!-- Archive example entry 1 -->
-			<div class="archive-entry">
-				<a href="#">Session 1 has a really long name that doesn't fit into this spaaace</a>
-				<div class="archive-date">10-30-2018</div>
-				<div class="dropdown">
-				  <button type="button" class="btn-menu" data-toggle="dropdown">
-				  </button>
-				  <div class="dropdown-menu">
-					<button class="dropdown-item" data-toggle="modal" data-target="#editSessionModal">Rename</button>
-					<button class="dropdown-item" data-toggle="modal" data-target="#deleteSessionModal">Delete</button>
-				  </div>
-				</div>
-			</div>
-			<!-- Archive example entry 2 -->
-			<div class="archive-entry">
-				<a href="#">Session 2</a>
-				<div class="archive-date">8-5-2018</div>
-				<div class="dropdown">
-				  <button type="button" class="btn-menu" data-toggle="dropdown">
-				  </button>
-				  <div class="dropdown-menu">
-					<button class="dropdown-item" data-toggle="modal" data-target="#editSessionModal">Rename</button>
-					<button class="dropdown-item" data-toggle="modal" data-target="#deleteSessionModal">Delete</button>
-				  </div>
-				</div>
-			</div>
-			  
+			
+			
 		</div>
 	  
 	</div>
@@ -158,7 +127,7 @@
 					
 				<div class="modal-footer">
 					<button type="button" class="btn btn-modal-black" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-modal-green">Create</button>
+					<button type="button" class="btn btn-modal-green" data-dismiess="modal" onclick="addSession()">Create</button>
 				</div>
 					
 			</div>
@@ -179,7 +148,7 @@
 					
 				<div class="modal-footer">
 					<button type="button" class="btn btn-modal-black" data-dismiss="modal">No</button>
-					<button type="button" class="btn btn-modal-green">Yes</button>
+					<button type="button" class="btn btn-modal-green" data-dismiss="modal" onclick="endSession()">Yes</button>
 				</div>
 					
 			</div>
@@ -207,7 +176,7 @@
 					
 				<div class="modal-footer">
 					<button type="button" class="btn btn-modal-black" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-modal-green">Update</button>
+					<button type="button" class="btn btn-modal-green" data-dismiss="modal" onclick="updateClassName()">Update</button>
 				</div>
 					
 			</div>
