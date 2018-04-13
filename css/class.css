@@ -13,22 +13,32 @@
 	
 	background-color: #16966A;
 	color: white;
-	
-	font-size: 25px;
+	overflow: hidden;
 	font-family: 'Barlow', sans-serif;
 	font-weight: 500;
 	
 }
 
-.class-title-bar p{
+.class-title {
 	padding-left: 8px;
 	padding-right: 50px;
-	width: 400px;
-	margin-top: -10px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	
+	font-size: 45px;
+	text-shadow: 1.5px 1.5px 2px BLACK;
 }
+
+.class-id {
+	padding-left: 10px;
+	padding-right: 50px;
+	padding-top: 0px;
+	margin-top: -10px;
+	
+	font-size: 25px;
+	text-shadow: 1.5px 1.5px 2px BLACK;
+}
+
 
 .class-title-bar img{
 	margin-bottom: 0px;
@@ -37,9 +47,12 @@
 
 .left-title-container{
 	height: 100px;
-	float: left;
 	flex:1;
 	
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
 }
 
 .title-bar-buttons-container {
