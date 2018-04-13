@@ -5,7 +5,7 @@ var baseURL = "http://cop4331-2.com/API";
 function insertClass(className, classID, numStudents, numSessions){
     // Stats information
     var classIDElement = document.createElement("p");
-    classIDElement.innerHTML = "Class ID: " + hexString(classID);
+    classIDElement.innerHTML = "Class ID: " + decToHex(classID);
 
     var numStudentsElement = document.createElement("p");
     numStudentsElement.innerHTML = "Number of Students: " + numStudents;
@@ -24,6 +24,7 @@ function insertClass(className, classID, numStudents, numSessions){
     var goButton = document.createElement("button");
     goButton.type = "button";
     goButton.className = "btn-custom";
+    goButton.onclick = "gotoClass("+classID+")";
 
     // Class element
     var classElement = document.createElement("div");
@@ -37,8 +38,51 @@ function insertClass(className, classID, numStudents, numSessions){
     container.appendChild(classElement);
 }
 
-function hexString(value){
-    return "INSERTHEXHERE("+value+")";
+function decToHex(value){
+
+    var hex = "";
+    var place = 16;
+    var placeBelow = 1;
+    while(value !== 0){
+        hex = hexChar((value%place)/placeBelow) + hex;
+        value -= value%place;
+        placeBelow = place;
+        place *= 16;
+    }
+
+    return hex;
+}
+
+function hexToDec(value){
+
+    var dec = 0;
+    var mult = 1;
+    for(var i=value.length-1; i>=0; i--){
+        dec += hexVal(value.charAt(i))*mult;
+        mult *= 16;
+    }
+
+    return dec;
+}
+
+function hexChar(value){
+    if(value < 10) return value;
+    if(value == 10) return "A";
+    if(value == 11) return "B";
+    if(value == 12) return "C";
+    if(value == 13) return "D";
+    if(value == 14) return "E";
+    if(value == 15) return "F";
+}
+
+function hexVal(value){
+    if(value == "A") return 10;
+    if(value == "B") return 11;
+    if(value == "C") return 12;
+    if(value == "D") return 13;
+    if(value == "E") return 14;
+    if(value == "F") return 15;
+    return value;
 }
 
 function clearClasses(){
@@ -172,6 +216,7 @@ function logout(){
 
 function addClass(){
     var className = document.getElementById("add-class-input").value;
+    document.getElementById("add-class-input").value = "";
     var payload = '{"session" : "", "name" : "'+className+'"}';
 
 	var xhr = new XMLHttpRequest();
@@ -212,4 +257,8 @@ function addClass(){
     catch(error){
         console.log("Add Class Error: "+error);
     }
+}
+
+function gotoClass(id){
+
 }
