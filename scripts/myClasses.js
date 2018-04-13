@@ -201,6 +201,7 @@ function addClass(){
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 
+                    refreshClasses();
 					return;
                 }
 			}
