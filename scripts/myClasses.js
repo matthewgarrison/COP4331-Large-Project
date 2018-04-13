@@ -32,9 +32,9 @@ function insertClass(className, classID, numStudents, numSessions){
 
     var deleteButton = document.createElement("button");
     deleteButton.className = "btn-deleteClass";
-    goButton.setAttribute("data-toggle", "modal");
-    goButton.setAttribute("data-target", "#deleteClassModal");
-    goButton.setAttribute("onclick", "deleteClass("+classID+")");
+    deleteButton.setAttribute("data-toggle", "modal");
+    deleteButton.setAttribute("data-target", "#deleteClassModal");
+    deleteButton.setAttribute("onclick", "deleteClass("+classID+")");
 
     var classHeader = document.createElement("div");
     classHeader.className = "class-header";
