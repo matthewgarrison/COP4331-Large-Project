@@ -79,9 +79,7 @@
 					}
 				}
 			}
-			if($found_active or $found_archived){
-				returnWithInfo($active, $archived);
-			}
+			returnWithInfo($active, $archived);
 			$stmt->close();
 		}
 		

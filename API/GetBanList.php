@@ -80,9 +80,7 @@
 					$stmt2->close();
 				}
 			}
-			if($found_student){
-				returnWithInfo($result);
-			}
+			returnWithInfo($result);
 			$stmt->close();
 		}
 		

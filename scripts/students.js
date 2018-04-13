@@ -46,8 +46,8 @@ function logout(){
 }
 
 function refreshPage(){
-    refreshCurrentStudents();
-    refreshBannedStudents();
+    //refreshCurrentStudents();
+    //refreshBannedStudents();
 }
 
 function clearCurrentStudents(){
@@ -268,7 +268,7 @@ function refreshBannedStudents(){
 function banStudent(){
     if(banTarget == -1) return;
 
-    var payload = '{"session" : "", "classID" : "'+banTarget+'"}';
+    var payload = '{"session" : "", "studentID" : "'+banTarget+'"}';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", baseURL + "/BanStudent.php", false);
@@ -313,7 +313,7 @@ function banStudent(){
 function unbanStudent(){
     if(unbanTarget == -1) return;
 
-    var payload = '{"session" : "", "classID" : "'+unbanTarget+'"}';
+    var payload = '{"session" : "", "studentID" : "'+unbanTarget+'"}';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", baseURL + "/UnbanStudent.php", false);
