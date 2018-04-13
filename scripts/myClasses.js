@@ -35,7 +35,7 @@ function insertClass(className, classID, numStudents, numSessions){
     deleteButton.className = "btn-deleteClass";
     deleteButton.setAttribute("data-toggle", "modal");
     deleteButton.setAttribute("data-target", "#deleteClassModal");
-    deleteButton.setAttribute("onclick", "setDeleteTarget("+classID+")");
+    deleteButton.setAttribute("onclick", "setDeleteTarget("+classID+",\""+className+"\")");
 
     var classHeader = document.createElement("div");
     classHeader.className = "class-header";
@@ -345,7 +345,7 @@ function deleteClass(){
                 }
 
                 refreshClasses();
-                deleteTarget = -1;
+                setDeleteTarget(-1, "");
 			}
 		}
 
@@ -358,6 +358,7 @@ function deleteClass(){
 
 }
 
-function setDeleteTarget(id){
+function setDeleteTarget(id, name){
     deleteTarget = id;
+    document.getElementsByClassName("edit-class-form-container")[0].innerHTML = 'Are you sure you want to delete "'+name+'"? You won\'t ever be able to access it again.';
 }
