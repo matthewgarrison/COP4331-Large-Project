@@ -93,6 +93,7 @@ function updateClassName() {
 
 function createNewSession() {
 	var sessionName = document.getElementById("new-session-form-container").value;
+    console.log("create new session: " + sessionName);
     document.getElementById("new-session-form-container").value = "";
     var payload = '{"session" : "", "name" : "'+sessionName+'"}';
 
