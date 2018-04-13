@@ -22,9 +22,14 @@
 	}
 	
 	$sessionID = $_SESSION["sessionID"];
+	$professorID = $_SESSION["professorID"];
 	
 	if ($sessionID == ""){
 		returnWithError("Session must be set before deleting.");
+		exit();
+	}
+	if ($professorID == ""){
+		returnWithError("Only professors can delete questions.");
 		exit();
 	}
 	
