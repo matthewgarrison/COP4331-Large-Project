@@ -3,7 +3,7 @@ var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
 
 var banTarget = -1;
-var unbanTaget = -1;
+var unbanTarget = -1;
 var className = "CLASS NAME";
 
 function logout(){
@@ -360,6 +360,6 @@ function setBanTarget(id, name){
 }
 
 function setUnbanTarget(id, name){
-    unbanTaget = id;
+    unbanTarget = id;
     document.getElementsByClassName("edit-class-form-container")[1].innerHTML = 'Are you sure you want to unban '+name+' from '+className+'? They will be able to fully participate in the class once again.';
 }
