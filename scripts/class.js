@@ -215,7 +215,7 @@ function refreshSessions(){
                             date = date + rawSessions.charAt(idx++);
                         }
 
-                        insertSession(isActiveSession, sessionID, sessionName, date);
+                        insertSession(isActiveSession, sessionName, sessionID, date);
                         idx++;
                     }
                 }
