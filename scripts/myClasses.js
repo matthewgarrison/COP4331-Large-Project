@@ -123,6 +123,7 @@ function refreshClasses(){
 				var data = JSON.parse(xhr.responseText);
                 var error = data.error;
 
+                clearClasses();
 				if(error != '') {
 
                     if(error == invalidSessionError){
@@ -146,7 +147,6 @@ function refreshClasses(){
                 
                 console.log("VALID SESSION");
 
-                clearClasses();
                 var rawClasses = data.result;
                 var idx = 0;
                 while(idx < rawClasses.length){
