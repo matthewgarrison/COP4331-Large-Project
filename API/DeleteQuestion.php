@@ -21,9 +21,9 @@
 		exit();
 	}
 	
-	sessionID = $_SESSION["sessionID"];
+	$sessionID = $_SESSION["sessionID"];
 	
-	if (sessionID == ""){
+	if ($sessionID == ""){
 		returnWithError("Session must be set before deleting.");
 		exit();
 	}
