@@ -232,6 +232,7 @@ function refreshSessions(){
                     var isActiveSession = (loopIdx ? true : false);
                     clearSessions(isActiveSession);
                     var rawSessions = (isActiveSession ? data.active : data.archived);
+                    console.log("rawSessions: " + rawSessions);
                     var idx = 0;
 
                     while(idx < rawSessions.length){
