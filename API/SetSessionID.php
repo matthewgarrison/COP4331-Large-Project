@@ -9,6 +9,7 @@
 	
 	$session = trimAndSanitize($inData["session"]);
 	$sessionID = trimAndSanitize($inData["sessionID"]);
+	$sessionName = trimAndSanitize($inData["sessionName"]);
 	
 	if ($session != ""){
 		session_id($session);
