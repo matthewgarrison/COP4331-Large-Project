@@ -192,7 +192,7 @@ function deleteSession() {
     var payload = '{"session" : "", "sessionID" : "'+deleteTarget+'"}';
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", baseURL + "/deleteSession.php", false);
+    xhr.open("POST", baseURL + "/DeleteSession.php", false);
     xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
     
     try{
