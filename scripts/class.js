@@ -285,6 +285,7 @@ function clearSessions(activeSessions) {
 }
 
 function insertSession(isActiveSession, sessionName, sessionId, date) {
+    console.log("insert session date: " + date);
     // Link to enter the session
     var sessionLink = document.createElement("a");
     sessionLink.href = "#";
