@@ -38,7 +38,6 @@ function getInfo() {
                 
                 className = data.className;
                 classID = data.classID;
-                console.log("get info: " + data);
 			}
 		}
 
@@ -101,7 +100,6 @@ function createNewSession() {
 function endSession() {
     if(endTarget == -1) return;
     var payload = '{"session" : "", "sessionID" : "'+endTarget+'"}';
-    console.log("end session payload: " + payload);
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", baseURL + "/ToggleArchived.php", false);
@@ -228,14 +226,11 @@ function refreshSessions(){
 					return;
                 }
                 
-                console.log("VALID SESSION");
-
                 var loopIdx;
                 for (loopIdx = 0; loopIdx < 2; loopIdx++) {
                     var isActiveSession = (loopIdx ? true : false);
                     clearSessions(isActiveSession);
                     var rawSessions = (isActiveSession ? data.active : data.archived);
-                    console.log("rawSessions: " + rawSessions);
                     var idx = 0;
 
                     while(idx < rawSessions.length){
@@ -304,7 +299,6 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
         }
     }
 
-    console.log("insert session date: " + date);
     // Link to enter the session
     var sessionLink = document.createElement("a");
     sessionLink.href = "#";
