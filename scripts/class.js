@@ -340,6 +340,13 @@ function clearSessions(activeSessions) {
 }
 
 function insertSession(isActiveSession, sessionName, sessionId, date) {
+    if (isActiveSession) {
+        var idx = date.indexOf(":");
+        if (idx != -1) {
+            date = date.substring(idx+1);
+        }
+    }
+
     console.log("insert session date: " + date);
     // Link to enter the session
     var sessionLink = document.createElement("a");
