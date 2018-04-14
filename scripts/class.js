@@ -275,7 +275,7 @@ function refreshSessions(){
     }
 }
 
-function setEndTarget(sessionID) {
+function setEndTarget(id) {
     endTarget = id;
 }
 
