@@ -8,6 +8,7 @@
 	
 	$session = trimAndSanitize($inData["session"]);
 	$classID = trimAndSanitize($inData["classID"]);
+	$className = trimAndSanitize($inData["className"]);
 	
 	if ($session != ""){
 		session_id($session);
