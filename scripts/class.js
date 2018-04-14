@@ -143,7 +143,7 @@ function createNewSession() {
 }
 
 function endSession() {
-    if(deleteTarget == -1) return;
+    if(endTarget == -1) return;
     var payload = '{"session" : "", "sessionID" : "'+endTarget+'"}';
     endTarget = -1;
 
@@ -185,6 +185,10 @@ function endSession() {
     catch(error){
         console.log("End Session Error: "+error);
     }
+}
+
+function deleteSession() {
+
 }
 
 function refreshPage(){
