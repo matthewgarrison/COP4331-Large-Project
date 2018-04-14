@@ -377,7 +377,7 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
     var deleteButton = document.createElement("button");
     deleteButton.type = "button";
     deleteButton.innerHTML = "Delete Session";
-    deleteButton.className = "btn-delete";
+    deleteButton.className = "btn-session";
     deleteButton.setAttribute("data-toggle", "modal");
     deleteButton.setAttribute("data-target", "#deleteSessionModal");
     deleteButton.setAttribute("onclick", "setDeleteTarget("+sessionId+")");
