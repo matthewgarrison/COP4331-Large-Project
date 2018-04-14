@@ -12,7 +12,7 @@ function getClassName() {
     
     try{
         xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
+			if(xhr.readyState === 4) {
 				var data = JSON.parse(xhr.responseText);
                 var error = data.error;
 
@@ -35,6 +35,7 @@ function getClassName() {
 					return;
                 }
                 
+                console.log("class name: " + data.className);
                 return data.className;
 			}
 		}
@@ -80,6 +81,7 @@ function getClassID() { // Returns it in hex
                     return;
                 }
                 
+                console.log("class id: " + data.classID);
                 return decToHex(data.classID);
             }
         }
