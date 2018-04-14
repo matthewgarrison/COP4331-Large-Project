@@ -340,10 +340,10 @@ function clearSessions(activeSessions) {
 }
 
 function insertSession(isActiveSession, sessionName, sessionId, date) {
-    if (isActiveSession) {
+    if (!isActiveSession) {
         var idx = date.indexOf(":");
         if (idx != -1) {
-            date = date.substring(idx+1);
+            date = date.substring(idx+2);
         }
     }
 
