@@ -25,7 +25,7 @@ function insertClass(className, classID, numStudents, numSessions){
     var goButton = document.createElement("button");
     goButton.type = "button";
     goButton.className = "btn-custom";
-    goButton.setAttribute("onclick", "gotoClass("+classID+")");
+    goButton.setAttribute("onclick", "gotoClass("+classID+", " + className + ")");
 
     // Class header
     var classTitle = document.createElement("p");
@@ -276,8 +276,8 @@ function addClass(){
     }
 }
 
-function gotoClass(id){
-    var payload = '{"session" : "", "classID" : "'+id+'"}';
+function gotoClass(id, name){
+    var payload = '{"session" : "", "classID" : "'+id+'", "className" : "'+name+'"}';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", baseURL + "/SetClassID.php", false);
