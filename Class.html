@@ -141,13 +141,13 @@
 					
 				<div class="modal-header">
 					<h5 class="modal-title">Are you sure you want to end this session?</h5>
-					<button type="button" class="close" data-dismiss="modal">
+					<button type="button" class="close" data-dismiss="modal" onclick="setEndTarget(-1)">
 					  <span>&times;</span>
 					</button>
 				</div>
 					
 				<div class="modal-footer">
-					<button type="button" class="btn btn-modal-black" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-modal-black" data-dismiss="modal" onclick="setEndTarget(-1)">No</button>
 					<button type="button" class="btn btn-modal-green" data-dismiss="modal" onclick="endSession()">Yes</button>
 				</div>
 					
@@ -218,14 +218,14 @@
 					
 				<div class="modal-header">
 					<h5 class="modal-title">Are you sure you want to delete this session?</h5>
-					<button type="button" class="close" data-dismiss="modal">
+					<button type="button" class="close" data-dismiss="modal" onclick="setDeleteTarget(-1)">
 					  <span>&times;</span>
 					</button>
 				</div>
 					
 				<div class="modal-footer">
-					<button type="button" class="btn btn-modal-black" data-dismiss="modal">No</button>
-					<button type="button" class="btn btn-modal-green">Yes</button>
+					<button type="button" class="btn btn-modal-black" data-dismiss="modal" onclick="setDeleteTarget(-1)">No</button>
+					<button type="button" class="btn btn-modal-green" data-dismiss="modal" onclick="deleteSession()">Yes</button>
 				</div>
 					
 			</div>

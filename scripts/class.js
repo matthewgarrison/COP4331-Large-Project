@@ -1,4 +1,4 @@
-var sessionID, classID;
+var deleteTarget, endTarget;
 var invalidSessionError = "Unable to access session.";
 var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
@@ -142,8 +142,10 @@ function createNewSession() {
     }
 }
 
-function endSession(sessionID) {
-    var payload = '{"session" : "", "sessionID" : "'+sessionID+'"}';
+function endSession() {
+    if(deleteTarget == -1) return;
+    var payload = '{"session" : "", "sessionID" : "'+endTarget+'"}';
+    endTarget = -1;
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", baseURL + "/ToggleArchived.php", false);
@@ -269,6 +271,14 @@ function refreshSessions(){
     }
 }
 
+function setEndTarget(sessionID) {
+    endTarget = id;
+}
+
+function setDeleteTarget(id) {
+    deleteTarget = id;
+}
+
 
 function clearSessions(activeSessions) {
     var container = "", classes = "";
@@ -305,7 +315,7 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
         endButton.className = "btn-session";
         endButton.setAttribute("data-toggle", "modal");
         endButton.setAttribute("data-target", "#endSessionModal");
-        endButton.setAttribute("onclick", "endSession("+sessionId+")");
+        endButton.setAttribute("onclick", "setEndTarget("+sessionId+")");
         sessionElement.appendChild(endButton);
     } else {
         var dateElement = document.createElement("div");
@@ -332,7 +342,7 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
         dropdownDeleteElement.type = "button";
         dropdownDeleteElement.className = "dropdown-item";
         dropdownDeleteElement.setAttribute("data-toggle", "modal");
-        dropdownDeleteElement.setAttribute("data-target", "#editSessionModal");
+        dropdownDeleteElement.setAttribute("data-target", "#deleteSessionModal");
         dropdownDeleteElement.setAttribute("onclick", "");
         dropdownMenuElement.appendChild(dropdownDeleteElement);
         dropdownElement.appendChild(dropdownMenuElement);
