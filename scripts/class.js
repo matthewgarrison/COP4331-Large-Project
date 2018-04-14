@@ -373,33 +373,15 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
         dateElement.className = "archive-date";
         dateElement.innerHTML = date;
         sessionElement.appendChild(dateElement);
-        var dropdownElement = document.createElement("div");
-        dropdownElement.className = "dropdown";
-        var dropdownButton = document.createElement("button");
-        dropdownButton.type = "button";
-        dropdownButton.className = "btn-menu";
-        dropdownButton.setAttribute("data-toggle", "dropdown");
-        dropdownElement.appendChild(dropdownButton);
-        var dropdownMenuElement = document.createElement("div");
-        dropdownMenuElement.className = "dropdown-menu";
-        var dropdownRenameElement = document.createElement("button");
-        dropdownRenameElement.type = "button";
-        dropdownRenameElement.innerHTML = "Rename";
-        dropdownRenameElement.className = "dropdown-item";
-        dropdownRenameElement.setAttribute("data-toggle", "modal");
-        dropdownRenameElement.setAttribute("data-target", "#editSessionModal");
-        dropdownMenuElement.appendChild(dropdownRenameElement);
-        var dropdownDeleteElement = document.createElement("button");
-        dropdownDeleteElement.type = "button";
-        dropdownDeleteElement.innerHTML = "Delete";
-        dropdownDeleteElement.className = "dropdown-item";
-        dropdownDeleteElement.setAttribute("data-toggle", "modal");
-        dropdownDeleteElement.setAttribute("data-target", "#deleteSessionModal");
-        dropdownDeleteElement.setAttribute("onclick", "setDeleteTarget("+sessionId+")");
-        dropdownMenuElement.appendChild(dropdownDeleteElement);
-        dropdownElement.appendChild(dropdownMenuElement);
-        sessionElement.appendChild(dropdownElement);
     }
+    var deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.innerHTML = "Delete Session";
+    deleteButton.className = "btn-delete";
+    deleteButton.setAttribute("data-toggle", "modal");
+    deleteButton.setAttribute("data-target", "#deleteSessionModal");
+    deleteButton.setAttribute("onclick", "setDeleteTarget("+sessionId+")");
+    sessionElement.appendChild(deleteButton);
 
     // Sessions container
     var container = "";
