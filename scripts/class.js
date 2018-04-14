@@ -145,7 +145,6 @@ function createNewSession() {
 function endSession() {
     if(endTarget == -1) return;
     var payload = '{"session" : "", "sessionID" : "'+endTarget+'"}';
-    endTarget = -1;
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", baseURL + "/ToggleArchived.php", false);
