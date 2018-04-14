@@ -388,6 +388,7 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
         dropdownDeleteElement.className = "dropdown-item";
         dropdownDeleteElement.setAttribute("data-toggle", "modal");
         dropdownDeleteElement.setAttribute("data-target", "#deleteSessionModal");
+        dropdownDeleteElement.setAttribute("onclick", "setDeleteTarget("+sessionId+")");
         dropdownMenuElement.appendChild(dropdownDeleteElement);
         dropdownElement.appendChild(dropdownMenuElement);
         sessionElement.appendChild(dropdownElement);
