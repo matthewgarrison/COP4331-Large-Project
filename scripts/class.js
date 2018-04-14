@@ -99,7 +99,6 @@ function updateClassName() {
 
 function createNewSession() {
 	var sessionName = document.getElementById("create-new-session-input").value;
-    console.log("create new session: " + sessionName);
     document.getElementById("create-new-session-input").value = "";
     var payload = '{"session" : "", "name" : "'+sessionName+'"}';
 
@@ -316,7 +315,7 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
         var dropdownButton = document.createElement("button");
         dropdownButton.type = "button";
         dropdownButton.className = "btn-menu";
-        dropdown.setAttribute("data-toggle", "dropdown");
+        dropdownButton.setAttribute("data-toggle", "dropdown");
         dropdownElement.appendChild(dropdownButton);
         var dropdownMenuElement = document.createElement("div");
         dropdownMenuElement.className = "dropdown-menu";
