@@ -2,8 +2,9 @@ var deleteTarget, endTarget;
 var invalidSessionError = "Unable to access session.";
 var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
+var classID, className;
 
-function getClassName() {
+function getInfo() {
     var payload = '{"session" : ""}';
 
 	var xhr = new XMLHttpRequest();
@@ -35,64 +36,17 @@ function getClassName() {
 					return;
                 }
                 
-                console.log("class name: " + data.className);
-                return data.className;
+                className = data.className;
+                classID = data.classID;
+                console.log("get info: " + data);
 			}
 		}
 
 		xhr.send(payload);
     }
     catch(error){
-        console.log("Get Class Name Error: "+error);
+        console.log("Get Info Error: "+error);
     }
-
-	return "";
-}
-
-function getClassID() { // Returns it in hex
-    var payload = '{"session" : ""}';
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", baseURL + "/GetInfo.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState === 4){
-                var data = JSON.parse(xhr.responseText);
-                var error = data.error;
-
-                if(error != '') {
-
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
-                    }
-
-                    if(error == "Failed to find session."){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
-                    }
-
-                    else{
-                        console.log("API ERROR: "+error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-                    return;
-                }
-                
-                console.log("class id: " + data.classID);
-                return decToHex(data.classID);
-            }
-        }
-
-        xhr.send(payload);
-    }
-    catch(error){
-        console.log("Get Class ID Error: "+error);
-    }
-
-    return "";
 }
 
 function updateClassName() {
@@ -235,8 +189,9 @@ function deleteSession() {
 
 function refreshPage(){
     refreshSessions();
-    document.getElementsByClassName("class-title")[0].innerHTML = getClassName();
-    document.getElementsByClassName("class-id")[0].innerHTML = getClassID();
+    getInfo();
+    document.getElementsByClassName("class-title")[0].innerHTML = className;
+    document.getElementsByClassName("class-id")[0].innerHTML = decToHex(classID);
 }
 
 function refreshSessions(){
