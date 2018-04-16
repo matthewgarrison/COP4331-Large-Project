@@ -60,13 +60,13 @@
 		<div class="question-list-header">
 		  <!-- Sorting selector -->
 				<p>Sort:</p>
-				<select id="sort-select">
+				<select id="sort-select" onchange="refreshQuestions()">
 					<option value="newestFirst">Newest First</option>
 					<option value="oldestFirst">Oldest First</option>
 				</select>
 			
 				<p>Filter:</p>
-				<select id="filter-select">
+				<select id="filter-select" onchange="refreshQuestions()">
 					<option value="unreadOnly">Unread only</option>
 					<option value="readOnly">Read only</option>
 					<option value="all">All</option>

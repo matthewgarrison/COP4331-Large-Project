@@ -70,7 +70,7 @@ function refreshQuestions(){
                         dateTime = dateTime + rawStudents.charAt(idx++);
                     }
 
-                    insertQuestion(questionText, dateTime, false, questionID, studentName);
+                    insertQuestion(questionText, dateTime, false, questionID, studentName, newestFirst());
                     idx+=2;
                 }
 
@@ -155,7 +155,7 @@ function toggleRead(id){
     }
 }
 
-function insertQuestion(text, timestamp, read, id, studentName){
+function insertQuestion(text, timestamp, read, id, studentName, sortNewest){
 
     // Build question text
     var questionText = document.createElement("div");
@@ -235,7 +235,12 @@ function insertQuestion(text, timestamp, read, id, studentName){
     questionContainer.appendChild(questionFooter);
 
     var container = document.getElementsByClassName("questions-container")[0];
-    container.appendChild(questionContainer);
+    if(!sortNewest){
+        container.appendChild(questionContainer);
+    }
+    else{
+        container.insertBefore(questionContainer, container.getElementsByClassName("question-list-header")[0].nextSibling);
+    }
 }
 
 function deleteQuestion(){
