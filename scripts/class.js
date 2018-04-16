@@ -227,7 +227,7 @@ function refreshSessions(){
 					return;
                 }
                 
-                var loopIdx;
+                var loopIdx = 0;
                 for (loopIdx = 0; loopIdx < 2; loopIdx++) {
                     var isActiveSession = (loopIdx ? true : false);
                     clearSessions(isActiveSession);
@@ -255,6 +255,15 @@ function refreshSessions(){
 
                         insertSession(isActiveSession, sessionName, sessionID, date);
                         idx += 2;
+                    }
+
+                    if(idx == 0){
+                        if(isActiveSession){
+                            insertEmtpyItem(document.getElementsByClassName("session-container")[0], "There are no active sessions");
+                        }
+                        else{
+                            insertEmtpyItem(document.getElementsByClassName("archive-container")[0], "There are no archived sessions");
+                        }
                     }
                 }
 			}
@@ -290,6 +299,8 @@ function clearSessions(activeSessions) {
     while(classes.length > 0){
         container.removeChild(classes[0]);
     }
+
+    clearEmtpyItems(container);
 }
 
 function gotoSession(id, name){
