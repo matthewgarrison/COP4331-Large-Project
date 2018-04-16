@@ -267,7 +267,7 @@ function refreshBannedStudents(){
                 }
 
                 if(idx == 0){
-                    insertEmtpyItem(document.getElementsByClassName("student-list-container")[0], "No students have joined the class");
+                    insertEmtpyItem(document.getElementsByClassName("student-list-container")[1], "No students have been banned");
                 }
 			}
 		}

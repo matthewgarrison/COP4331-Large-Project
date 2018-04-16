@@ -60,6 +60,8 @@ function clearClasses(){
     while(classes.length > 0){
         container.removeChild(classes[0]);
     }
+
+    clearEmtpyItems(container);
 }
 
 function refreshClasses(){
@@ -128,6 +130,10 @@ function refreshClasses(){
 
                     insertClass(className, classID, numStudents, numSessions);
                     idx++;
+                }
+
+                if(idx == 0){
+                    insertEmtpyItem(document.getElementsByClassName("class-list-container")[0], "You have not created any classes");
                 }
 			}
 		}
