@@ -81,7 +81,7 @@ function refreshQuestions(){
                 }
 
                 if(idx == 0){
-                    if(!showRead){
+                    if(!showRead()){
                         insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no unread questions");
                     } 
                     else {
