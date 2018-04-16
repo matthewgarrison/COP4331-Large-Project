@@ -227,7 +227,7 @@ function refreshSessions(){
 					return;
                 }
                 
-                var loopIdx = 0;
+                var loopIdx;
                 for (loopIdx = 0; loopIdx < 2; loopIdx++) {
                     var isActiveSession = (loopIdx ? true : false);
                     clearSessions(isActiveSession);
