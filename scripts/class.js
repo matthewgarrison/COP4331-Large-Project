@@ -7,49 +7,50 @@ var classID, className;
 function getInfo() {
     var payload = '{"session" : ""}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/GetInfo.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4) {
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/GetInfo.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4) {
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-				if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        if(error == "Failed to find session."){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
-
-                    if(error == "Failed to find session."){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
-                    }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+                    
+                    className = data.className;
+                    classID = data.classID;
                 }
-                
-                className = data.className;
-                classID = data.classID;
-			}
-		}
+            }
 
-		xhr.send(payload);
+            xhr.send(payload);
+        }
+        catch(error){
+            console.log("Get Info Error: "+error);
+            continue;
+        }
+        break;
     }
-    catch(error){
-        console.log("Get Info Error: "+error);
-    }
-}
-
-function updateClassName() {
-	// call the API endpoint
+	
 }
 
 function createNewSession() {
@@ -57,43 +58,47 @@ function createNewSession() {
     document.getElementById("create-new-session-input").value = "";
     var payload = '{"session" : "", "name" : "'+sessionName+'"}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/AddSession.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/AddSession.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-				if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        if(error == "Failed to find session."){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
-
-                    if(error == "Failed to find session."){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
-                    }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+                    refreshSessions();
                 }
-                refreshSessions();
-			}
-		}
+            }
 
-		xhr.send(payload);
-    }
+            xhr.send(payload);
+        }
 
-    catch(error){
-        console.log("Create New Session Error: "+error);
+        catch(error){
+            console.log("Create New Session Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 
@@ -101,43 +106,47 @@ function endSession() {
     if(endTarget == -1) return;
     var payload = '{"session" : "", "sessionID" : "'+endTarget+'"}';
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", baseURL + "/ToggleArchived.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState === 4){
-                var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/ToggleArchived.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-                if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        if(error == "Failed to find session."){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
-
-                    if(error == "Failed to find session."){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
-                    }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-                    return;
+                    refreshSessions();
                 }
-                refreshSessions();
             }
+
+            xhr.send(payload);
         }
 
-        xhr.send(payload);
-    }
-
-    catch(error){
-        console.log("End Session Error: "+error);
+        catch(error){
+            console.log("End Session Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 
@@ -145,43 +154,47 @@ function deleteSession() {
     if(deleteTarget == -1) return;
     var payload = '{"session" : "", "sessionID" : "'+deleteTarget+'"}';
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", baseURL + "/DeleteSession.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState === 4){
-                var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/DeleteSession.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-                if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        if(error == "Failed to find session."){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
-
-                    if(error == "Failed to find session."){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
-                    }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-                    return;
+                    refreshSessions();
                 }
-                refreshSessions();
             }
+
+            xhr.send(payload);
         }
 
-        xhr.send(payload);
-    }
-
-    catch(error){
-        console.log("Delete Session Error: "+error);
+        catch(error){
+            console.log("Delete Session Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 
@@ -195,84 +208,88 @@ function refreshPage(){
 
 function refreshSessions(){
 	var payload = '{"session" : ""}';
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/GetSession.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/GetSession.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-				if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
-                    }
-
-                    else if(error == invalidProfError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
-                    }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
-                }
-                
-                var loopIdx;
-                for (loopIdx = 0; loopIdx < 2; loopIdx++) {
-                    var isActiveSession = (loopIdx ? true : false);
-                    clearSessions(isActiveSession);
-                    var rawSessions = (isActiveSession ? data.active : data.archived);
-                    var idx = 0;
-
-                    while(idx < rawSessions.length){
-                        var sessionID = "";
-                        var sessionName = "";
-                        var date = "";
-
-                        while(rawSessions.charAt(idx) != ':'){
-                            sessionID = sessionID + rawSessions.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(rawSessions.charAt(idx) != ':'){
-                            sessionName = sessionName + rawSessions.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(idx < rawSessions.length && rawSessions.charAt(idx) != '|'){
-                            date = date + rawSessions.charAt(idx++);
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
                         }
 
-                        insertSession(isActiveSession, sessionName, sessionID, date);
-                        idx ++;
-                    }
-
-                    if(idx == 0){
-                        if(isActiveSession){
-                            insertEmtpyItem(document.getElementsByClassName("session-container")[0], "There are no active sessions");
+                        else if(error == invalidProfError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
                         }
+
                         else{
-                            insertEmtpyItem(document.getElementsByClassName("archive-container")[0], "There are no archived sessions");
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
+                    }
+                    
+                    var loopIdx;
+                    for (loopIdx = 0; loopIdx < 2; loopIdx++) {
+                        var isActiveSession = (loopIdx ? true : false);
+                        clearSessions(isActiveSession);
+                        var rawSessions = (isActiveSession ? data.active : data.archived);
+                        var idx = 0;
+
+                        while(idx < rawSessions.length){
+                            var sessionID = "";
+                            var sessionName = "";
+                            var date = "";
+
+                            while(rawSessions.charAt(idx) != ':'){
+                                sessionID = sessionID + rawSessions.charAt(idx++);
+                            }
+                            idx += 2;
+
+                            while(rawSessions.charAt(idx) != ':'){
+                                sessionName = sessionName + rawSessions.charAt(idx++);
+                            }
+                            idx += 2;
+
+                            while(idx < rawSessions.length && rawSessions.charAt(idx) != '|'){
+                                date = date + rawSessions.charAt(idx++);
+                            }
+
+                            insertSession(isActiveSession, sessionName, sessionID, date);
+                            idx ++;
+                        }
+
+                        if(idx == 0){
+                            if(isActiveSession){
+                                insertEmtpyItem(document.getElementsByClassName("session-container")[0], "There are no active sessions");
+                            }
+                            else{
+                                insertEmtpyItem(document.getElementsByClassName("archive-container")[0], "There are no archived sessions");
+                            }
                         }
                     }
                 }
-			}
-		}
+            }
 
-		xhr.send(payload);
-    }
+            xhr.send(payload);
+        }
 
-    catch(error){
-        console.log("Refresh Sessions Error: "+error);
+        catch(error){
+            console.log("Refresh Sessions Error: "+error);
+            continue;
+        }
+        break;
     }
+	
 }
 
 function setEndTarget(id) {
@@ -304,39 +321,43 @@ function clearSessions(activeSessions) {
 function gotoSession(id, name){
     var payload = '{"session" : "", "sessionID" : "'+id+'", "sessionName" : "'+name+'"}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/SetSessionID.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/SetSessionID.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
     
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
-
-				if(error != '') {
-
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                    if(error != '') {
+    
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+    
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+    
+                    window.location.href = "http://cop4331-2.com/session.html";
                 }
-
-				window.location.href = "http://cop4331-2.com/session.html";
-			}
-		}
-
-		xhr.send(payload);
-    }
-
-    catch(error){
-        console.log("gotoSession Error: "+error);
+            }
+    
+            xhr.send(payload);
+        }
+    
+        catch(error){
+            console.log("gotoSession Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 

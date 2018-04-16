@@ -9,40 +9,44 @@ var className = "CLASS NAME";
 function getInfo() {
     var payload = '{"session" : ""}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/GetInfo.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4) {
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/GetInfo.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4) {
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-				if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+                    
+                    document.getElementsByClassName("class-title")[0].innerHTML = data.className;
+                    document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: "+decToHex(data.classID);
+                    className = data.className;
                 }
-                
-                document.getElementsByClassName("class-title")[0].innerHTML = data.className;
-                document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: "+decToHex(data.classID);
-                className = data.className;
-			}
-		}
+            }
 
-		xhr.send(payload);
-    }
-    catch(error){
-        console.log("Get Info Error: "+error);
+            xhr.send(payload);
+        }
+        catch(error){
+            console.log("Get Info Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 
@@ -95,73 +99,77 @@ function insertStudent(name, email, joinDate, id){
 function refreshCurrentStudents(){
     var payload = '{"session" : ""}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/GetRoster.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/GetRoster.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-                clearCurrentStudents();
-				if(error != '') {
+                    clearCurrentStudents();
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
 
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+                    var rawStudents = data.result;
+                    var idx = 0;
+                    while(idx < rawStudents.length){
+                        var studentID = "";
+                        var studentName = "";
+                        var studentEmail = "";
+                        var joinDate = "";
+
+                        while(rawStudents.charAt(idx) != '|'){
+                            studentID = studentID + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(rawStudents.charAt(idx) != '|'){
+                            studentName = studentName + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(rawStudents.charAt(idx) != '|'){
+                            studentEmail = studentEmail + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
+                            joinDate = joinDate + rawStudents.charAt(idx++);
+                        }
+
+                        insertStudent(studentName, studentEmail, joinDate, studentID);
+                        idx+=2;
+                    }
+
+                    if(idx == 0){
+                        insertEmtpyItem(document.getElementsByClassName("student-list-container")[0], "No students have joined the class");
+                    }
                 }
+            }
 
-                var rawStudents = data.result;
-                var idx = 0;
-                while(idx < rawStudents.length){
-                    var studentID = "";
-                    var studentName = "";
-                    var studentEmail = "";
-                    var joinDate = "";
+            xhr.send(payload);
+        }
 
-                    while(rawStudents.charAt(idx) != '|'){
-                        studentID = studentID + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    while(rawStudents.charAt(idx) != '|'){
-                        studentName = studentName + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    while(rawStudents.charAt(idx) != '|'){
-                        studentEmail = studentEmail + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
-                        joinDate = joinDate + rawStudents.charAt(idx++);
-                    }
-
-                    insertStudent(studentName, studentEmail, joinDate, studentID);
-                    idx+=2;
-                }
-
-                if(idx == 0){
-                    insertEmtpyItem(document.getElementsByClassName("student-list-container")[0], "No students have joined the class");
-                }
-			}
-		}
-
-		xhr.send(payload);
-    }
-
-    catch(error){
-        console.log("refreshCurrentStudents Error: "+error);
+        catch(error){
+            console.log("refreshCurrentStudents Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 
@@ -209,74 +217,78 @@ function insertBannedStudent(name, email, joinDate, id){
 function refreshBannedStudents(){
     var payload = '{"session" : ""}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/GetBanList.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/GetBanList.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-                clearBannedStudents();
-				if(error != '') {
+                    clearBannedStudents();
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
 
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+                    var rawStudents = data.result;
+                    var idx = 0;
+                    while(idx < rawStudents.length){
+                        var studentID = "";
+                        var studentName = "";
+                        var studentEmail = "";
+                        var joinDate = "";
+
+                        while(rawStudents.charAt(idx) != '|'){
+                            studentID = studentID + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(rawStudents.charAt(idx) != '|'){
+                            studentName = studentName + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        
+                        while(rawStudents.charAt(idx) != '|'){
+                            studentEmail = studentEmail + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
+                            joinDate = joinDate + rawStudents.charAt(idx++);
+                        }
+                        
+                        insertBannedStudent(studentName, studentEmail, joinDate, studentID);
+                        idx+=2;
+                    }
+
+                    if(idx == 0){
+                        insertEmtpyItem(document.getElementsByClassName("student-list-container")[1], "No students have been banned");
+                    }
                 }
+            }
 
-                var rawStudents = data.result;
-                var idx = 0;
-                while(idx < rawStudents.length){
-                    var studentID = "";
-                    var studentName = "";
-                    var studentEmail = "";
-                    var joinDate = "";
+            xhr.send(payload);
+        }
 
-                    while(rawStudents.charAt(idx) != '|'){
-                        studentID = studentID + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    while(rawStudents.charAt(idx) != '|'){
-                        studentName = studentName + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    
-                    while(rawStudents.charAt(idx) != '|'){
-                        studentEmail = studentEmail + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
-                        joinDate = joinDate + rawStudents.charAt(idx++);
-                    }
-                    
-                    insertBannedStudent(studentName, studentEmail, joinDate, studentID);
-                    idx+=2;
-                }
-
-                if(idx == 0){
-                    insertEmtpyItem(document.getElementsByClassName("student-list-container")[1], "No students have been banned");
-                }
-			}
-		}
-
-		xhr.send(payload);
-    }
-
-    catch(error){
-        console.log("refreshBannedStudents Error: "+error);
+        catch(error){
+            console.log("refreshBannedStudents Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 
@@ -285,41 +297,45 @@ function banStudent(){
 
     var payload = '{"session" : "", "studentID" : "'+banTarget+'"}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/BanStudent.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/BanStudent.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-				if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
 
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+                    refreshCurrentStudents();
+                    refreshBannedStudents();
+                    setBanTarget(-1, "");
                 }
+            }
 
-                refreshCurrentStudents();
-                refreshBannedStudents();
-                setBanTarget(-1, "");
-			}
-		}
+            xhr.send(payload);
+        }
 
-		xhr.send(payload);
-    }
-
-    catch(error){
-        console.log("banStudent Error: "+error);
+        catch(error){
+            console.log("banStudent Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 
@@ -330,41 +346,45 @@ function unbanStudent(){
 
     var payload = '{"session" : "", "studentID" : "'+unbanTarget+'"}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/UnbanStudent.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/UnbanStudent.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-				if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
 
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+                    refreshCurrentStudents();
+                    refreshBannedStudents();
+                    setUnbanTarget(-1, "");
                 }
+            }
 
-                refreshCurrentStudents();
-                refreshBannedStudents();
-                setUnbanTarget(-1, "");
-			}
-		}
+            xhr.send(payload);
+        }
 
-		xhr.send(payload);
-    }
-
-    catch(error){
-        console.log("unbanStudent Error: "+error);
+        catch(error){
+            console.log("unbanStudent Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 

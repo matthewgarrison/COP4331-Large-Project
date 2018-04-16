@@ -12,91 +12,95 @@ window.setInterval(refreshQuestions, 3000);
 function refreshQuestions(){
     var payload = '{"session" : "", "showRead" : "'+(showRead() ? 1 : 0)+'"}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/ListQuestions.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/ListQuestions.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
     
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
-
-                clearQuestions();
-				if(error != '') {
-
-                    if(error == invalidSessionError || error == invalidProfError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                    clearQuestions();
+                    if(error != '') {
+    
+                        if(error == invalidSessionError || error == invalidProfError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+    
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
-                }
-
-                var rawStudents = data.result;
-                var idx = 0;
-                while(idx < rawStudents.length){
-                    var questionID = "";
-                    var questionText = "";
-                    var studentID = "";
-                    var studentName = "";
-                    var dateTime = "";
-                    var read = "";
-
-                    while(rawStudents.charAt(idx) != '|'){
-                        questionID = questionID + rawStudents.charAt(idx++);
+    
+                    var rawStudents = data.result;
+                    var idx = 0;
+                    while(idx < rawStudents.length){
+                        var questionID = "";
+                        var questionText = "";
+                        var studentID = "";
+                        var studentName = "";
+                        var dateTime = "";
+                        var read = "";
+    
+                        while(rawStudents.charAt(idx) != '|'){
+                            questionID = questionID + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+    
+                        while(rawStudents.charAt(idx) != '|'){
+                            questionText = questionText + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+    
+                        while(rawStudents.charAt(idx) != '|'){
+                            studentID = studentID + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+    
+                        while(rawStudents.charAt(idx) != '|'){
+                            studentName = studentName + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+    
+                        while(rawStudents.charAt(idx) != '|'){
+                            dateTime = dateTime + rawStudents.charAt(idx++);
+                        }
+                        idx += 2;
+    
+                        while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
+                            read = read + rawStudents.charAt(idx++);
+                        }
+                        idx +=2;
+                        insertQuestion(questionText, dateTime, (read == "1"), questionID, studentName, newestFirst());
+                        
                     }
-                    idx += 2;
-
-                    while(rawStudents.charAt(idx) != '|'){
-                        questionText = questionText + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    while(rawStudents.charAt(idx) != '|'){
-                        studentID = studentID + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    while(rawStudents.charAt(idx) != '|'){
-                        studentName = studentName + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    while(rawStudents.charAt(idx) != '|'){
-                        dateTime = dateTime + rawStudents.charAt(idx++);
-                    }
-                    idx += 2;
-
-                    while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
-                        read = read + rawStudents.charAt(idx++);
-                    }
-                    idx +=2;
-                    insertQuestion(questionText, dateTime, (read == "1"), questionID, studentName, newestFirst());
-                    
-                }
-
-                if(idx == 0){
-                    if(!showRead()){
-                        insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no unread questions");
-                    } 
-                    else {
-                        insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no questions");
+    
+                    if(idx == 0){
+                        if(!showRead()){
+                            insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no unread questions");
+                        } 
+                        else {
+                            insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no questions");
+                        }
                     }
                 }
-			}
-		}
-
-		xhr.send(payload);
-    }
-
-    catch(error){
-        console.log("refreshQueries Error: "+error);
-    }
+            }
+    
+            xhr.send(payload);
+        }
+    
+        catch(error){
+            console.log("refreshQueries Error: "+error);
+            continue;
+        }
+        break;
+    }	
 }
 
 function showRead(){
@@ -125,39 +129,43 @@ function clearQuestions(){
 function toggleRead(id){
     var payload = '{"session" : "", "questionID" : "'+id+'"}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/ToggleRead.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/ToggleRead.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
     
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
-
-				if(error != '') {
-
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                    if(error != '') {
+    
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+    
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+    
+                    refreshQuestions();
                 }
-
-                refreshQuestions();
-			}
-		}
-
-		xhr.send(payload);
-    }
-
-    catch(error){
-        console.log("toggleRead Error: "+error);
+            }
+    
+            xhr.send(payload);
+        }
+    
+        catch(error){
+            console.log("toggleRead Error: "+error);
+            continue;
+        }
+        break;
     }
 }
 
@@ -255,80 +263,90 @@ function deleteQuestion(){
 
     var payload = '{"session" : "", "questionID" : "'+deleteTarget+'"}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/DeleteQuestion.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4){
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/DeleteQuestion.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-				if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
 
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+                    refreshQuestions();
+                    deleteTarget = -1;
                 }
+            }
 
-                refreshQuestions();
-                deleteTarget = -1;
-			}
-		}
+            xhr.send(payload);
+        }
 
-		xhr.send(payload);
+        catch(error){
+            console.log("deleteQuestion Error: "+error);
+            continue;
+        }
+        break;
     }
-
-    catch(error){
-        console.log("deleteQuestion Error: "+error);
-    }
+	
 }
 
 function getInfo() {
     var payload = '{"session" : ""}';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", baseURL + "/GetInfo.php", false);
-    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-    
-    try{
-        xhr.onreadystatechange = function(){
-			if(xhr.readyState === 4) {
-				var data = JSON.parse(xhr.responseText);
-                var error = data.error;
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/GetInfo.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4) {
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
 
-				if(error != '') {
+                    if(error != '') {
 
-                    if(error == invalidSessionError){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
                     }
-
-                    else{
-                        displayError(error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
-					return;
+                    
+                    document.getElementsByClassName("class-title")[0].innerHTML = data.className;
+                    document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: "+decToHex(data.classID);
                 }
-                
-                document.getElementsByClassName("class-title")[0].innerHTML = data.className;
-                document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: "+decToHex(data.classID);
-			}
-		}
+            }
 
-		xhr.send(payload);
+            xhr.send(payload);
+        }
+        catch(error){
+            console.log("Get Info Error: "+error);
+            continue;
+        }
+        break;
     }
-    catch(error){
-        console.log("Get Info Error: "+error);
-    }
+	
 }
 
 function setDisplayText(text){
