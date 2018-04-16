@@ -254,7 +254,7 @@ function refreshSessions(){
                         }
 
                         insertSession(isActiveSession, sessionName, sessionID, date);
-                        idx++;
+                        idx += 2;
                     }
                 }
 			}
