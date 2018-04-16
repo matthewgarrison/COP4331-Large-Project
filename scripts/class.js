@@ -252,7 +252,7 @@ function refreshSessions(){
                         }
 
                         insertSession(isActiveSession, sessionName, sessionID, date);
-                        idx += 2;
+                        idx ++;
                     }
 
                     if(idx == 0){
