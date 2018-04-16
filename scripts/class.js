@@ -190,7 +190,7 @@ function refreshPage(){
     getInfo();
     document.getElementsByClassName("class-title")[0].innerHTML = className;
     document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: " + decToHex(classID);
-    document.title = className;
+    document.title = "Queue & A - " + className;
 }
 
 function refreshSessions(){
