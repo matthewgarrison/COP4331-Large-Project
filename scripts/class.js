@@ -189,7 +189,7 @@ function refreshPage(){
     refreshSessions();
     getInfo();
     document.getElementsByClassName("class-title")[0].innerHTML = className;
-    document.getElementsByClassName("class-id")[0].innerHTML = decToHex(classID);
+    document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: " + decToHex(classID);
 }
 
 function refreshSessions(){
