@@ -95,7 +95,7 @@ function refreshQuestions(){
 
 function showRead(){
     var filterMode = document.getElementById("filter-select");
-    if(filterMode.options[filterMode.selectedIndex].value == "readOnly") return false;
+    if(filterMode.options[filterMode.selectedIndex].value == "unreadOnly") return false;
     return true;
 }
 
