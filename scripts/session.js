@@ -1,7 +1,6 @@
 var invalidSessionError = "Unable to access session.";
 var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
-var showRead = false;
 var deleteTarget = -1;
 
 function refreshPage(){
@@ -11,7 +10,7 @@ function refreshPage(){
 
 window.setInterval(refreshQuestions, 3000);
 function refreshQuestions(){
-    var payload = '{"session" : "", "showRead" : "'+(showRead ? 1 : 0)+'"}';
+    var payload = '{"session" : "", "showRead" : "'+(showRead() ? 1 : 0)+'"}';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", baseURL + "/ListQuestions.php", false);
@@ -94,6 +93,17 @@ function refreshQuestions(){
     }
 }
 
+function showRead(){
+    var filterMode = document.getElementById("filter-select");
+    if(filterMode.options[filterMode.selectedIndex].value == "readOnly") return false;
+    return true;
+}
+
+function newestFirst(){
+    var sortMode = document.getElementById("sort-select");
+    if(sortMode.options[sortMode.selectedIndex].value == "newestFirst") return true;
+    return false;
+}
 
 function clearQuestions(){
     var container = document.getElementsByClassName("questions-container")[0];
