@@ -60,8 +60,8 @@ function clearCurrentStudents(){
     var container = document.getElementsByClassName("student-list-container")[0];
     var students = container.getElementsByClassName("student");
 
-    while(students.length > 0){
-        container.removeChild(students[0]);
+    while(students.length > 1){
+        container.removeChild(students[1]);
     }
 }
 
@@ -167,8 +167,8 @@ function clearBannedStudents(){
     var container = document.getElementsByClassName("student-list-container")[1];
     var students = container.getElementsByClassName("student");
 
-    while(students.length > 0){
-        container.removeChild(students[0]);
+    while(students.length > 1){
+        container.removeChild(students[1]);
     }
 }
 
