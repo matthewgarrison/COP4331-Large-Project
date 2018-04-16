@@ -182,6 +182,7 @@ function insertQuestion(text, timestamp, read, id, studentName){
     var questionContainer = document.createElement("div");
     questionContainer.className = "question";
     questionContainer.appendChild(questionBody);
+    questionContainer.appendChild(questionFooter);
 
     var container = document.getElementsByClassName("questions-container")[0];
     container.appendChild(questionContainer);
