@@ -79,23 +79,19 @@ function refreshClasses(){
 
                 clearClasses();
 				if(error != '') {
-
                     if(error == invalidSessionError){
-                        window.location.href = "http://cop4331-2.com/myClasses.html";
                         console.log("INVALID SESSION");
                         window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    if(error == invalidProfError){
-                        window.location.href = "http://cop4331-2.com/myClasses.html";
+                    else if(error == invalidProfError){
                         console.log("INVALID SESSION");
                         window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    else{
-                        console.log("API ERROR: "+error);
-                        // window.location.href = "http://cop4331-2.com/Login.html";
-                    } 
+                    else {
+                        displayError(error);
+                    }
 					return;
                 }
                 
@@ -178,7 +174,7 @@ function addClass(){
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
@@ -216,7 +212,7 @@ function gotoClass(id, name){
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
@@ -257,7 +253,7 @@ function deleteClass(){
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;

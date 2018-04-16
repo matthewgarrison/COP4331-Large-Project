@@ -30,7 +30,7 @@ function getInfo() {
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
@@ -80,7 +80,7 @@ function createNewSession() {
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
@@ -124,7 +124,7 @@ function endSession() {
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
                     return;
@@ -168,7 +168,7 @@ function deleteSession() {
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
                     return;
@@ -209,19 +209,17 @@ function refreshSessions(){
 				if(error != '') {
 
                     if(error == invalidSessionError){
-                        window.location.href = "http://cop4331-2.com/Class.html";
                         console.log("INVALID SESSION");
                         window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    if(error == invalidProfError){
-                        window.location.href = "http://cop4331-2.com/Class.html";
+                    else if(error == invalidProfError){
                         console.log("INVALID SESSION");
                         window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
@@ -324,7 +322,7 @@ function gotoSession(id, name){
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;

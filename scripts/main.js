@@ -67,7 +67,7 @@ function logout(){
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
                     return;
@@ -98,6 +98,11 @@ function clearEmtpyItems(list){
     while(emptyElements.length > 0){
         list.removeChild(emptyElements[0]);
     }
+}
+
+function displayError(text){
+    document.getElementById("errorText").innerHTML = text;
+    $("#errorModal").modal()
 }
 
 

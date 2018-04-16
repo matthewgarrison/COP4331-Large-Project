@@ -32,7 +32,7 @@ function refreshQuestions(){
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
@@ -198,7 +198,7 @@ function deleteQuestion(){
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
@@ -238,7 +238,7 @@ function getInfo() {
                     }
 
                     else{
-                        console.log("API ERROR: "+error);
+                        displayError(error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
                     } 
 					return;
