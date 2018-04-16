@@ -45,6 +45,7 @@ function refreshQuestions(){
                     var studentID = "";
                     var studentName = "";
                     var dateTime = "";
+                    var read = "";
 
                     while(rawStudents.charAt(idx) != '|'){
                         questionID = questionID + rawStudents.charAt(idx++);
@@ -66,12 +67,17 @@ function refreshQuestions(){
                     }
                     idx += 2;
 
-                    while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
+                    while(rawStudents.charAt(idx) != '|'){
                         dateTime = dateTime + rawStudents.charAt(idx++);
                     }
+                    idx += 2;
 
-                    insertQuestion(questionText, dateTime, false, questionID, studentName, newestFirst());
-                    idx+=2;
+                    while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
+                        read = read + rawStudents.charAt(idx);
+                    }
+                    idx +=2;
+                    insertQuestion(questionText, dateTime, (read == "1"), questionID, studentName, newestFirst());
+                    
                 }
 
                 if(idx == 0){
@@ -209,6 +215,7 @@ function insertQuestion(text, timestamp, read, id, studentName, sortNewest){
     readCheckbox.className = "form-check-input";
     readCheckbox.type = "checkbox";
     readCheckbox.value = "read";
+    readCheckbox.checked = read;
     readCheckbox.setAttribute("onclick", "toggleRead("+id+");");
 
     var readtext = document.createElement("p");
