@@ -292,6 +292,45 @@ function clearSessions(activeSessions) {
     }
 }
 
+function gotoSession(id, name){
+    var payload = '{"session" : "", "sessionID" : "'+id+'", "sessionName" : "'+name+'"}';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", baseURL + "/SetSessionID.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+				if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        console.log("API ERROR: "+error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+					return;
+                }
+
+				window.location.href = "http://cop4331-2.com/session.html";
+			}
+		}
+
+		xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("gotoSession Error: "+error);
+    }
+}
+
 function insertSession(isActiveSession, sessionName, sessionId, date) {
     if (!isActiveSession) {
         var idx = date.indexOf(":");
@@ -302,8 +341,8 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
 
     // Link to enter the session
     var sessionLink = document.createElement("a");
-    sessionLink.href = "#";
     sessionLink.innerHTML = sessionName;
+    sessionLink.setAttribute("onclick", "gotoSession("+sessionID+", '"+sessionName+"');");
 
     // Class element
     var sessionElement = document.createElement("div");
