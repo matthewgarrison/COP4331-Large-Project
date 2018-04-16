@@ -2,6 +2,8 @@
 	// Assumes the input is a JSON file in the format of {"session":"", "classID":""}
 	
 	$inData = getRequestInfo();
+
+	date_default_timezone_set('America/New_York');
 	
 	$session = trimAndSanitize($inData["session"]);
 	$classID = trimAndSanitize($inData["classID"]);
