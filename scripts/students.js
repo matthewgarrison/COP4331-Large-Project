@@ -40,6 +40,7 @@ function getInfo() {
                 
                 document.getElementsByClassName("class-title")[0].innerHTML = data.className;
                 document.getElementsByClassName("class-id")[0].innerHTML = decToHex(data.classID);
+                className = data.className;
 			}
 		}
 
