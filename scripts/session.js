@@ -184,7 +184,7 @@ function insertQuestion(text, timestamp, read, id, studentName){
     questionContainer.appendChild(questionBody);
 
     var container = document.getElementsByClassName("questions-container")[0];
-    container.appendChild(questionCOntainer);
+    container.appendChild(questionContainer);
 }
 
 function deleteQuestion(){
