@@ -152,9 +152,9 @@ function insertQuestion(text, timestamp, read, id, studentName){
     dropdown.appendChild(dropdownMenu);
 
     // Build question footer
-    var timestamp = document.createElement("div");
-    timestamp.className = "question-timestamp";
-    timestamp.innerHTML = timestamp;
+    var timestampElement = document.createElement("div");
+    timestampElement.className = "question-timestamp";
+    timestampElement.innerHTML = timestamp;
 
     var readCheckbox = document.createElement("input");
     readCheckbox.className = "form-check-input";
@@ -171,7 +171,7 @@ function insertQuestion(text, timestamp, read, id, studentName){
 
     var questionFooter = document.createElement("div");
     questionFooter.className = "question-footer";
-    questionFooter.appendChild(timestamp);
+    questionFooter.appendChild(timestampElement);
     questionFooter.appendChild(readContainer);
 
     var questionBody = document.createElement("div");
