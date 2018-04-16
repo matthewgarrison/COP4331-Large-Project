@@ -106,6 +106,47 @@ function clearQuestions(){
     clearEmtpyItems(container);
 }
 
+function toggleRead(id){
+    if(deleteTarget == -1) return;
+
+    var payload = '{"session" : "", "questionID" : "'+id+'"}';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", baseURL + "/ToggleRead.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+				if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+					return;
+                }
+
+                refreshQuestions();
+			}
+		}
+
+		xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("toggleRead Error: "+error);
+    }
+}
+
 function insertQuestion(text, timestamp, read, id, studentName){
 
     // Build question text
@@ -163,6 +204,7 @@ function insertQuestion(text, timestamp, read, id, studentName){
 
     var readtext = document.createElement("p");
     readtext.innerHTML = "Mark as read";
+    readtext.setAttribute("onclick", "toggleRead("+id+");");
 
     var readContainer = document.createElement("div");
     readContainer.className = "form-check";
