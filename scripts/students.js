@@ -263,7 +263,7 @@ function refreshBannedStudents(){
                     }
                     
                     insertBannedStudent(studentName, studentEmail, joinDate, studentID);
-                    //idx+=2;
+                    idx+=2;
                 }
 
                 if(idx == 0){
