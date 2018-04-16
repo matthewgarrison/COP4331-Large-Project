@@ -319,3 +319,17 @@
 .btn-delete:hover, .btn-delete:active {
 	background-image: url(../images/deleteClassHover.png);
 }
+
+.blank-entry {
+	flex:1;
+	
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	
+	margin-top: 15px;
+	padding: 0px;
+	
+	font-size: 20px;
+	color: #A7A7A7;
+}
