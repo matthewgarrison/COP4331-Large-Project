@@ -107,8 +107,6 @@ function clearQuestions(){
 }
 
 function toggleRead(id){
-    if(deleteTarget == -1) return;
-
     var payload = '{"session" : "", "questionID" : "'+id+'"}';
 
 	var xhr = new XMLHttpRequest();
