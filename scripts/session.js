@@ -11,7 +11,7 @@ function refreshPage(){
 
 window.setInterval(refreshQuestions, 3000);
 function refreshQuestions(){
-    var payload = '{"session" : ""}';
+    var payload = '{"session" : "", "showRead" : "'+(showRead ? 1 : 0)+'"}';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", baseURL + "/ListQuestions.php", false);
