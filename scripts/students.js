@@ -50,11 +50,11 @@ function getInfo() {
     }
 }
 
-document.onload = function (){
+document.addEventListener('DOMContentLoaded', function () {
     refreshCurrentStudents();
     refreshBannedStudents();
     getInfo();
-}
+ });
 
 function clearCurrentStudents(){
     var container = document.getElementsByClassName("student-list-container")[0];
