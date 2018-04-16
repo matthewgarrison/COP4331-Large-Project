@@ -142,7 +142,7 @@ function insertQuestion(text, timestamp, read, id, studentName){
     dropdownMenu.appendChild(deleteButton);
 
     var dropdownButton = document.createElement("button");
-    dropdownButton.className = "dropdown";
+    dropdownButton.className = "btn-menu";
     dropdownButton.type = "button";
     deleteButton.setAttribute("data-toggle", "dropdown");
 
