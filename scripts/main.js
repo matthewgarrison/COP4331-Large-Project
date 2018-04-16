@@ -86,9 +86,9 @@ function logout(){
 }
 
 function insertEmtpyItem(list, text){
-    var emtpyElement = document.createElement("div");
-    emtpyElement.className = "blank-entry";
-    emtpyElement.innerHTML = text;
+    var emptyElement = document.createElement("div");
+    emptyElement.className = "blank-entry";
+    emptyElement.innerHTML = text;
 
     list.appendChild(emptyElement);
 }
