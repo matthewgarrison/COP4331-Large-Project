@@ -173,6 +173,18 @@ function insertQuestion(text, timestamp, read, id, studentName){
     questionFooter.className = "question-footer";
     questionFooter.appendChild(timestamp);
     questionFooter.appendChild(readContainer);
+
+    var questionBody = document.createElement("div");
+    questionBody.className = "question-body";
+    questionBody.appendChild(questionText);
+    questionBody.appendChild(dropdown);
+
+    var questionContainer = document.createElement("div");
+    questionContainer.className = "question";
+    questionContainer.appendChild(questionBody);
+
+    var container = document.getElementsByClassName("questions-container")[0];
+    container.appendChild(questionCOntainer);
 }
 
 function deleteQuestion(){
