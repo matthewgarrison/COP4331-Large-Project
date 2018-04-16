@@ -80,12 +80,7 @@
 					$stmt2->close();
 				}
 			}
-			if($found_student){
-				returnWithInfo($result);
-			}
-			else{
-				returnWithError("No students found");
-			}
+			returnWithInfo($result);
 			$stmt->close();
 		}
 		
