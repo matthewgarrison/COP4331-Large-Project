@@ -8,6 +8,7 @@ function refreshPage(){
     refreshQuestions();
 }
 
+window.setInterval(refreshQuestions, 3000);
 function refreshQuestions(){
     var payload = '{"session" : ""}';
 
