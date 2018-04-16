@@ -85,4 +85,19 @@ function logout(){
     }
 }
 
+function insertEmtpyItem(list, text){
+    var emtpyElement = document.createElement("div");
+    emtpyElement.className = "blank-entry";
+    emtpyElement.innerHTML = text;
+
+    list.appendChild(emptyElement);
+}
+
+function clearEmtpyItems(list){
+    var emptyElements = list.getElementsByClassName("blank-entry");
+    while(emptyElements.length > 0){
+        list.removeChild(emptyElements[0]);
+    }
+}
+
 

@@ -59,6 +59,8 @@ function clearCurrentStudents(){
     while(students.length > 1){
         container.removeChild(students[1]);
     }
+
+    clearEmtpyItems(container);
 }
 
 function insertStudent(name, email, joinDate, id){
@@ -148,6 +150,10 @@ function refreshCurrentStudents(){
                     insertStudent(studentName, studentEmail, joinDate, studentID);
                     idx+=2;
                 }
+
+                if(idx == 0){
+                    insertEmtpyItem(document.getElementsByClassName("student-list-container")[0], "No students have joined the class");
+                }
 			}
 		}
 
@@ -166,6 +172,8 @@ function clearBannedStudents(){
     while(students.length > 1){
         container.removeChild(students[1]);
     }
+
+    clearEmtpyItems(container);
 }
 
 function insertBannedStudent(name, email, joinDate, id){
@@ -256,6 +264,10 @@ function refreshBannedStudents(){
                     */
                     insertBannedStudent(studentName, studentEmail, joinDate, studentID);
                     //idx+=2;
+                }
+
+                if(idx == 0){
+                    insertEmtpyItem(document.getElementsByClassName("student-list-container")[0], "No students have joined the class");
                 }
 			}
 		}
