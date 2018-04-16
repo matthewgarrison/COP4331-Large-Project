@@ -133,7 +133,7 @@ function insertQuestion(text, timestamp, read, id, studentName){
     deleteButton.innerHTML = "Delete";
     deleteButton.setAttribute("data-toggle", "modal");
     deleteButton.setAttribute("data-target", "#deleteQuestionModal");
-    deleteButton.setAttribute("onclick", "deleteTarget = "+id+";");
+    deleteButton.setAttribute("onclick", "setDeleteTarget("+id+");");
 
     var dropdownMenu = document.createElement("div");
     dropdownMenu.className = "dropdown-menu";
@@ -275,4 +275,8 @@ function setDisplayText(text){
 
 function setAskerName(name){
     document.getElementById("askerName").innerHTML = name;
+}
+
+function setDeleteTarget(id){
+    deleteTarget = id;
 }
