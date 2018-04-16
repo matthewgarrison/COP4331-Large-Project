@@ -50,8 +50,7 @@ function getInfo() {
     }
 }
 
-document.onload = refreshPage();
-function refreshPage(){
+document.onload = function (){
     refreshCurrentStudents();
     refreshBannedStudents();
     getInfo();
