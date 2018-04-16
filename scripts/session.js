@@ -73,7 +73,7 @@ function refreshQuestions(){
                     idx += 2;
 
                     while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
-                        read = read + rawStudents.charAt(idx);
+                        read = read + rawStudents.charAt(idx++);
                     }
                     idx +=2;
                     insertQuestion(questionText, dateTime, (read == "1"), questionID, studentName, newestFirst());
