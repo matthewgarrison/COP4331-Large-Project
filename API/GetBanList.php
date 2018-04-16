@@ -46,7 +46,7 @@
 		$stmt = $conn->stmt_init();
 		// Get the students' IDs
 		
-		if(!$stmt->prepare("Select StudentID from Ban where ClassID = ?")){
+		if(!$stmt->prepare("Select StudentID, DateBanned from Ban where ClassID = ?")){
 			$error_occurred = true;
 			returnWithError($conn->errno());
 		}
@@ -54,12 +54,12 @@
 			$stmt->bind_param("i", $classID);
 			$stmt->execute();
 			$stmt->store_result();
-			$stmt->bind_result($id);
+			$stmt->bind_result($id, $date);
 			
 			// Get the students' names
 			while($stmt->fetch()){
 				$stmt2 = $conn->stmt_init();
-				if (!$stmt2->prepare("Select Name from Student where StudentID = ?")){
+				if (!$stmt2->prepare("Select Name, Email from Student where StudentID = ?")){
 					returnWithError("Failed to find students");
 					exit();
 				}
@@ -67,20 +67,25 @@
 					$stmt2->bind_param("i", $id);
 					$stmt2->execute();
 					$stmt2->store_result();
-					$stmt2->bind_result($name);
+					$stmt2->bind_result($name, $email);
 					while ($stmt2->fetch()){
 						if (!$found_student){
-							$result .= $id . "| " . $name;
+							$result .= $id . "| " . $name . "| " . $email . "| " . $date;
 							$found_student = true;
 						}
 						else{
-							$result .= "||" . $id . "| " . $name;
+							$result .= "||" . $id . "| " . $name. "| " . $email . "| " . $date;
 						}
 					}
 					$stmt2->close();
 				}
 			}
-			returnWithInfo($result);
+			if($found_student){
+				returnWithInfo($result);
+			}
+			else{
+				returnWithError("No students found");
+			}
 			$stmt->close();
 		}
 		
