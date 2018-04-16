@@ -201,10 +201,10 @@ function insertQuestion(text, timestamp, read, id, studentName){
     readCheckbox.className = "form-check-input";
     readCheckbox.type = "checkbox";
     readCheckbox.value = "read";
+    readCheckbox.setAttribute("onclick", "toggleRead("+id+");");
 
     var readtext = document.createElement("p");
     readtext.innerHTML = "Mark as read";
-    readtext.setAttribute("onclick", "toggleRead("+id+");");
 
     var readContainer = document.createElement("div");
     readContainer.className = "form-check";
