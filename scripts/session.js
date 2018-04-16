@@ -74,6 +74,15 @@ function refreshQuestions(){
                     insertQuestion(questionText, dateTime, false, questionID, studentName);
                     idx+=2;
                 }
+
+                if(idx == 0){
+                    if(!showRead){
+                        insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no unread questions");
+                    } 
+                    else {
+                        insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no questions");
+                    }
+                }
 			}
 		}
 
@@ -93,6 +102,8 @@ function clearQuestions(){
     while(questions.length > 0){
         container.removeChild(questions[0]);
     }
+
+    clearEmtpyItems(container);
 }
 
 function insertQuestion(text, timestamp, read, id, studentName){
