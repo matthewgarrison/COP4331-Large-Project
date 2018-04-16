@@ -25,7 +25,7 @@ function refreshQuestions(){
                 clearQuestions();
 				if(error != '') {
 
-                    if(error == invalidSessionError){
+                    if(error == invalidSessionError || error == invalidProfError){
                         console.log("INVALID SESSION");
                         window.location.href = "http://cop4331-2.com/Login.html";
                     }
