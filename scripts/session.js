@@ -5,6 +5,7 @@ var showRead = false;
 var deleteTarget = -1;
 
 function refreshPage(){
+    getInfo();
     refreshQuestions();
 }
 
