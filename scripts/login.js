@@ -36,6 +36,7 @@ function login(){
 	catch(error) {
 		printError(error.message);
 	}
+	return false;
 }
 
 function printError(error){

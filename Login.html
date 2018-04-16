@@ -40,11 +40,11 @@
 	  <div class="login-screen">
 		<div class="card">
 			<h1 class="cardTitle">Login</h1>
-			<form>
+			<form onsubmit="return login()">
 				<p name = "response"></p>
 				<input type="email" name="email" placeholder="Email Address" required>
 				<input type="password" name="password" placeholder="Password" required>
-				<input type="button" value="Login" class="btn-custom" onclick="login()">
+				<input type="submit" value="Login" class="btn-custom" onclick="login()">
 			</form>
 			<div class="login-help">
 				<a href="register.html">Register a new account</a>
