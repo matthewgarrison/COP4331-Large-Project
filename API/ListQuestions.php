@@ -29,7 +29,7 @@
   	$professorID = $_SESSION["professorID"];
 
 	if ($sessionID == null){
-		returnWithError("Could not find professor.");
+		returnWithError("Could not find session.");
 		exit();
 	}
 
