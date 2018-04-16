@@ -342,7 +342,7 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
     // Link to enter the session
     var sessionLink = document.createElement("a");
     sessionLink.innerHTML = sessionName;
-    sessionLink.setAttribute("onclick", "gotoSession("+sessionID+", '"+sessionName+"');");
+    sessionLink.setAttribute("onclick", "gotoSession("+sessionId+", '"+sessionName+"');");
 
     // Class element
     var sessionElement = document.createElement("div");
