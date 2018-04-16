@@ -205,6 +205,45 @@ function deleteQuestion(){
     }
 }
 
+function getInfo() {
+    var payload = '{"session" : ""}';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", baseURL + "/GetInfo.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4) {
+				var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+				if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        console.log("API ERROR: "+error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+					return;
+                }
+                
+                document.getElementsByClassName("class-title")[0].innerHTML = data.className;
+                document.getElementsByClassName("class-id")[0].innerHTML = decToHex(data.classID);
+			}
+		}
+
+		xhr.send(payload);
+    }
+    catch(error){
+        console.log("Get Info Error: "+error);
+    }
+}
+
 function setDisplayText(text){
     document.getElementsByClassName("display-question-text")[0].innerHTML = text;
 }

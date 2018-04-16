@@ -26,11 +26,6 @@ function getInfo() {
                         window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    if(error == "Failed to find session."){
-                        console.log("INVALID SESSION");
-                        window.location.href = "http://cop4331-2.com/Login.html";
-                    }
-
                     else{
                         console.log("API ERROR: "+error);
                         // window.location.href = "http://cop4331-2.com/Login.html";
