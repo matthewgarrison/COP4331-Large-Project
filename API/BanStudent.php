@@ -5,6 +5,8 @@
 	
 	$inData = getRequestInfo();
 	
+	date_default_timezone_set('America/New_York');
+	
 	$session = trimAndSanitize($inData["session"]);
 	$studentID = trimAndSanitize($inData["studentID"]);
 	
@@ -26,6 +28,7 @@
 	
 	$error_occurred = false;
 	$in_use = false;
+	$date = date("F d, Y");
 	
 	// Connect to database
 	$conn = new mysqli($servername, $dbUName, $dbPwd, $dbName);
@@ -90,11 +93,11 @@
 		}
 		if (!$error_occurred){
 			$stmt = $conn->stmt_init();
-			if(!$stmt->prepare("INSERT INTO Ban (StudentID, ClassID) VALUES (?, ?)")){
+			if(!$stmt->prepare("INSERT INTO Ban (StudentID, ClassID, DateBanned) VALUES (?, ?, ?)")){
 				$error_occurred = true;
 				returnWithError($conn->errno());
 			}
-			$stmt->bind_param("ii", $studentID, $classID);
+			$stmt->bind_param("iis", $studentID, $classID, $date);
 			if (!$stmt->execute()){
 				$error_occurred = true;
 				returnWithError("Failed to ban from class.");
