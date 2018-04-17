@@ -439,7 +439,7 @@ function refreshPolls(){
                     }
 
                     // Update archived polls
-                    var archivedRaw = data.active;
+                    var archivedRaw = data.archived;
                     idx = 0;
                     while(idx < archivedRaw.length){
                         var pollID = "";
