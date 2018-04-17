@@ -360,7 +360,7 @@ function getInfo() {
 }
 
 function populateCreatePollModal(text) {
-    document.getElementById("add-poll-question-input").innerHTML = text;
+    document.getElementById("add-poll-question-input").value = text;
 }
 
 function addPoll() {
