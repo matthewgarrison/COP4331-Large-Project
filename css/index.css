@@ -14,7 +14,7 @@
 .about-card {
 	height: calc(100vh - 56px);
 	background-size: cover;
-    background-position: center;
+    background-position: calc(50% - 8px) 50%;
 	
 	display:flex;
 	align-items: center;
