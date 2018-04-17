@@ -22,6 +22,43 @@
 	cursor: pointer;
 }
 
+/* CREATE POLL MODAL */
+.poll-answer-form {
+	height: 60%;
+	width: 100%;
+	margin-right: 20px;
+	padding-left: 10px;
+}
+
+.poll-question-form {
+	height: 50px;
+	width: 100%;
+	margin-right: 20px;
+	padding-left: 10px;
+	
+}
+
+
+/* DISPLAY QUESTION MODAL */
+.display-question-text {
+	font-size: 35px;
+}
+
+/* DISPLAY POLL MODAL */
+.display-poll-question {
+	font-size: 35px;
+	margin-bottom: 50px;
+}
+
+.display-answer-choice {
+	font-size: 27px;
+	margin-bottom: 10px;
+	display: flex;
+}
+
+.answer-letter {
+	width: 40px;
+}
 
 /* NEW SESSION MODAL*/
 
