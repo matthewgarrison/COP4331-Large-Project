@@ -2,6 +2,7 @@ var invalidSessionError = "Unable to access session.";
 var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
 var deleteTarget = -1;
+var deletePollTarget = -1;
 var letters = ["A", "B", "C", "D", "E", "F", "G"];
 
 var endTarget = -1;
@@ -545,6 +546,7 @@ function insertActivePoll(questionText, answerText, id){
     deleteButton.className = "dropdown-item";
     deleteButton.setAttribute("data-toggle", "modal");
     deleteButton.setAttribute("data-target", "#deletePollModal");    
+    deleteButton.setAttribute("onclick", "setDeletePollTarget("+id+");");  
     deleteButton.innerHTML = "Delete";
 
     var dropdownMenu = document.createElement("div");
@@ -657,7 +659,8 @@ function insertArchivedPoll(questionText, answerText, id){
     var deleteButton = document.createElement("button");
     deleteButton.className = "dropdown-item";
     deleteButton.setAttribute("data-toggle", "modal");
-    deleteButton.setAttribute("data-target", "#deletePollModal");    
+    deleteButton.setAttribute("data-target", "#deletePollModal"); 
+    deleteButton.setAttribute("onclick", "setDeletePollTarget("+id+");");   
     deleteButton.innerHTML = "Delete";
 
     var dropdownMenu = document.createElement("div");
@@ -725,7 +728,7 @@ function endPoll(){
                 }
 
                 refreshPolls();
-                setUnbanTarget(-1, "");
+                setEndTarget(-1);
             }
         }
 
@@ -734,7 +737,50 @@ function endPoll(){
 
     catch(error){
         console.log("endPoll Error: "+error);
-        displayError("Failed to archive poll (try again later)");
+        displayError("Failed to archive poll, try again later");
+    }
+}
+
+function deletePoll(){
+    if(deletePollTarget == -1) return;
+
+    var payload = '{"session" : "", "pollID" : "'+deletePollTarget+'"}';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/DeletePoll.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+                if(error != '') {
+
+                    if(error == invalidSessionError || error == "Only professors can delete polls."){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
+                }
+
+                refreshPolls();
+                setDeletePollTarget(-1);
+            }
+        }
+
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("deletePoll Error: "+error);
+        displayError("Failed to delete poll, try again later");
     }
 }
 
@@ -752,4 +798,8 @@ function setAskerName(name){
 
 function setDeleteTarget(id){
     deleteTarget = id;
+}
+
+function setDeletePollTarget(id){
+    deletePollTarget = id;
 }
