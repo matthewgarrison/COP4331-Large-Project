@@ -784,6 +784,91 @@ function deletePoll(){
     }
 }
 
+function setChart(question, answers, id){
+    var payload = '{"session" : "", "pollID" : "'+id+'"}';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/GetPollResults.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+                if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
+                }
+
+                var idx = 0;
+                var answerIdx = 0;
+                var answerText = []
+                while(idx < answers.length){
+                    answerText[answerIdx] = "";
+                    while(idx < answers.length && answers.charAt(idx) != '|'){
+                        answerText[answerIdx] = answerText[answerIdx] + answers.charAt(idx++);
+                    }
+                    idx += 2;
+                    answerIdx++;
+                }
+
+                var answerData = [];
+                if(answerText.length > 0) answerData[0] = data.ans1;
+                if(answerText.length > 1) answerData[1] = data.ans2;
+                if(answerText.length > 2) answerData[2] = data.ans3;
+                if(answerText.length > 3) answerData[3] = data.ans4;
+                if(answerText.length > 4) answerData[5] = data.ans5;
+
+                var chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'chart-container',
+                        type: 'bar'
+                    },
+
+                    title: {
+                        text: question
+                    },
+
+                    credits:{
+                        enabled: false
+                    },
+
+                    yAxis: {
+                        categories: answerText
+                    },
+
+                    legend: {
+                        enabled: false
+                    },
+                    
+                    series: [{
+                        type: 'column',
+                        data: answerData
+                    }]
+                });
+            }
+        }
+
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("getPollResults Error: "+error);
+        displayError("Failed to get poll data, try again later");
+    }
+}
+
 function setEndTarget(id){
     endTarget = id;
 }
