@@ -263,7 +263,13 @@ function insertQuestion(text, timestamp, read, id, studentName, sortNewest){
         container.appendChild(questionContainer);
     }
     else{
-        container.insertBefore(questionContainer, container.getElementsByClassName("question-list-header")[0].nextSibling);
+        var elements = container.getElementsByClassName("question");
+        if(elements.length == 0){
+            container.appendChild(questionContainer);
+        }
+        else{
+            container.insertBefore(questionContainer, elements[elements.length-1].nextSibling);
+        }
     }
 }
 
