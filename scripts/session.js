@@ -189,6 +189,13 @@ function insertQuestion(text, timestamp, read, id, studentName, sortNewest){
     displayButton.setAttribute("data-target", "#displayQuestionModal");
     displayButton.setAttribute("onclick", "setDisplayText(\""+text+"\");");
     
+    var createPollButton = document.createElement("button");
+    createPollButton.className = "dropdown-item";
+    createPollButton.innerHTML = "Create Poll";
+    createPollButton.setAttribute("data-toggle", "modal");
+    createPollButton.setAttribute("data-target", "#createPollBlankModal");
+    createPollButton.setAttribute("onclick", "populateCreatePollModal(\""+text+"\");");
+
     var viewButton = document.createElement("button");
     viewButton.className = "dropdown-item";
     viewButton.innerHTML = "View Student";
@@ -206,6 +213,7 @@ function insertQuestion(text, timestamp, read, id, studentName, sortNewest){
     var dropdownMenu = document.createElement("div");
     dropdownMenu.className = "dropdown-menu";
     dropdownMenu.appendChild(displayButton);
+    dropdownMenu.appendChild(createPollButton);
     dropdownMenu.appendChild(viewButton);
     dropdownMenu.appendChild(deleteButton);
 
@@ -349,6 +357,10 @@ function getInfo() {
         console.log("Get Info Error: "+error);
     }
 	
+}
+
+function populateCreatePollModal(text) {
+    document.getElementById("add-poll-question-input").innerHTML = text;
 }
 
 function addPoll() {
