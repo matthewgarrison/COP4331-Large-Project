@@ -283,6 +283,8 @@
 	margin-bottom: 0px;
 	padding-right: 20px;
 	
+	cursor: pointer;
+	
 	color: black;
 	
 	text-overflow: ellipsis;
