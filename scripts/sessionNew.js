@@ -4,9 +4,7 @@ var baseURL = "http://cop4331-2.com/API";
 var deleteTarget = -1;
 var letters = ["A", "B", "C", "D", "E", "F", "G"];
 
-// Dynamic modal content for polls
-var displayActivePollContent = [];
-var viewResultsContent = [];
+var endTarget = -1;
 
 function refreshPage(){
     //getInfo();
@@ -433,7 +431,7 @@ function refreshPolls(){
                             idx += 2;
                         }
 
-                        insertActivePoll(questionText, answers);
+                        insertActivePoll(questionText, answers, pollID);
                     }
 
                     if(idx == 0){
@@ -488,7 +486,7 @@ function refreshPolls(){
                             idx += 2;
                         }
 
-                        insertArchivedPoll(questionText, answers);
+                        insertArchivedPoll(questionText, answers, pollID);
                     }
 
                     if(idx == 0){
@@ -521,7 +519,7 @@ function clearActivePolls(){
     clearEmtpyItems(container);
 }
 
-function insertActivePoll(questionText, answerText){
+function insertActivePoll(questionText, answerText, id){
     // Create dropdown menu
     var displayButton = document.createElement("button");
     displayButton.className = "dropdown-item";
@@ -539,7 +537,8 @@ function insertActivePoll(questionText, answerText){
     var endButton = document.createElement("button");
     endButton.className = "dropdown-item";
     endButton.setAttribute("data-toggle", "modal");
-    endButton.setAttribute("data-target", "#endPollModal");    
+    endButton.setAttribute("data-target", "#endPollModal");  
+    endButton.setAttribute("onclick", "setEndTarget("+id+");");  
     endButton.innerHTML = "End Poll";
     
     var deleteButton = document.createElement("button");
@@ -640,7 +639,7 @@ function clearArchivedPolls(){
     clearEmtpyItems(container);
 }
 
-function insertArchivedPoll(question, answers){
+function insertArchivedPoll(question, answers, id){
     // Create dropdown menu
     var displayButton = document.createElement("button");
     displayButton.className = "dropdown-item";
@@ -694,6 +693,53 @@ function insertArchivedPoll(question, answers){
 
     var container = document.getElementsByClassName("overhead-container-polls")[1];
     container.appendChild(pollContainer);
+}
+
+function endPoll(){
+    if(endTarget == -1) return;
+
+    var payload = '{"session" : "", "pollID" : "'+endTarget+'"}';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/TogglePoll.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+                if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
+                }
+
+                refreshPolls();
+                setUnbanTarget(-1, "");
+            }
+        }
+
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("endPoll Error: "+error);
+        displayError("Failed to archive poll (try again later)");
+    }
+}
+
+function setEndTarget(id){
+    endTarget = id;
 }
 
 function setDisplayText(text){
