@@ -523,7 +523,7 @@ function updateDisplayModal(question, answers){
     var modalContainer = document.getElementById("displayModal");
     var children = modalContainer.getElementsByClassName("modal-body");
 
-    while(children.size != 0){
+    while(children.length != 0){
         modalContainer.removeChild(children[0]);
     }
 
