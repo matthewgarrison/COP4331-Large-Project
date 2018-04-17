@@ -76,7 +76,6 @@
 	transform: translate3d(3px,3px,0px);
 }
 
-
 .overhead-container {
 	width: 100%;
 	display: flex;
@@ -88,47 +87,40 @@
 	
 }
 
+
 /*SESSIONS*/
 
 
 .session-container {
-	margin-top: 15px;
+	margin-top: 5px;
 	margin-bottom: 50px;
-	margin-left: 40px;
-	margin-right: 40px;
-	width: 800px;
+	
+
+	padding-top: 10px;
+	
+	
+	width: 100%;
 	
 	font-size: 25px;
 	font-family: 'Barlow', sans-serif;
 	font-weight: 500;
 	color: #222222;
 	
+	background-color: #F8F8F8;
+	
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	
 }
 
-.session-container h1{
+.session-header {
+	width: 100%;
+	margin-left: 10%;
+	
 	font-size: 30px;
 	font-weight: 500;
 	
-}
-
-.session-container hr {
- 	border-color: #C6C6C6;
- 	border-style: solid none;
- 	border-width: 1.5px 0;
-	
-	width: 100%;
- 	margin-top: 0px;
- 	margin-left: 0px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-  
-}
-
-.session-header{
-	width: 100%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -138,16 +130,30 @@
 	font-size: 23px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
+	
+	width: 80%;
+	
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 10px;
+	
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: 5px;
+	
+	background-color: white;
+	box-shadow: 0px 0px 5px #CFCFCF;
+	
+	margin-bottom: 10px;
+	
 }
 
 .session a{
 	flex: 1;
 	margin-right: 0px;
 	margin-top: 0px;
+	
 	padding-right: 20px;
 	
 	color: black;
@@ -163,7 +169,9 @@
 	height: 25px;
 	width: 150px;
 	margin-bottom: 0px;
-
+	margin-right: 17px;
+	
+	
 	background-color: #222222;
 	border: none;
 	border-radius: 0px;
@@ -201,47 +209,23 @@
 /*ARCHIVE*/
 
 .archive-container{
-	margin-top: 15px;
-	margin-left: 40px;
-	margin-right: 40px;
-	width: 800px;
+	margin-top: 5px;
+	width: 100%;
+	
+	padding-top: 10px;
 	
 	font-size: 17px;
 	font-family: 'Barlow', sans-serif;
 	font-weight: 400;
 	color: #222222;
 	
+	background-color: #F8F8F8;
+	
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
-
-.archive-container h1{
-	font-size: 30px;
-	font-weight: 500;
-	flex:1;
-}
-
-.archive-container hr {
- 	border-color: #C6C6C6;
- 	border-style: solid none;
- 	border-width: 1.5px 0;
-	
-	width: 100%;
- 	margin-top: 0px;
- 	margin-left: 0px;
-	margin-right: 10px;
-	margin-bottom: 10px; 
-}
-
-.archive-container select{
-	height: 27px;
-}
-
-.archive-container p{
-	margin-right: 6px;
-	transform: translateY(30%);
-}
 
 .archive-header{
 	width: 100%;
@@ -249,6 +233,23 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.archive-header h1{
+	font-size: 30px;
+	font-weight: 500;
+	flex: 1;
+}
+
+.archive-header select {
+	height: 27px;
+}
+
+.archive-header p{
+	margin-right: 6px;
+	transform: translateY(30%);
 }
 
 .archive-entry {
@@ -256,15 +257,28 @@
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
 	
+	width: 80%;
+	
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 10px;
+	
 	display: flex;
+	flex-direction: row;
 	align-items: center;
+	
+	background-color: white;
+	box-shadow: 0px 0px 5px #CFCFCF;
+	
+	margin-bottom: 10px;
 }
 
 .archive-entry a{
 	flex: 1;
 	margin-right: 0px;
 	margin-top: 0px;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 	padding-right: 20px;
 	
 	color: black;
@@ -277,29 +291,11 @@
 .archive-date {
 	font-size: 17px;
 	width: 120px;
-	color:#A5A5A5;
+	color:#B9B9B9;
 	text-align: center;
 }
 
-.btn-menu {
-	width: 20px;
-	height: 20px;
-	
-	background-color: white;
-	
-	background-image: url(../images/menu.png);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: contain;
-	
-	border: none;
-	
-	
-}
 
-.btn-menu:hover, .btn-menu:active, .btn-menu:focus {
-	background-image: url(../images/menuHover.png);
-}
 
 .btn-delete {
 	cursor: pointer;
