@@ -521,9 +521,10 @@ function insertActivePoll(questionText, answerText){
 function updateDisplayModal(question, answers){
     // Clear the modal
     var modalContainer = document.getElementById("displayModal");
+    var children = modalContainer.getElementsByClassName("modal-body");
 
-    while(modalContainer.getElementsByClassName("modal-body").size != 0){
-        modalContainer.removeChild(modalContainer.getElementsByClassName("modal-body")[0]);
+    while(children.size != 0){
+        modalContainer.removeChild(children[0]);
     }
 
     // Create new modal body
