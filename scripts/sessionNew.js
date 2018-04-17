@@ -8,6 +8,10 @@ function refreshPage(){
     refreshQuestions();
 }
 
+function lightRefresh(){
+    refreshQuestions();
+}
+
 window.setInterval(refreshQuestions, 3000);
 function refreshQuestions(){
     var payload = '{"session" : "", "showRead" : "'+(showRead() ? 1 : 0)+'"}';
@@ -347,6 +351,224 @@ function getInfo() {
         break;
     }
 	
+}
+
+function refreshPolls(){
+    var payload = '{"session" : ""}';
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/ListPolls.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
+
+                    clearActivePolls();
+                    clearArchivedPolls();
+                    if(error != '') {
+
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else if(error == invalidProfError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
+                    }
+                    
+                    var activeRaw = data.active;
+                    var idx = 0;
+                    while(idx < activeRaw.length){
+                        var pollID = "";
+                        var questionText = "";
+                        var numAnswers = "";
+                        var dateCreated = "";
+                        var answers = [];
+
+                        while(activeRaw.charAt(idx) != '|'){
+                            pollID = pollID + activeRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(activeRaw.charAt(idx) != '|'){
+                            questionText = questionText + activeRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(activeRaw.charAt(idx) != '|'){
+                            numAnswers = numAnswers + activeRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(idx < activeRaw.length && activeRaw.charAt(idx) != '|'){
+                            dateCreated = dateCreated + activeRaw.charAt(idx++);
+                        }
+                        idx+=2;
+
+                        for(var i=0; i<numAnswers; i++){
+                            answers[i] = "";
+                            while(idx < activeRaw.length && activeRaw.charAt(idx) != '|'){
+                                answers[i] = answers[i] + activeRaw.charAt(idx++);
+                            }
+                        }
+
+                        insertActivePoll(questionText);
+                    }
+                    
+                }
+            }
+
+            xhr.send(payload);
+        }
+
+        catch(error){
+            console.log("refreshPolls Error: "+error);
+            continue;
+        }
+        break;
+    }
+}
+
+function clearActivePolls(){
+    var container = document.getElementsByClassName("overhead-container-polls")[0];
+    var polls = container.getElementsByClassName("polls-container");
+
+    while(polls.length > 0){
+        container.removeChild(polls[0]);
+    }
+
+    clearEmtpyItems(container);
+}
+
+function insertActivePoll(text){
+    // Create dropdown menu
+    var displayButton = document.createElement("button");
+    displayButton.className = "dropdown-item";
+    displayButton.setAttribute("data-toggle", "modal");
+    displayButton.setAttribute("data-target", "#displayPollModal");    
+    displayButton.innerHTML = "Display";
+
+    var resultsButton = document.createElement("button");
+    resultsButton.className = "dropdown-item";
+    resultsButton.setAttribute("data-toggle", "modal");
+    resultsButton.setAttribute("data-target", "#viewResultsModal");    
+    resultsButton.innerHTML = "View Results";
+
+    var endButton = document.createElement("button");
+    endButton.className = "dropdown-item";
+    endButton.setAttribute("data-toggle", "modal");
+    endButton.setAttribute("data-target", "#endPollModal");    
+    endButton.innerHTML = "End Poll";
+    
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "dropdown-item";
+    deleteButton.setAttribute("data-toggle", "modal");
+    deleteButton.setAttribute("data-target", "#deletePollModal");    
+    deleteButton.innerHTML = "Delete";
+
+    var dropdownMenu = document.createElement("div");
+    dropdownMenu.className = "dropdown-menu";
+    dropdownMenu.appendChild(displayButton);
+    dropdownMenu.appendChild(resultsButton);
+    dropdownMenu.appendChild(endButton);
+    dropdownMenu.appendChild(deleteButton);
+
+    var dropdownButton = document.createElement("button");
+    dropdownButton.className = "btn-menu";
+    dropdownButton.setAttribute("data-toggle", "dropdown");
+    dropdownButton.type = "button";
+
+    var dropdownContainer = document.createElement("div");
+    dropdownContainer.className = "dropdown";
+    dropdownContainer.appendChild(dropdownButton);
+    dropdownContainer.appendChild(dropdownMenu);
+
+    // Poll text item
+    var pollText = document.createElement("div");
+    pollText.className = "poll-text";
+    pollText.innerHTML = text;
+
+    // Poll container
+    var pollContainer = document.createElement("div");
+    pollContainer.className = "poll-entry";
+    pollContainer.appendChild(pollText);
+    pollContainer.appendChild(dropdownContainer);
+
+    var container = docmenut.getElementsByClassName("overhead-container-polls")[0];
+    container.appendChild(pollContainer);
+}
+
+function clearArchivedPolls(){
+    var container = document.getElementsByClassName("overhead-container-polls")[1];
+    var polls = container.getElementsByClassName("polls-container");
+
+    while(polls.length > 0){
+        container.removeChild(polls[0]);
+    }
+
+    clearEmtpyItems(container);
+}
+
+function insertArchivedPoll(text){
+    // Create dropdown menu
+    var displayButton = document.createElement("button");
+    displayButton.className = "dropdown-item";
+    displayButton.setAttribute("data-toggle", "modal");
+    displayButton.setAttribute("data-target", "#displayPollModal");    
+    displayButton.innerHTML = "Display";
+
+    var resultsButton = document.createElement("button");
+    resultsButton.className = "dropdown-item";
+    resultsButton.setAttribute("data-toggle", "modal");
+    resultsButton.setAttribute("data-target", "#viewResultsModal");    
+    resultsButton.innerHTML = "View Results";
+    
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "dropdown-item";
+    deleteButton.setAttribute("data-toggle", "modal");
+    deleteButton.setAttribute("data-target", "#deletePollModal");    
+    deleteButton.innerHTML = "Delete";
+
+    var dropdownMenu = document.createElement("div");
+    dropdownMenu.className = "dropdown-menu";
+    dropdownMenu.appendChild(displayButton);
+    dropdownMenu.appendChild(resultsButton);
+    dropdownMenu.appendChild(deleteButton);
+
+    var dropdownButton = document.createElement("button");
+    dropdownButton.className = "btn-menu";
+    dropdownButton.setAttribute("data-toggle", "dropdown");
+    dropdownButton.type = "button";
+
+    var dropdownContainer = document.createElement("div");
+    dropdownContainer.className = "dropdown";
+    dropdownContainer.appendChild(dropdownButton);
+    dropdownContainer.appendChild(dropdownMenu);
+
+    // Poll text item
+    var pollText = document.createElement("div");
+    pollText.className = "poll-text";
+    pollText.innerHTML = text;
+
+    // Poll container
+    var pollContainer = document.createElement("div");
+    pollContainer.className = "poll-entry";
+    pollContainer.appendChild(pollText);
+    pollContainer.appendChild(dropdownContainer);
+
+    var container = docmenut.getElementsByClassName("overhead-container-polls")[1];
+    container.appendChild(pollContainer);
 }
 
 function setDisplayText(text){
