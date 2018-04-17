@@ -41,6 +41,11 @@
 	}
 	
 	$sessionID = $_SESSION["sessionID"];
+
+	if ($sessionID == ""){
+		returnWithError("Session ID must be specified before creating a poll.");
+		exit();
+	}
 	
 	$error_occurred = false;
 	
