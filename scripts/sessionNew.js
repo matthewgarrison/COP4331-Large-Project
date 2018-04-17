@@ -812,11 +812,11 @@ function setChart(question, numAnswers, id){
                 }
 
                 var answerData = [];
-                if(numAnswers > 0) answerData[0] = data.ans1;
-                if(numAnswers > 1) answerData[1] = data.ans2;
-                if(numAnswers > 2) answerData[2] = data.ans3;
-                if(numAnswers > 3) answerData[3] = data.ans4;
-                if(numAnswers > 4) answerData[5] = data.ans5;
+                if(numAnswers > 0) answerData[0] = parseInt(data.ans1);
+                if(numAnswers > 1) answerData[1] = parseInt(data.ans2);
+                if(numAnswers > 2) answerData[2] = parseInt(data.ans3);
+                if(numAnswers > 3) answerData[3] = parseInt(data.ans4);
+                if(numAnswers > 4) answerData[5] = parseInt(data.ans5);
 
                 var answerTitle = [];
                 if(numAnswers > 0) answerTitle[0] = "A";
