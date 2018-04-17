@@ -67,82 +67,78 @@ function clearClasses(){
 function refreshClasses(){
 	var payload = '{"session" : ""}';
 
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/GetProfClass.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/GetProfClass.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
 
-                    clearClasses();
-                    if(error != '') {
-                        if(error == invalidSessionError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        else if(error == invalidProfError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        else {
-                            displayError(error);
-                        }
-                        return;
-                    }
-                    
-                    console.log("VALID SESSION");
-
-                    var rawClasses = data.result;
-                    var idx = 0;
-                    while(idx < rawClasses.length){
-                        var classID = "";
-                        var className = "";
-                        var numStudents = "";
-                        var numSessions = "";
-
-                        while(rawClasses.charAt(idx) != ':'){
-                            classID = classID + rawClasses.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(rawClasses.charAt(idx) != ':'){
-                            className = className + rawClasses.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(rawClasses.charAt(idx) != ':'){
-                            numStudents = numStudents + rawClasses.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(idx < rawClasses.length && rawClasses.charAt(idx) != '|'){
-                            numSessions = numSessions + rawClasses.charAt(idx++);
-                        }
-
-                        insertClass(className, classID, numStudents, numSessions);
-                        idx++;
+                clearClasses();
+                if(error != '') {
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    if(idx == 0){
-                        insertEmtpyItem(document.getElementsByClassName("class-list-container")[0], "You have not created any classes");
+                    else if(error == invalidProfError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
+
+                    else {
+                        displayError(error);
+                    }
+                    return;
+                }
+                
+                console.log("VALID SESSION");
+
+                var rawClasses = data.result;
+                var idx = 0;
+                while(idx < rawClasses.length){
+                    var classID = "";
+                    var className = "";
+                    var numStudents = "";
+                    var numSessions = "";
+
+                    while(rawClasses.charAt(idx) != ':'){
+                        classID = classID + rawClasses.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawClasses.charAt(idx) != ':'){
+                        className = className + rawClasses.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawClasses.charAt(idx) != ':'){
+                        numStudents = numStudents + rawClasses.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(idx < rawClasses.length && rawClasses.charAt(idx) != '|'){
+                        numSessions = numSessions + rawClasses.charAt(idx++);
+                    }
+
+                    insertClass(className, classID, numStudents, numSessions);
+                    idx++;
+                }
+
+                if(idx == 0){
+                    insertEmtpyItem(document.getElementsByClassName("class-list-container")[0], "You have not created any classes");
                 }
             }
-
-            xhr.send(payload);
         }
 
-        catch(error){
-            console.log("Refresh Classes Error: "+error);
-            continue;
-        }
-        break;
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("Refresh Classes Error: "+error);
     }
 }
 
@@ -155,90 +151,82 @@ function addClass(){
     document.getElementById("add-class-input").value = "";
     var payload = '{"session" : "", "name" : "'+className+'"}';
 
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/AddClass.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/AddClass.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
 
-                    if(error != '') {
+                if(error != '') {
 
-                        if(error == invalidSessionError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        if(error == "Failed to find session."){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
-                    refreshClasses();
+
+                    if(error == "Failed to find session."){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
                 }
+                refreshClasses();
             }
-
-            xhr.send(payload);
         }
 
-        catch(error){
-            console.log("Add Class Error: "+error);
-            continue;
-        }
-        break;
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("Add Class Error: "+error);
     }
 }
 
 function gotoClass(id, name){
     var payload = '{"session" : "", "classID" : "'+id+'", "className" : "'+name+'"}';
 
-    while(true){
-	    var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/SetClassID.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/SetClassID.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
 
-                    if(error != '') {
+                if(error != '') {
 
-                        if(error == invalidSessionError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    window.location.href = "http://cop4331-2.com/Class.html";
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
                 }
+
+                window.location.href = "http://cop4331-2.com/Class.html";
             }
-
-            xhr.send(payload);
         }
 
-        catch(error){
-            console.log("gotoClass Error: "+error);
-            continue;
-        }
-        break;
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("gotoClass Error: "+error);
     }
 }
 
@@ -247,44 +235,40 @@ function deleteClass(){
 
     var payload = '{"session" : "", "classID" : "'+deleteTarget+'"}';
 
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/DeleteClass.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/DeleteClass.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
 
-                    if(error != '') {
+                if(error != '') {
 
-                        if(error == invalidSessionError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    refreshClasses();
-                    setDeleteTarget(-1, "");
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
                 }
+
+                refreshClasses();
+                setDeleteTarget(-1, "");
             }
-
-            xhr.send(payload);
         }
 
-        catch(error){
-            console.log("deleteClass Error: "+error);
-            continue;
-        }
-        break;
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("deleteClass Error: "+error);
     }
 
 }
