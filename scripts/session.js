@@ -904,6 +904,10 @@ function setChart(question, numAnswers, id){
                         }
                     },
 
+                    legend: {
+                        enabled: false
+                    },
+
                     series: [{
                         type: 'column',
                         name: question,
