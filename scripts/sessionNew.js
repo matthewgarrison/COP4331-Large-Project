@@ -520,24 +520,24 @@ function insertActivePoll(questionText, answerText){
 
 function updateDisplayModal(question, answers){
     // Clear the modal
-    var modalContainer = docmenut.getElementById("displayModal");
+    var modalContainer = document.getElementById("displayModal");
 
     while(modalContainer.getElementsByClassName("modal-body").size != 0){
         modalContainer.removeChild(modalContainer.getElementsByClassName("modal-body")[0]);
     }
 
     // Create new modal body
-    var modalBody = docmenut.createElement("div");
+    var modalBody = document.createElement("div");
     modalBody.className = "modal-body";
 
-    var questionText = docmenut.createElement("div");
+    var questionText = document.createElement("div");
     questionText.className = "display-poll-question";
     questionText.innerHTML = question;
     modalBody.appendChild(questionText);
 
     var idx = 0;
     while(idx < answers.length){
-        var answerLetter = docmenut.createElement("div");
+        var answerLetter = document.createElement("div");
         answerLetter.className="answer-letter";
         answerLetter.innerHTML = i;
 
@@ -547,11 +547,11 @@ function updateDisplayModal(question, answers){
         }
         idx += 2;
 
-        var answerText = docmenut.createElement("div");
+        var answerText = document.createElement("div");
         answerText.className = "answer-text";
         answerText.innerHTML = text;
 
-        var answerContainer = docmenut.createElement("div");
+        var answerContainer = document.createElement("div");
         answerContainer.className = "display-answer-choice";
         answerContainer.appendChild(answerLetter);
         answerContainer.appendChild(answerText);
