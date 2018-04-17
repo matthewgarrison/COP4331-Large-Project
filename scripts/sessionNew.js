@@ -821,8 +821,7 @@ function setChart(question, numAnswers, id){
                 var chartData = [];
                 for(var i=0; i<numAnswers; i++){
                     chartData[i] = {
-                        name: ""+letters[i],
-                        y: answerData[i]
+                        x: answerData[i]
                     }
                 }
 
@@ -834,6 +833,13 @@ function setChart(question, numAnswers, id){
 
                     title: {
                         text: question
+                    },
+
+                    xAxis: {
+                        categories: letters,
+                        labels: {
+                            enabled: true
+                        }
                     },
 
                     series: [{
