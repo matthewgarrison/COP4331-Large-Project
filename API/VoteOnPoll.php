@@ -57,7 +57,7 @@
 				$stmt->bind_result($archived, $numAns);
 				$stmt->fetch();
 				// Check if the poll has been archived
-				if (archived != 0){
+				if ($archived != 0){
 					returnWithError("Archived polls cannot be voted on.");
 					exit();
 				}
