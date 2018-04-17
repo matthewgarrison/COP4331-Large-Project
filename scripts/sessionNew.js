@@ -2,6 +2,7 @@ var invalidSessionError = "Unable to access session.";
 var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
 var deleteTarget = -1;
+var letters = ["A", "B", "C", "D", "E", "F", "G"];
 
 // Dynamic modal content for polls
 var displayActivePollContent = [];
@@ -537,10 +538,11 @@ function updateDisplayModal(question, answers){
     modalBody.appendChild(questionText);
 
     var idx = 0;
+    var letterIdx = 0;
     while(idx < answers.length){
         var answerLetter = document.createElement("div");
         answerLetter.className="answer-letter";
-        answerLetter.innerHTML = i;
+        answerLetter.innerHTML = letters[letterIdx++];
 
         var text = "";
         while(idx < answers.length && answers.charAt(idx) != '|'){
