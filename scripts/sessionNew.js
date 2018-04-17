@@ -3,16 +3,22 @@ var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
 var deleteTarget = -1;
 
+// Dynamic modal content for polls
+var displayActivePollContent = [];
+var viewResultsContent = [];
+
 function refreshPage(){
     getInfo();
     refreshQuestions();
+    refreshPolls();
 }
 
+window.setInterval(lightRefresh, 3000);
 function lightRefresh(){
     refreshQuestions();
+    refreshPolls();
 }
 
-window.setInterval(refreshQuestions, 3000);
 function refreshQuestions(){
     var payload = '{"session" : "", "showRead" : "'+(showRead() ? 1 : 0)+'"}';
 
@@ -364,6 +370,7 @@ function refreshPolls(){
 
                     clearActivePolls();
                     clearArchivedPolls();
+                    displayActivePollContent = [];
                     if(error != '') {
 
                         if(error == invalidSessionError){
@@ -390,7 +397,7 @@ function refreshPolls(){
                         var questionText = "";
                         var numAnswers = "";
                         var dateCreated = "";
-                        var answers = [];
+                        var answers = "";
 
                         while(activeRaw.charAt(idx) != '|'){
                             pollID = pollID + activeRaw.charAt(idx++);
@@ -413,13 +420,14 @@ function refreshPolls(){
                         idx+=2;
 
                         for(var i=0; i<numAnswers; i++){
-                            answers[i] = "";
+                            if(i != 0) answers = answers + "| ";
                             while(idx < activeRaw.length && activeRaw.charAt(idx) != '|'){
-                                answers[i] = answers[i] + activeRaw.charAt(idx++);
+                                answers = answers + activeRaw.charAt(idx++);
                             }
+                            idx += 2;
                         }
 
-                        insertActivePoll(questionText);
+                        insertActivePoll(questionText, answers);
                     }
                     
                 }
@@ -447,12 +455,13 @@ function clearActivePolls(){
     clearEmtpyItems(container);
 }
 
-function insertActivePoll(text){
+function insertActivePoll(questionText, answerText){
     // Create dropdown menu
     var displayButton = document.createElement("button");
     displayButton.className = "dropdown-item";
     displayButton.setAttribute("data-toggle", "modal");
-    displayButton.setAttribute("data-target", "#displayPollModal");    
+    displayButton.setAttribute("data-target", "#displayPollModal"); 
+    displayButton.setAttribute("onclick", "updateDisplayModal('"+questionText+"','"+answerText+"');");   
     displayButton.innerHTML = "Display";
 
     var resultsButton = document.createElement("button");
@@ -493,7 +502,7 @@ function insertActivePoll(text){
     // Poll text item
     var pollText = document.createElement("div");
     pollText.className = "poll-text";
-    pollText.innerHTML = text;
+    pollText.innerHTML = questionText;
 
     // Poll container
     var pollEntry = document.createElement("div");
@@ -507,6 +516,49 @@ function insertActivePoll(text){
 
     var container = document.getElementsByClassName("overhead-container-polls")[0];
     container.appendChild(pollContainer);
+}
+
+function updateDisplayModal(question, answers){
+    // Clear the modal
+    var modalContainer = docmenut.getElementById("displayModal");
+
+    while(modalContainer.getElementsByClassName("modal-body").size != 0){
+        modalContainer.removeChild(modalContainer.getElementsByClassName("modal-body")[0]);
+    }
+
+    // Create new modal body
+    var modalBody = docmenut.createElement("div");
+    modalBody.className = "modal-body";
+
+    var questionText = docmenut.createElement("div");
+    questionText.className = "display-poll-question";
+    questionText.innerHTML = question;
+    modalBody.appendChild(questionText);
+
+    var idx = 0;
+    while(idx < answers.length){
+        var answerLetter = docmenut.createElement("div");
+        answerLetter.className="answer-letter";
+        answerLetter.innerHTML = i;
+
+        var text = "";
+        while(idx < answers.length && answers.charAt(idx) != '|'){
+            text = text + answers.charAt(idx++);
+        }
+        idx += 2;
+
+        var answerText = docmenut.createElement("div");
+        answerText.className = "answer-text";
+        answerText.innerHTML = text;
+
+        var answerContainer = docmenut.createElement("div");
+        answerContainer.className = "display-answer-choice";
+        answerContainer.appendChild(answerLetter);
+        answerContainer.appendChild(answerText);
+        modalBody.appendChild(answerContainer);
+    }
+
+    modalContainer.insertBefore(modalBody, modalContainer.getElementsByClassName("modal-footer")[0]);
 }
 
 function clearArchivedPolls(){
