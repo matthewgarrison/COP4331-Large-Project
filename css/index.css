@@ -12,7 +12,7 @@
 
 /* COVER CARD */
 .about-card {
-	height: 100vh;
+	height: 100vh - 56px;
 	background-size: cover;
     background-position: center;
 	
