@@ -639,7 +639,7 @@ function clearArchivedPolls(){
     clearEmtpyItems(container);
 }
 
-function insertArchivedPoll(question, answers, id){
+function insertArchivedPoll(questionText, answerText, id){
     // Create dropdown menu
     var displayButton = document.createElement("button");
     displayButton.className = "dropdown-item";
@@ -679,7 +679,7 @@ function insertArchivedPoll(question, answers, id){
     // Poll text item
     var pollText = document.createElement("div");
     pollText.className = "poll-text";
-    pollText.innerHTML = question;
+    pollText.innerHTML = questionText;
 
     // Poll container
     var pollEntry = document.createElement("div");
