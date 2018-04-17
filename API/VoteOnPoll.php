@@ -25,6 +25,11 @@
 	}
 	
 	$studentID = $_SESSION["studentID"];
+
+	if ($studentID == ""){
+		returnWithError("Must be logged in as a student to vote on a poll.");
+		exit();
+	}
 	
 	$error_occurred = false;
 	$numAns = 0;
