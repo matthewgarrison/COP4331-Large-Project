@@ -21,7 +21,7 @@ function lightRefresh(){
 
 function refreshQuestions(){
     var payload = '{"session" : "", "showRead" : "'+(showRead() ? 1 : 0)+'"}';
-    console.log("refress questions payload: ");
+    console.log("refress questions payload: " + payload);
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", baseURL + "/ListQuestions.php", false);
