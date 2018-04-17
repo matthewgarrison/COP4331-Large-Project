@@ -9,9 +9,9 @@ var displayActivePollContent = [];
 var viewResultsContent = [];
 
 function refreshPage(){
-    getInfo();
-    refreshQuestions();
-    refreshPolls();
+    //getInfo();
+    //refreshQuestions();
+    //refreshPolls();
 }
 
 window.setInterval(lightRefresh, 3000);
@@ -391,6 +391,7 @@ function refreshPolls(){
                         return;
                     }
                     
+                    // Update active polls
                     var activeRaw = data.active;
                     var idx = 0;
                     while(idx < activeRaw.length){
@@ -430,6 +431,62 @@ function refreshPolls(){
 
                         insertActivePoll(questionText, answers);
                     }
+
+                    if(idx == 0){
+                        insertEmtpyItem(document.getElementsByClassName("overhead-container-polls")[0], "There are no active polls");
+                    }
+
+                    // Update archived polls
+                    var archivedRaw = data.active;
+                    idx = 0;
+                    while(idx < archivedRaw.length){
+                        var pollID = "";
+                        var questionText = "";
+                        var numAnswers = "";
+                        var dateCreated = "";
+                        var dateArchived = "";
+                        var answers = "";
+
+                        while(archivedRaw.charAt(idx) != '|'){
+                            pollID = pollID + archivedRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(archivedRaw.charAt(idx) != '|'){
+                            questionText = questionText + archivedRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(archivedRaw.charAt(idx) != '|'){
+                            numAnswers = numAnswers + archivedRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
+                            dateCreated = dateCreated + archivedRaw.charAt(idx++);
+                        }
+                        idx+=2;
+
+                        while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
+                            dateArchived = dateArchived + archivedRaw.charAt(idx++);
+                        }
+                        idx+=2;
+
+                        for(var i=0; i<numAnswers; i++){
+                            if(i != 0) answers = answers + "| ";
+                            while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
+                                answers = answers + archivedRaw.charAt(idx++);
+                            }
+                            idx += 2;
+                        }
+
+                        insertArchivedPoll(questionText, answers);
+                    }
+
+                    if(idx == 0){
+                        insertEmtpyItem(document.getElementsByClassName("overhead-container-polls")[1], "There are no archived polls");
+                    }
+
                     
                 }
             }
@@ -575,12 +632,13 @@ function clearArchivedPolls(){
     clearEmtpyItems(container);
 }
 
-function insertArchivedPoll(text){
+function insertArchivedPoll(question, answers){
     // Create dropdown menu
     var displayButton = document.createElement("button");
     displayButton.className = "dropdown-item";
     displayButton.setAttribute("data-toggle", "modal");
-    displayButton.setAttribute("data-target", "#displayPollModal");    
+    displayButton.setAttribute("data-target", "#displayPollModal");  
+    displayButton.setAttribute("onclick", "updateDisplayModal('"+questionText+"','"+answerText+"');");     
     displayButton.innerHTML = "Display";
 
     var resultsButton = document.createElement("button");
@@ -614,7 +672,7 @@ function insertArchivedPoll(text){
     // Poll text item
     var pollText = document.createElement("div");
     pollText.className = "poll-text";
-    pollText.innerHTML = text;
+    pollText.innerHTML = question;
 
     // Poll container
     var pollEntry = document.createElement("div");
