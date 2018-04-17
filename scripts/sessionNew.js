@@ -821,7 +821,7 @@ function setChart(question, numAnswers, id){
                 var chartData = [];
                 for(var i=0; i<numAnswers; i++){
                     chartData[i] = {
-                        x: answerData[i]
+                        y: answerData[i]
                     }
                 }
 
