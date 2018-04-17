@@ -818,12 +818,13 @@ function setChart(question, numAnswers, id){
                 if(numAnswers > 3) answerData[3] = parseInt(data.ans4);
                 if(numAnswers > 4) answerData[4] = parseInt(data.ans5);
 
-                var answerTitle = [];
-                if(numAnswers > 0) answerTitle[0] = "A";
-                if(numAnswers > 1) answerTitle[1] = "B";
-                if(numAnswers > 2) answerTitle[2] = "C";
-                if(numAnswers > 3) answerTitle[3] = "D";
-                if(numAnswers > 4) answerTitle[4] = "E";
+                var chartData = [];
+                for(var i=0; i<numAnswers; i++){
+                    chartData[i] = {
+                        name: letters[i],
+                        y: answerData[i]
+                    }
+                }
 
                 var chart = new Highcharts.Chart({
                     chart: {
@@ -838,7 +839,7 @@ function setChart(question, numAnswers, id){
                     series: [{
                         type: 'column',
                         name: question,
-                        data: answerData
+                        data: chartData
                     }]
                 });
             }
