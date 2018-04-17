@@ -500,10 +500,14 @@ function insertActivePoll(text){
     pollText.innerHTML = text;
 
     // Poll container
+    var pollEntry = document.createElement("div");
+    pollEntry.className = "poll-entry";
+    pollEntry.appendChild(pollText);
+    pollEntry.appendChild(dropdownContainer);
+
     var pollContainer = document.createElement("div");
-    pollContainer.className = "poll-entry";
-    pollContainer.appendChild(pollText);
-    pollContainer.appendChild(dropdownContainer);
+    pollContainer.className = "polls-container";
+    pollContainer.appendChild(pollEntry);
 
     var container = document.getElementsByClassName("overhead-container-polls")[0];
     container.appendChild(pollContainer);
@@ -562,10 +566,14 @@ function insertArchivedPoll(text){
     pollText.innerHTML = text;
 
     // Poll container
+    var pollEntry = document.createElement("div");
+    pollEntry.className = "poll-entry";
+    pollEntry.appendChild(pollText);
+    pollEntry.appendChild(dropdownContainer);
+
     var pollContainer = document.createElement("div");
-    pollContainer.className = "poll-entry";
-    pollContainer.appendChild(pollText);
-    pollContainer.appendChild(dropdownContainer);
+    pollContainer.className = "polls-container";
+    pollContainer.appendChild(pollEntry);
 
     var container = document.getElementsByClassName("overhead-container-polls")[1];
     container.appendChild(pollContainer);
