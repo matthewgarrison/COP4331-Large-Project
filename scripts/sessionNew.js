@@ -429,6 +429,10 @@ function refreshPolls(){
                             idx += 2;
                         }
 
+                        for(var i=numAnswers; i<5; i++){
+                            idx += 2;
+                        }
+
                         insertActivePoll(questionText, answers);
                     }
 
@@ -477,6 +481,10 @@ function refreshPolls(){
                             while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
                                 answers = answers + archivedRaw.charAt(idx++);
                             }
+                            idx += 2;
+                        }
+
+                        for(var i=numAnswers; i<5; i++){
                             idx += 2;
                         }
 
