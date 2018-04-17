@@ -13,7 +13,7 @@ function refreshPage(){
     refreshPolls();
 }
 
-window.setInterval(lightRefresh, 5000);
+window.setInterval(lightRefresh, 30000);
 function lightRefresh(){
     refreshQuestions();
     refreshPolls();
