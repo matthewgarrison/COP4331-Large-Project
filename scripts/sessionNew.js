@@ -8,12 +8,12 @@ var letters = ["A", "B", "C", "D", "E", "F", "G"];
 var endTarget = -1;
 
 function refreshPage(){
-    //getInfo();
-    //refreshQuestions();
-    //refreshPolls();
+    getInfo();
+    refreshQuestions();
+    refreshPolls();
 }
 
-//window.setInterval(lightRefresh, 3000);
+window.setInterval(lightRefresh, 3000);
 function lightRefresh(){
     refreshQuestions();
     refreshPolls();
@@ -492,7 +492,7 @@ function refreshPolls(){
                             idx += 2;
                         }
 
-                        insertActivePoll(questionText, answers, pollID);
+                        insertActivePoll(questionText, answers, parseInt(numAnswers), pollID);
                     }
 
                     if(idx == 0){
@@ -547,7 +547,7 @@ function refreshPolls(){
                             idx += 2;
                         }
 
-                        insertArchivedPoll(questionText, answers, pollID);
+                        insertArchivedPoll(questionText, answers, parseInt(numAnswers), pollID);
                     }
 
                     if(idx == 0){
@@ -580,7 +580,7 @@ function clearActivePolls(){
     clearEmtpyItems(container);
 }
 
-function insertActivePoll(questionText, answerText, id){
+function insertActivePoll(questionText, answerText, numAnswers, id){
     // Create dropdown menu
     var displayButton = document.createElement("button");
     displayButton.className = "dropdown-item";
@@ -592,7 +592,8 @@ function insertActivePoll(questionText, answerText, id){
     var resultsButton = document.createElement("button");
     resultsButton.className = "dropdown-item";
     resultsButton.setAttribute("data-toggle", "modal");
-    resultsButton.setAttribute("data-target", "#viewResultsModal");    
+    resultsButton.setAttribute("data-target", "#viewResultsModal"); 
+    resultsButton.setAttribute("onclick", "setChart('"+questionText+"', "+numAnswers+", "+id+");");   
     resultsButton.innerHTML = "View Results";
 
     var endButton = document.createElement("button");
@@ -701,7 +702,7 @@ function clearArchivedPolls(){
     clearEmtpyItems(container);
 }
 
-function insertArchivedPoll(questionText, answerText, id){
+function insertArchivedPoll(questionText, answerText, numAnswers, id){
     // Create dropdown menu
     var displayButton = document.createElement("button");
     displayButton.className = "dropdown-item";
