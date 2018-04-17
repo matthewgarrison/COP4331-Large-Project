@@ -7,13 +7,12 @@
 	margin-bottom: 50px;
 	margin-left: 40px;
 	margin-right: 40px;
-	width: auto;
 	
 	font-size: 25px;
 	font-family: 'Barlow', sans-serif;
 	font-weight: 500;
 	color: #222222;
-	max-width: 1200px;
+	width: 80%;
 	
 	display: flex;
 	flex-direction: column;
@@ -22,16 +21,21 @@
 .question-list-header {
 	display: flex;
 	align-content: center;
-	font-size: 20px;
+	justify-content: center;
+	font-size: 17px;
 }
 
-.questions-container select{
+.question-list-header select{
 	width: 200px;
 	height: 50%;
 	margin-left: 10px;
 	margin-top: 2px;
 	margin-right: 50px;
 	padding-left: 3px;
+}
+
+.question-list-header p{
+	margin-top: 2px;
 }
 
 .question {
@@ -47,15 +51,15 @@
 	padding-bottom: 10px;
 	
 	color: black;
-	background-color: #F3F3F3;
-	border: 1.5px solid #222222;
-	border-radius: 10px;
+	background-color: #FFFFFF;
+	box-shadow: 0px 0px 5px #CFCFCF;
 	  
 }
 
 .question-body {
 	display: flex;
 	margin-bottom: 6px;
+	font-weight: 500; 
 }
 
 .question-footer {
@@ -104,15 +108,65 @@
 	margin-top: 0px;
 	
 	cursor: pointer;
-	background-color: #f3f3f3;
+	background-color: white;
 	background-image: url(../images/menu.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
 	
 	border: none;
+	
+	
 }
 
 .btn-menu:hover, .btn-menu:active, .btn-menu:focus {
 	background-image: url(../images/menuHover.png);
 }
+
+
+.overhead-container-session {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+	background-color: #F8F8F8;
+	padding-top: 20px;
+}
+
+
+
+/* TABS FORMATTING */
+section {
+    padding: 60px 0;
+}
+
+section .section-title {
+    text-align: center;
+    color: #007b5e;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #3A3A3A;
+    background-color: transparent;
+    border-color: transparent transparent #A6A6A6;
+    border-bottom: 4px solid #16966A !important;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-tabs {
+	margin-top: 10px;
+	margin-right: 40px;
+	margin-left: 40px;
+}
+
+.nav-tabs a {
+	font-size: 20px;
+	color: #000000;
+}
+
