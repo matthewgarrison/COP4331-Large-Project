@@ -816,14 +816,14 @@ function setChart(question, numAnswers, id){
                 if(numAnswers > 1) answerData[1] = parseInt(data.ans2);
                 if(numAnswers > 2) answerData[2] = parseInt(data.ans3);
                 if(numAnswers > 3) answerData[3] = parseInt(data.ans4);
-                if(numAnswers > 4) answerData[5] = parseInt(data.ans5);
+                if(numAnswers > 4) answerData[4] = parseInt(data.ans5);
 
                 var answerTitle = [];
                 if(numAnswers > 0) answerTitle[0] = "A";
                 if(numAnswers > 1) answerTitle[1] = "B";
                 if(numAnswers > 2) answerTitle[2] = "C";
                 if(numAnswers > 3) answerTitle[3] = "D";
-                if(numAnswers > 4) answerTitle[5] = "E";
+                if(numAnswers > 4) answerTitle[4] = "E";
 
                 var chart = new Highcharts.Chart({
                     chart: {
