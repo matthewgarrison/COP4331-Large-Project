@@ -29,7 +29,7 @@
   </head>
 	
 	
-  <body>
+  <body onload="refreshPage()">
 	  
 	  
 	 <!-- NAVBAR  -->
@@ -79,13 +79,13 @@
 						<div class="question-list-header">
 							  <!-- Sorting selector -->
 									<p>Sort:</p>
-									<select>
+									<select id="sort-select" onchange="refreshQuestions()">
 										<option value="newestFirst">Newest First</option>
 										<option value="oldestFirst">Oldest First</option>
 									</select>
 
 									<p>Filter:</p>
-									<select>
+									<select id="filter-select" onchange="refreshQuestions()">
 										<option value="unreadOnly">Unread only</option>
 										<option value="readOnly">Read only</option>
 										<option value="all">All</option>
@@ -216,7 +216,7 @@
 				
 
 
-	<!-- Display question modal-->
+	<!-- Display question -->
 	<div class="modal fade" id="displayQuestionModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-full" role="document">
 			<div class="modal-content">
@@ -261,7 +261,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-modal-black" data-dismiss="modal">No</button>
-						<button type="button" class="btn btn-modal-green">Yes</button>
+						<button type="button" class="btn btn-modal-green" data-dismiss="modal" onclick="deleteQuestion()">Yes</button>
 					</div>
 
 				</div>
@@ -280,7 +280,7 @@
 						</button>
 					</div>
 
-					<div class="modal-body">
+					<div class="modal-body" id="askerName">
 						Student who submitted this question: <br>
 						"student name"
 					</div>
@@ -415,6 +415,31 @@
 				</div>
 			</div>
 		</div>
+
+		 <!-- Error modal -->
+	<div class="modal fade" id="errorModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+					
+				<div class="modal-header">
+					<h5 class="modal-title">Error</h5>
+					<button type="button" class="close" data-dismiss="modal">
+					  <span>&times;</span>
+					</button>
+				</div>
+					
+				<div class="modal-body">
+					<div class="edit-session-form-container" id="errorText">
+						Error message here
+					</div>
+				</div>
+					
+				<div class="modal-footer">
+					<button type="button" class="btn btn-modal-black" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	  
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
 	 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
