@@ -102,7 +102,6 @@ function refreshQuestions(){
         console.log("refreshQueries Error: "+error);
     }
 }	
-}
 
 function showRead(){
     var filterMode = document.getElementById("filter-select");
