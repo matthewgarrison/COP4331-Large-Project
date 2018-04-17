@@ -203,7 +203,7 @@ function refreshPage(){
     getInfo();
     document.getElementsByClassName("class-title")[0].innerHTML = className;
     document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: " + decToHex(classID);
-    document.title = "Queue & A - " + className;
+    document.title = className + " | Queue &amp; A";
 }
 
 function refreshSessions(){
