@@ -784,7 +784,7 @@ function deletePoll(){
     }
 }
 
-function setChart(question, answers, id){
+function setChart(question, numAnswers, id){
     var payload = '{"session" : "", "pollID" : "'+id+'"}';
 
     var xhr = new XMLHttpRequest();
@@ -811,52 +811,76 @@ function setChart(question, answers, id){
                     return;
                 }
 
-                var idx = 0;
-                var answerIdx = 0;
-                var answerText = []
-                while(idx < answers.length){
-                    answerText[answerIdx] = "";
-                    while(idx < answers.length && answers.charAt(idx) != '|'){
-                        answerText[answerIdx] = answerText[answerIdx] + answers.charAt(idx++);
-                    }
-                    idx += 2;
-                    answerIdx++;
-                }
-
                 var answerData = [];
-                if(answerText.length > 0) answerData[0] = data.ans1;
-                if(answerText.length > 1) answerData[1] = data.ans2;
-                if(answerText.length > 2) answerData[2] = data.ans3;
-                if(answerText.length > 3) answerData[3] = data.ans4;
-                if(answerText.length > 4) answerData[5] = data.ans5;
+                if(numAnswers > 0) answerData[0] = data.ans1;
+                if(numAnswers > 1) answerData[1] = data.ans2;
+                if(numAnswers > 2) answerData[2] = data.ans3;
+                if(numAnswers > 3) answerData[3] = data.ans4;
+                if(numAnswers > 4) answerData[5] = data.ans5;
 
-                var chart = new Highcharts.Chart({
+                var chart = new Highcharts.chart('chart-container', {
                     chart: {
-                        renderTo: 'chart-container',
-                        type: 'bar'
+                      type: 'column'
                     },
-
+                    credits: {
+                      enabled: false
+                    },
                     title: {
-                        text: question
+                      text: 'Poll Results'
                     },
-
-                    credits:{
-                        enabled: false
+                    xAxis: {
+                      type: 'category'
                     },
-
                     yAxis: {
-                        categories: answerText
+                      title: {
+                        text: 'Percent'
+                      }
+                  
                     },
-
                     legend: {
-                        enabled: false
+                      enabled: false
                     },
-                    
-                    series: [{
-                        type: 'column',
-                        data: answerData
+                    plotOptions: {
+                      series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.1f}%'
+                        }
+                      }
+                    },
+                  
+                    tooltip: {
+                      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                    },
+                  
+                    "series": [{
+                      "name": "Answer Choice",
+                      "colorByPoint": true,
+                      "data": [{
+                          "name": "A",
+                          "y": 62.74,
+                        },
+                        {
+                          "name": "B",
+                          "y": 10.57,
+                        },
+                        {
+                          "name": "C",
+                          "y": 7.23,
+                        },
+                        {
+                          "name": "D",
+                          "y": 5.58,
+                        },
+                        {
+                          "name": "E",
+                          "y": 4.02,
+                        }
+                      ]
                     }]
-                });
+                  });
             }
         }
 
