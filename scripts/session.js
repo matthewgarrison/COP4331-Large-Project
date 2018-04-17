@@ -259,7 +259,7 @@ function insertQuestion(text, timestamp, read, id, studentName, sortNewest){
     questionContainer.appendChild(questionFooter);
 
     var container = document.getElementsByClassName("questions-container")[0];
-    if(!sortNewest){
+    if(sortNewest){
         container.appendChild(questionContainer);
     }
     else{
@@ -268,7 +268,7 @@ function insertQuestion(text, timestamp, read, id, studentName, sortNewest){
             container.appendChild(questionContainer);
         }
         else{
-            container.insertBefore(questionContainer, elements[elements.length-1].nextSibling);
+            container.insertBefore(questionContainer, elements[0]);
         }
     }
 }
