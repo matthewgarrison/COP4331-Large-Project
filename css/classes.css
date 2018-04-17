@@ -16,6 +16,10 @@ body{
 	flex-wrap: wrap;
 	justify-content: center;
 	margin-top: 20px;
+	
+	padding-bottom: 20px;
+	
+	background-color: #F8F8F8;
 }
 
 .class-stats-container {
@@ -30,18 +34,15 @@ body{
 }
 
 .class-container {
-	background-color:#F0F0F0;
-	
-	border-radius: 36px 8px 36px 8px;
+	background-color:#FFFFFF;
 	
     	margin: 0 auto 0px;
    	margin-top: 20px;
 	margin-left: 10px;
 	margin-right: 10px;
 
-	box-shadow: 4px 4px 7px 0px #222222;
+	box-shadow: 1px 1px 6px #A6A6A6;
 	
-	border: 3px solid #2F2F2F;
 	
 	padding-top: 7px;
 	padding-left: 30px;
@@ -50,6 +51,9 @@ body{
 	font-size: 35px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 	
 	width: 575px;
 	height: 180px;
@@ -58,7 +62,7 @@ body{
 .class-container hr {
 	border-color: #C6C6C6;
  	border-style: solid none;
- 	border-width: 1.25px 0;
+ 	border-width: 1.5px 0;
  	margin: 0px 0;
 
 }
@@ -66,7 +70,7 @@ body{
 .fancy-hr hr {
  	border-color: #C6C6C6;
  	border-style: solid none;
- 	border-width: 1.25px 0;
+ 	border-width: 1.5px 0;
  	margin-top: 30px;
  	margin-left: 40px;
 	margin-right: 40px;
