@@ -505,7 +505,7 @@ function insertActivePoll(text){
     pollContainer.appendChild(pollText);
     pollContainer.appendChild(dropdownContainer);
 
-    var container = docmenut.getElementsByClassName("overhead-container-polls")[0];
+    var container = document.getElementsByClassName("overhead-container-polls")[0];
     container.appendChild(pollContainer);
 }
 
@@ -567,7 +567,7 @@ function insertArchivedPoll(text){
     pollContainer.appendChild(pollText);
     pollContainer.appendChild(dropdownContainer);
 
-    var container = docmenut.getElementsByClassName("overhead-container-polls")[1];
+    var container = document.getElementsByClassName("overhead-container-polls")[1];
     container.appendChild(pollContainer);
 }
 
