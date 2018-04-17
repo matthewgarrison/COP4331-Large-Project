@@ -16,95 +16,92 @@ window.setInterval(refreshQuestions, 3000);
 function refreshQuestions(){
     var payload = '{"session" : "", "showRead" : "'+(showRead() ? 1 : 0)+'"}';
 
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/ListQuestions.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/ListQuestions.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
     
-                    clearQuestions();
-                    if(error != '') {
-    
-                        if(error == invalidSessionError || error == invalidProfError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-    
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+                if(error != '') {
+
+                    if(error == invalidSessionError || error == invalidProfError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
-    
-                    var rawStudents = data.result;
-                    var idx = 0;
-                    while(idx < rawStudents.length){
-                        var questionID = "";
-                        var questionText = "";
-                        var studentID = "";
-                        var studentName = "";
-                        var dateTime = "";
-                        var read = "";
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            questionID = questionID + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            questionText = questionText + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            studentID = studentID + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            studentName = studentName + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            dateTime = dateTime + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
-                            read = read + rawStudents.charAt(idx++);
-                        }
-                        idx +=2;
-                        insertQuestion(questionText, dateTime, (read == "1"), questionID, studentName, newestFirst());
-                        
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
+                }
+                clearQuestions();
+
+                var rawStudents = data.result;
+                var idx = 0;
+                while(idx < rawStudents.length){
+                    var questionID = "";
+                    var questionText = "";
+                    var studentID = "";
+                    var studentName = "";
+                    var dateTime = "";
+                    var read = "";
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        questionID = questionID + rawStudents.charAt(idx++);
                     }
-    
-                    if(idx == 0){
-                        if(!showRead()){
-                            insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no unread questions");
-                        } 
-                        else {
-                            insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no questions");
-                        }
+                    idx += 2;
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        questionText = questionText + rawStudents.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        studentID = studentID + rawStudents.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        studentName = studentName + rawStudents.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        dateTime = dateTime + rawStudents.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
+                        read = read + rawStudents.charAt(idx++);
+                    }
+                    idx +=2;
+                    insertQuestion(questionText, dateTime, (read == "1"), questionID, studentName, newestFirst());
+                    
+                }
+
+                if(idx == 0){
+                    if(!showRead()){
+                        insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no unread questions");
+                    } 
+                    else {
+                        insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no questions");
                     }
                 }
             }
-    
-            xhr.send(payload);
         }
-    
-        catch(error){
-            console.log("refreshQueries Error: "+error);
-            continue;
-        }
-        break;
-    }	
+
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("refreshQueries Error: "+error);
+    }
+}	
 }
 
 function showRead(){
