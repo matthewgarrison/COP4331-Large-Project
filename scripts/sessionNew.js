@@ -835,20 +835,9 @@ function setChart(question, numAnswers, id){
                         text: question
                     },
 
-                    credits:{
-                        enabled: false
-                    },
-
-                    yAxis: {
-                        categories: answerTitle
-                    },
-
-                    legend: {
-                        enabled: false
-                    },
-                    
                     series: [{
                         type: 'column',
+                        name: question,
                         data: answerData
                     }]
                 });
