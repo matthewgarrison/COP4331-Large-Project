@@ -818,69 +818,40 @@ function setChart(question, numAnswers, id){
                 if(numAnswers > 3) answerData[3] = data.ans4;
                 if(numAnswers > 4) answerData[5] = data.ans5;
 
-                var chart = new Highcharts.chart('chart-container', {
+                var answerTitle = [];
+                if(numAnswers > 0) answerTitle[0] = "A";
+                if(numAnswers > 1) answerTitle[1] = "B";
+                if(numAnswers > 2) answerTitle[2] = "C";
+                if(numAnswers > 3) answerTitle[3] = "D";
+                if(numAnswers > 4) answerTitle[5] = "E";
+
+                var chart = new Highcharts.Chart({
                     chart: {
-                      type: 'column'
+                        renderTo: 'chart-container',
+                        type: 'bar'
                     },
-                    credits: {
-                      enabled: false
-                    },
+
                     title: {
-                      text: 'Poll Results'
+                        text: question
                     },
-                    xAxis: {
-                      type: 'category'
+
+                    credits:{
+                        enabled: false
                     },
+
                     yAxis: {
-                      title: {
-                        text: 'Percent'
-                      }
-                  
+                        categories: answerTitle
                     },
+
                     legend: {
-                      enabled: false
+                        enabled: false
                     },
-                    plotOptions: {
-                      series: {
-                        borderWidth: 0,
-                        dataLabels: {
-                          enabled: true,
-                          format: '{point.y:.1f}%'
-                        }
-                      }
-                    },
-                  
-                    tooltip: {
-                      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-                    },
-                  
-                    "series": [{
-                      "name": "Answer Choice",
-                      "colorByPoint": true,
-                      "data": [{
-                          "name": "A",
-                          "y": 62.74,
-                        },
-                        {
-                          "name": "B",
-                          "y": 10.57,
-                        },
-                        {
-                          "name": "C",
-                          "y": 7.23,
-                        },
-                        {
-                          "name": "D",
-                          "y": 5.58,
-                        },
-                        {
-                          "name": "E",
-                          "y": 4.02,
-                        }
-                      ]
+                    
+                    series: [{
+                        type: 'column',
+                        data: answerData
                     }]
-                  });
+                });
             }
         }
 
