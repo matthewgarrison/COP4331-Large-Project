@@ -2,106 +2,112 @@ var invalidSessionError = "Unable to access session.";
 var invalidProfError = "Could not find professor.";
 var baseURL = "http://cop4331-2.com/API";
 var deleteTarget = -1;
+var deletePollTarget = -1;
+var letters = ["A", "B", "C", "D", "E", "F", "G"];
+
+var endTarget = -1;
 
 function refreshPage(){
     getInfo();
     refreshQuestions();
+    refreshPolls();
 }
 
-window.setInterval(refreshQuestions, 3000);
+window.setInterval(lightRefresh, 3000);
+function lightRefresh(){
+    refreshQuestions();
+    refreshPolls();
+}
+
 function refreshQuestions(){
     var payload = '{"session" : "", "showRead" : "'+(showRead() ? 1 : 0)+'"}';
 
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/ListQuestions.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/ListQuestions.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
     
-                    clearQuestions();
-                    if(error != '') {
-    
-                        if(error == invalidSessionError || error == invalidProfError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-    
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+                if(error != '') {
+
+                    if(error == invalidSessionError || error == invalidProfError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
-    
-                    var rawStudents = data.result;
-                    var idx = 0;
-                    while(idx < rawStudents.length){
-                        var questionID = "";
-                        var questionText = "";
-                        var studentID = "";
-                        var studentName = "";
-                        var dateTime = "";
-                        var read = "";
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            questionID = questionID + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            questionText = questionText + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            studentID = studentID + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            studentName = studentName + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(rawStudents.charAt(idx) != '|'){
-                            dateTime = dateTime + rawStudents.charAt(idx++);
-                        }
-                        idx += 2;
-    
-                        while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
-                            read = read + rawStudents.charAt(idx++);
-                        }
-                        idx +=2;
-                        insertQuestion(questionText, dateTime, (read == "1"), questionID, studentName, newestFirst());
-                        
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
+                }
+                clearQuestions();
+
+                var rawStudents = data.result;
+                var idx = 0;
+                while(idx < rawStudents.length){
+                    var questionID = "";
+                    var questionText = "";
+                    var studentID = "";
+                    var studentName = "";
+                    var dateTime = "";
+                    var read = "";
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        questionID = questionID + rawStudents.charAt(idx++);
                     }
-    
-                    if(idx == 0){
-                        if(!showRead()){
-                            insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no unread questions");
-                        } 
-                        else {
-                            insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no questions");
-                        }
+                    idx += 2;
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        questionText = questionText + rawStudents.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        studentID = studentID + rawStudents.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        studentName = studentName + rawStudents.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(rawStudents.charAt(idx) != '|'){
+                        dateTime = dateTime + rawStudents.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(idx < rawStudents.length && rawStudents.charAt(idx) != '|'){
+                        read = read + rawStudents.charAt(idx++);
+                    }
+                    idx +=2;
+                    insertQuestion(questionText, dateTime, (read == "1"), questionID, studentName, newestFirst());
+                    
+                }
+
+                if(idx == 0){
+                    if(!showRead()){
+                        insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no unread questions");
+                    } 
+                    else {
+                        insertEmtpyItem(document.getElementsByClassName("questions-container")[0], "There are no questions");
                     }
                 }
             }
-    
-            xhr.send(payload);
         }
-    
-        catch(error){
-            console.log("refreshQueries Error: "+error);
-            continue;
-        }
-        break;
-    }	
-}
+
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("refreshQueries Error: "+error);
+    }
+}	
 
 function showRead(){
     var filterMode = document.getElementById("filter-select");
@@ -349,6 +355,576 @@ function getInfo() {
 	
 }
 
+function addPoll() {
+    var pollText = document.getElementById("add-poll-question-input").value;
+    document.getElementById("add-poll-question-input").value = "";
+    var answer1 = document.getElementById("add-poll-answer1-input").value;
+    document.getElementById("add-poll-answer1-input").value = "";
+    var answer2 = document.getElementById("add-poll-answer2-input").value;
+    document.getElementById("add-poll-answer2-input").value = "";
+    var answer3 = document.getElementById("add-poll-answer3-input").value;
+    document.getElementById("add-poll-answer3-input").value = "";
+    var answer4 = document.getElementById("add-poll-answer4-input").value;
+    document.getElementById("add-poll-answer4-input").value = "";
+    var answer5 = document.getElementById("add-poll-answer5-input").value;
+    document.getElementById("add-poll-answer5-input").value = "";
+    var payload = '{"session" : "", "text" : "'+pollText+'", "answer1" : "' + answer1 + '", "answer2" : "' + 
+            answer2 + '", "answer3" : "' + answer3 + '", "answer4" : "' + answer4 + '", "answer5" : "' + answer5 + '"}';
+
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/CreatePoll.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
+
+                    if(error != '') {
+
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        if(error == "Failed to find session."){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
+                    }
+                    refreshPolls();
+                }
+            }
+
+            xhr.send(payload);
+        }
+
+        catch(error){
+            console.log("Add Poll Error: "+error);
+            continue;
+        }
+        break;
+    }
+}
+
+function refreshPolls(){
+    var payload = '{"session" : ""}';
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/ListPolls.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
+
+                    clearActivePolls();
+                    clearArchivedPolls();
+                    displayActivePollContent = [];
+                    if(error != '') {
+
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else if(error == invalidProfError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
+                    }
+                    
+                    // Update active polls
+                    var activeRaw = data.active;
+                    var idx = 0;
+                    while(idx < activeRaw.length){
+                        var pollID = "";
+                        var questionText = "";
+                        var numAnswers = "";
+                        var dateCreated = "";
+                        var answers = "";
+
+                        while(activeRaw.charAt(idx) != '|'){
+                            pollID = pollID + activeRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(activeRaw.charAt(idx) != '|'){
+                            questionText = questionText + activeRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(activeRaw.charAt(idx) != '|'){
+                            numAnswers = numAnswers + activeRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(idx < activeRaw.length && activeRaw.charAt(idx) != '|'){
+                            dateCreated = dateCreated + activeRaw.charAt(idx++);
+                        }
+                        idx+=2;
+
+                        for(var i=0; i<numAnswers; i++){
+                            if(i != 0) answers = answers + "| ";
+                            while(idx < activeRaw.length && activeRaw.charAt(idx) != '|'){
+                                answers = answers + activeRaw.charAt(idx++);
+                            }
+                            idx += 2;
+                        }
+
+                        for(var i=numAnswers; i<5; i++){
+                            idx += 2;
+                        }
+
+                        insertActivePoll(questionText, answers, parseInt(numAnswers), pollID);
+                    }
+
+                    if(idx == 0){
+                        insertEmtpyItem(document.getElementsByClassName("overhead-container-polls")[0], "There are no active polls");
+                    }
+
+                    // Update archived polls
+                    var archivedRaw = data.archived;
+                    idx = 0;
+                    while(idx < archivedRaw.length){
+                        var pollID = "";
+                        var questionText = "";
+                        var numAnswers = "";
+                        var dateCreated = "";
+                        var dateArchived = "";
+                        var answers = "";
+
+                        while(archivedRaw.charAt(idx) != '|'){
+                            pollID = pollID + archivedRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(archivedRaw.charAt(idx) != '|'){
+                            questionText = questionText + archivedRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(archivedRaw.charAt(idx) != '|'){
+                            numAnswers = numAnswers + archivedRaw.charAt(idx++);
+                        }
+                        idx += 2;
+
+                        while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
+                            dateCreated = dateCreated + archivedRaw.charAt(idx++);
+                        }
+                        idx+=2;
+
+                        while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
+                            dateArchived = dateArchived + archivedRaw.charAt(idx++);
+                        }
+                        idx+=2;
+
+                        for(var i=0; i<numAnswers; i++){
+                            if(i != 0) answers = answers + "| ";
+                            while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
+                                answers = answers + archivedRaw.charAt(idx++);
+                            }
+                            idx += 2;
+                        }
+
+                        for(var i=numAnswers; i<5; i++){
+                            idx += 2;
+                        }
+
+                        insertArchivedPoll(questionText, answers, parseInt(numAnswers), pollID);
+                    }
+
+                    if(idx == 0){
+                        insertEmtpyItem(document.getElementsByClassName("overhead-container-polls")[1], "There are no archived polls");
+                    }
+
+                    
+                }
+            }
+
+            xhr.send(payload);
+        }
+
+        catch(error){
+            console.log("refreshPolls Error: "+error);
+            continue;
+        }
+        break;
+    }
+}
+
+function clearActivePolls(){
+    var container = document.getElementsByClassName("overhead-container-polls")[0];
+    var polls = container.getElementsByClassName("polls-container");
+
+    while(polls.length > 0){
+        container.removeChild(polls[0]);
+    }
+
+    clearEmtpyItems(container);
+}
+
+function insertActivePoll(questionText, answerText, numAnswers, id){
+    // Create dropdown menu
+    var displayButton = document.createElement("button");
+    displayButton.className = "dropdown-item";
+    displayButton.setAttribute("data-toggle", "modal");
+    displayButton.setAttribute("data-target", "#displayPollModal"); 
+    displayButton.setAttribute("onclick", "updateDisplayModal('"+questionText+"','"+answerText+"');");   
+    displayButton.innerHTML = "Display";
+
+    var resultsButton = document.createElement("button");
+    resultsButton.className = "dropdown-item";
+    resultsButton.setAttribute("data-toggle", "modal");
+    resultsButton.setAttribute("data-target", "#viewResultsModal"); 
+    resultsButton.setAttribute("onclick", "setChart('"+questionText+"', "+numAnswers+", "+id+");");   
+    resultsButton.innerHTML = "View Results";
+
+    var endButton = document.createElement("button");
+    endButton.className = "dropdown-item";
+    endButton.setAttribute("data-toggle", "modal");
+    endButton.setAttribute("data-target", "#endPollModal");  
+    endButton.setAttribute("onclick", "setEndTarget("+id+");");  
+    endButton.innerHTML = "End Poll";
+    
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "dropdown-item";
+    deleteButton.setAttribute("data-toggle", "modal");
+    deleteButton.setAttribute("data-target", "#deletePollModal");    
+    deleteButton.setAttribute("onclick", "setDeletePollTarget("+id+");");  
+    deleteButton.innerHTML = "Delete";
+
+    var dropdownMenu = document.createElement("div");
+    dropdownMenu.className = "dropdown-menu";
+    dropdownMenu.appendChild(displayButton);
+    dropdownMenu.appendChild(resultsButton);
+    dropdownMenu.appendChild(endButton);
+    dropdownMenu.appendChild(deleteButton);
+
+    var dropdownButton = document.createElement("button");
+    dropdownButton.className = "btn-menu";
+    dropdownButton.setAttribute("data-toggle", "dropdown");
+    dropdownButton.type = "button";
+
+    var dropdownContainer = document.createElement("div");
+    dropdownContainer.className = "dropdown";
+    dropdownContainer.appendChild(dropdownButton);
+    dropdownContainer.appendChild(dropdownMenu);
+
+    // Poll text item
+    var pollText = document.createElement("div");
+    pollText.className = "poll-text";
+    pollText.innerHTML = questionText;
+
+    // Poll container
+    var pollEntry = document.createElement("div");
+    pollEntry.className = "poll-entry";
+    pollEntry.appendChild(pollText);
+    pollEntry.appendChild(dropdownContainer);
+
+    var pollContainer = document.createElement("div");
+    pollContainer.className = "polls-container";
+    pollContainer.appendChild(pollEntry);
+
+    var container = document.getElementsByClassName("overhead-container-polls")[0];
+    container.appendChild(pollContainer);
+}
+
+function updateDisplayModal(question, answers){
+    // Clear the modal
+    var modalContainer = document.getElementById("displayModal");
+    var children = modalContainer.getElementsByClassName("modal-body");
+
+    while(children.length != 0){
+        modalContainer.removeChild(children[0]);
+    }
+
+    // Create new modal body
+    var modalBody = document.createElement("div");
+    modalBody.className = "modal-body";
+
+    var questionText = document.createElement("div");
+    questionText.className = "display-poll-question";
+    questionText.innerHTML = question;
+    modalBody.appendChild(questionText);
+
+    var idx = 0;
+    var letterIdx = 0;
+    while(idx < answers.length){
+        var answerLetter = document.createElement("div");
+        answerLetter.className="answer-letter";
+        answerLetter.innerHTML = letters[letterIdx++];
+
+        var text = "";
+        while(idx < answers.length && answers.charAt(idx) != '|'){
+            text = text + answers.charAt(idx++);
+        }
+        idx += 2;
+
+        var answerText = document.createElement("div");
+        answerText.className = "answer-text";
+        answerText.innerHTML = text;
+
+        var answerContainer = document.createElement("div");
+        answerContainer.className = "display-answer-choice";
+        answerContainer.appendChild(answerLetter);
+        answerContainer.appendChild(answerText);
+        modalBody.appendChild(answerContainer);
+    }
+
+    modalContainer.insertBefore(modalBody, modalContainer.getElementsByClassName("modal-footer")[0]);
+}
+
+function clearArchivedPolls(){
+    var container = document.getElementsByClassName("overhead-container-polls")[1];
+    var polls = container.getElementsByClassName("polls-container");
+
+    while(polls.length > 0){
+        container.removeChild(polls[0]);
+    }
+
+    clearEmtpyItems(container);
+}
+
+function insertArchivedPoll(questionText, answerText, numAnswers, id){
+    // Create dropdown menu
+    var displayButton = document.createElement("button");
+    displayButton.className = "dropdown-item";
+    displayButton.setAttribute("data-toggle", "modal");
+    displayButton.setAttribute("data-target", "#displayPollModal");  
+    displayButton.setAttribute("onclick", "updateDisplayModal('"+questionText+"','"+answerText+"');");     
+    displayButton.innerHTML = "Display";
+
+    var resultsButton = document.createElement("button");
+    resultsButton.className = "dropdown-item";
+    resultsButton.setAttribute("data-toggle", "modal");
+    resultsButton.setAttribute("data-target", "#viewResultsModal");    
+    resultsButton.innerHTML = "View Results";
+    
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "dropdown-item";
+    deleteButton.setAttribute("data-toggle", "modal");
+    deleteButton.setAttribute("data-target", "#deletePollModal"); 
+    deleteButton.setAttribute("onclick", "setDeletePollTarget("+id+");");   
+    deleteButton.innerHTML = "Delete";
+
+    var dropdownMenu = document.createElement("div");
+    dropdownMenu.className = "dropdown-menu";
+    dropdownMenu.appendChild(displayButton);
+    dropdownMenu.appendChild(resultsButton);
+    dropdownMenu.appendChild(deleteButton);
+
+    var dropdownButton = document.createElement("button");
+    dropdownButton.className = "btn-menu";
+    dropdownButton.setAttribute("data-toggle", "dropdown");
+    dropdownButton.type = "button";
+
+    var dropdownContainer = document.createElement("div");
+    dropdownContainer.className = "dropdown";
+    dropdownContainer.appendChild(dropdownButton);
+    dropdownContainer.appendChild(dropdownMenu);
+
+    // Poll text item
+    var pollText = document.createElement("div");
+    pollText.className = "poll-text";
+    pollText.innerHTML = questionText;
+
+    // Poll container
+    var pollEntry = document.createElement("div");
+    pollEntry.className = "poll-entry";
+    pollEntry.appendChild(pollText);
+    pollEntry.appendChild(dropdownContainer);
+
+    var pollContainer = document.createElement("div");
+    pollContainer.className = "polls-container";
+    pollContainer.appendChild(pollEntry);
+
+    var container = document.getElementsByClassName("overhead-container-polls")[1];
+    container.appendChild(pollContainer);
+}
+
+function endPoll(){
+    if(endTarget == -1) return;
+
+    var payload = '{"session" : "", "pollID" : "'+endTarget+'"}';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/TogglePoll.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+                if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
+                }
+
+                refreshPolls();
+                setEndTarget(-1);
+            }
+        }
+
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("endPoll Error: "+error);
+        displayError("Failed to archive poll, try again later");
+    }
+}
+
+function deletePoll(){
+    if(deletePollTarget == -1) return;
+
+    var payload = '{"session" : "", "pollID" : "'+deletePollTarget+'"}';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/DeletePoll.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+                if(error != '') {
+
+                    if(error == invalidSessionError || error == "Only professors can delete polls."){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
+                }
+
+                refreshPolls();
+                setDeletePollTarget(-1);
+            }
+        }
+
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("deletePoll Error: "+error);
+        displayError("Failed to delete poll, try again later");
+    }
+}
+
+function setChart(question, numAnswers, id){
+    var payload = '{"session" : "", "pollID" : "'+id+'"}';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/GetPollResults.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+                if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
+                }
+
+                var answerData = [];
+                if(numAnswers > 0) answerData[0] = parseInt(data.ans1);
+                if(numAnswers > 1) answerData[1] = parseInt(data.ans2);
+                if(numAnswers > 2) answerData[2] = parseInt(data.ans3);
+                if(numAnswers > 3) answerData[3] = parseInt(data.ans4);
+                if(numAnswers > 4) answerData[4] = parseInt(data.ans5);
+
+                var chartData = [];
+                for(var i=0; i<numAnswers; i++){
+                    chartData[i] = {
+                        y: answerData[i]
+                    }
+                }
+
+                var chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'chart-container',
+                        type: 'bar'
+                    },
+
+                    title: {
+                        text: question
+                    },
+
+                    xAxis: {
+                        categories: letters,
+                        labels: {
+                            enabled: true
+                        }
+                    },
+
+                    series: [{
+                        type: 'column',
+                        name: question,
+                        data: chartData
+                    }]
+                });
+            }
+        }
+
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("getPollResults Error: "+error);
+        displayError("Failed to get poll data, try again later");
+    }
+}
+
+function setEndTarget(id){
+    endTarget = id;
+}
+
 function setDisplayText(text){
     document.getElementsByClassName("display-question-text")[0].innerHTML = text;
 }
@@ -359,4 +935,8 @@ function setAskerName(name){
 
 function setDeleteTarget(id){
     deleteTarget = id;
+}
+
+function setDeletePollTarget(id){
+    deletePollTarget = id;
 }
