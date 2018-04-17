@@ -138,43 +138,39 @@ function clearQuestions(){
 function toggleRead(id){
     var payload = '{"session" : "", "questionID" : "'+id+'"}';
 
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/ToggleRead.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/ToggleRead.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
     
-                    if(error != '') {
-    
-                        if(error == invalidSessionError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-    
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
+
+                if(error != '') {
+
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
-    
-                    refreshQuestions();
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
                 }
+
+                refreshQuestions();
             }
-    
-            xhr.send(payload);
         }
-    
-        catch(error){
-            console.log("toggleRead Error: "+error);
-            continue;
-        }
-        break;
+
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("toggleRead Error: "+error);
     }
 }
 
@@ -278,88 +274,79 @@ function deleteQuestion(){
 
     var payload = '{"session" : "", "questionID" : "'+deleteTarget+'"}';
 
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/DeleteQuestion.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/DeleteQuestion.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
 
-                    if(error != '') {
+                if(error != '') {
 
-                        if(error == invalidSessionError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    refreshQuestions();
-                    deleteTarget = -1;
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
                 }
+
+                refreshQuestions();
+                deleteTarget = -1;
             }
-
-            xhr.send(payload);
         }
 
-        catch(error){
-            console.log("deleteQuestion Error: "+error);
-            continue;
-        }
-        break;
+        xhr.send(payload);
     }
-	
+
+    catch(error){
+        console.log("deleteQuestion Error: "+error);
+    }
 }
 
 function getInfo() {
     var payload = '{"session" : ""}';
 
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/GetInfo.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4) {
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/GetInfo.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4) {
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
 
-                    if(error != '') {
+                if(error != '') {
 
-                        if(error == invalidSessionError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
-                    
-                    document.getElementsByClassName("class-title")[0].innerHTML = data.className;
-                    document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: "+decToHex(data.classID);
-                }
-            }
 
-            xhr.send(payload);
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
+                }
+                
+                document.getElementsByClassName("class-title")[0].innerHTML = data.className;
+                document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: "+decToHex(data.classID);
+            }
         }
-        catch(error){
-            console.log("Get Info Error: "+error);
-            continue;
-        }
-        break;
+
+        xhr.send(payload);
+    }
+    catch(error){
+        console.log("Get Info Error: "+error);
     }
 	
 }
@@ -380,201 +367,194 @@ function addPoll() {
     var payload = '{"session" : "", "text" : "'+pollText+'", "answer1" : "' + answer1 + '", "answer2" : "' + 
             answer2 + '", "answer3" : "' + answer3 + '", "answer4" : "' + answer4 + '", "answer5" : "' + answer5 + '"}';
 
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/CreatePoll.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
-        
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/CreatePoll.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+    
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
 
-                    if(error != '') {
+                if(error != '') {
 
-                        if(error == invalidSessionError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        if(error == "Failed to find session."){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
-                    refreshPolls();
+
+                    if(error == "Failed to find session."){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
+                    }
+
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
                 }
+                refreshPolls();
             }
-
-            xhr.send(payload);
         }
 
-        catch(error){
-            console.log("Add Poll Error: "+error);
-            continue;
-        }
-        break;
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("Add Poll Error: "+error);
     }
 }
 
 function refreshPolls(){
     var payload = '{"session" : ""}';
-    while(true){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", baseURL + "/ListPolls.php", false);
-        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
 
-        try{
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4){
-                    var data = JSON.parse(xhr.responseText);
-                    var error = data.error;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", baseURL + "/ListPolls.php", false);
+    xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
 
-                    clearActivePolls();
-                    clearArchivedPolls();
-                    displayActivePollContent = [];
-                    if(error != '') {
+    try{
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                var data = JSON.parse(xhr.responseText);
+                var error = data.error;
 
-                        if(error == invalidSessionError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
+                clearActivePolls();
+                clearArchivedPolls();
+                displayActivePollContent = [];
+                if(error != '') {
 
-                        else if(error == invalidProfError){
-                            console.log("INVALID SESSION");
-                            window.location.href = "http://cop4331-2.com/Login.html";
-                        }
-
-                        else{
-                            displayError(error);
-                            // window.location.href = "http://cop4331-2.com/Login.html";
-                        } 
-                        return;
-                    }
-                    
-                    // Update active polls
-                    var activeRaw = data.active;
-                    var idx = 0;
-                    while(idx < activeRaw.length){
-                        var pollID = "";
-                        var questionText = "";
-                        var numAnswers = "";
-                        var dateCreated = "";
-                        var answers = "";
-
-                        while(activeRaw.charAt(idx) != '|'){
-                            pollID = pollID + activeRaw.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(activeRaw.charAt(idx) != '|'){
-                            questionText = questionText + activeRaw.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(activeRaw.charAt(idx) != '|'){
-                            numAnswers = numAnswers + activeRaw.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(idx < activeRaw.length && activeRaw.charAt(idx) != '|'){
-                            dateCreated = dateCreated + activeRaw.charAt(idx++);
-                        }
-                        idx+=2;
-
-                        for(var i=0; i<numAnswers; i++){
-                            if(i != 0) answers = answers + "| ";
-                            while(idx < activeRaw.length && activeRaw.charAt(idx) != '|'){
-                                answers = answers + activeRaw.charAt(idx++);
-                            }
-                            idx += 2;
-                        }
-
-                        for(var i=numAnswers; i<5; i++){
-                            idx += 2;
-                        }
-
-                        insertActivePoll(questionText, answers, parseInt(numAnswers), pollID);
+                    if(error == invalidSessionError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    if(idx == 0){
-                        insertEmtpyItem(document.getElementsByClassName("overhead-container-polls")[0], "There are no active polls");
+                    else if(error == invalidProfError){
+                        console.log("INVALID SESSION");
+                        window.location.href = "http://cop4331-2.com/Login.html";
                     }
 
-                    // Update archived polls
-                    var archivedRaw = data.archived;
-                    idx = 0;
-                    while(idx < archivedRaw.length){
-                        var pollID = "";
-                        var questionText = "";
-                        var numAnswers = "";
-                        var dateCreated = "";
-                        var dateArchived = "";
-                        var answers = "";
-
-                        while(archivedRaw.charAt(idx) != '|'){
-                            pollID = pollID + archivedRaw.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(archivedRaw.charAt(idx) != '|'){
-                            questionText = questionText + archivedRaw.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(archivedRaw.charAt(idx) != '|'){
-                            numAnswers = numAnswers + archivedRaw.charAt(idx++);
-                        }
-                        idx += 2;
-
-                        while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
-                            dateCreated = dateCreated + archivedRaw.charAt(idx++);
-                        }
-                        idx+=2;
-
-                        while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
-                            dateArchived = dateArchived + archivedRaw.charAt(idx++);
-                        }
-                        idx+=2;
-
-                        for(var i=0; i<numAnswers; i++){
-                            if(i != 0) answers = answers + "| ";
-                            while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
-                                answers = answers + archivedRaw.charAt(idx++);
-                            }
-                            idx += 2;
-                        }
-
-                        for(var i=numAnswers; i<5; i++){
-                            idx += 2;
-                        }
-
-                        insertArchivedPoll(questionText, answers, parseInt(numAnswers), pollID);
-                    }
-
-                    if(idx == 0){
-                        insertEmtpyItem(document.getElementsByClassName("overhead-container-polls")[1], "There are no archived polls");
-                    }
-
-                    
+                    else{
+                        displayError(error);
+                        // window.location.href = "http://cop4331-2.com/Login.html";
+                    } 
+                    return;
                 }
+                
+                // Update active polls
+                var activeRaw = data.active;
+                var idx = 0;
+                while(idx < activeRaw.length){
+                    var pollID = "";
+                    var questionText = "";
+                    var numAnswers = "";
+                    var dateCreated = "";
+                    var answers = "";
+
+                    while(activeRaw.charAt(idx) != '|'){
+                        pollID = pollID + activeRaw.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(activeRaw.charAt(idx) != '|'){
+                        questionText = questionText + activeRaw.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(activeRaw.charAt(idx) != '|'){
+                        numAnswers = numAnswers + activeRaw.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(idx < activeRaw.length && activeRaw.charAt(idx) != '|'){
+                        dateCreated = dateCreated + activeRaw.charAt(idx++);
+                    }
+                    idx+=2;
+
+                    for(var i=0; i<numAnswers; i++){
+                        if(i != 0) answers = answers + "| ";
+                        while(idx < activeRaw.length && activeRaw.charAt(idx) != '|'){
+                            answers = answers + activeRaw.charAt(idx++);
+                        }
+                        idx += 2;
+                    }
+
+                    for(var i=numAnswers; i<5; i++){
+                        idx += 2;
+                    }
+
+                    insertActivePoll(questionText, answers, parseInt(numAnswers), pollID);
+                }
+
+                if(idx == 0){
+                    insertEmtpyItem(document.getElementsByClassName("overhead-container-polls")[0], "There are no active polls");
+                }
+
+                // Update archived polls
+                var archivedRaw = data.archived;
+                idx = 0;
+                while(idx < archivedRaw.length){
+                    var pollID = "";
+                    var questionText = "";
+                    var numAnswers = "";
+                    var dateCreated = "";
+                    var dateArchived = "";
+                    var answers = "";
+
+                    while(archivedRaw.charAt(idx) != '|'){
+                        pollID = pollID + archivedRaw.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(archivedRaw.charAt(idx) != '|'){
+                        questionText = questionText + archivedRaw.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(archivedRaw.charAt(idx) != '|'){
+                        numAnswers = numAnswers + archivedRaw.charAt(idx++);
+                    }
+                    idx += 2;
+
+                    while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
+                        dateCreated = dateCreated + archivedRaw.charAt(idx++);
+                    }
+                    idx+=2;
+
+                    while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
+                        dateArchived = dateArchived + archivedRaw.charAt(idx++);
+                    }
+                    idx+=2;
+
+                    for(var i=0; i<numAnswers; i++){
+                        if(i != 0) answers = answers + "| ";
+                        while(idx < archivedRaw.length && archivedRaw.charAt(idx) != '|'){
+                            answers = answers + archivedRaw.charAt(idx++);
+                        }
+                        idx += 2;
+                    }
+
+                    for(var i=numAnswers; i<5; i++){
+                        idx += 2;
+                    }
+
+                    insertArchivedPoll(questionText, answers, parseInt(numAnswers), pollID);
+                }
+
+                if(idx == 0){
+                    insertEmtpyItem(document.getElementsByClassName("overhead-container-polls")[1], "There are no archived polls");
+                }
+
+                
             }
-
-            xhr.send(payload);
         }
 
-        catch(error){
-            console.log("refreshPolls Error: "+error);
-            continue;
-        }
-        break;
+        xhr.send(payload);
+    }
+
+    catch(error){
+        console.log("refreshPolls Error: "+error);
     }
 }
 
