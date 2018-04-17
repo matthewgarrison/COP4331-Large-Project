@@ -355,6 +355,66 @@ function getInfo() {
 	
 }
 
+function addPoll() {
+    var pollText = document.getElementById("add-poll-question-input").value;
+    document.getElementById("add-poll-question-input").value = "";
+    var answer1 = document.getElementById("add-poll-answer1-input").value;
+    document.getElementById("add-poll-answer1-input").value = "";
+    var answer2 = document.getElementById("add-poll-answer2-input").value;
+    document.getElementById("add-poll-answer2-input").value = "";
+    var answer3 = document.getElementById("add-poll-answer3-input").value;
+    document.getElementById("add-poll-answer3-input").value = "";
+    var answer4 = document.getElementById("add-poll-answer4-input").value;
+    document.getElementById("add-poll-answer4-input").value = "";
+    var answer5 = document.getElementById("add-poll-answer5-input").value;
+    document.getElementById("add-poll-answer5-input").value = "";
+    var payload = '{"session" : "", "text" : "'+pollText+'", "answer1" : "' + answer1 + '", "answer2" : "' + 
+            answer2 + '", "answer3" : "' + answer3 + '", "answer4" : "' + answer4 + '", "answer5" : "' + answer5 + '"}';
+
+    while(true){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", baseURL + "/CreatePoll.php", false);
+        xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");
+        
+        try{
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    var data = JSON.parse(xhr.responseText);
+                    var error = data.error;
+
+                    if(error != '') {
+
+                        if(error == invalidSessionError){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        if(error == "Failed to find session."){
+                            console.log("INVALID SESSION");
+                            window.location.href = "http://cop4331-2.com/Login.html";
+                        }
+
+                        else{
+                            displayError(error);
+                            // window.location.href = "http://cop4331-2.com/Login.html";
+                        } 
+                        return;
+                    }
+                    refreshPolls();
+                }
+            }
+
+            xhr.send(payload);
+        }
+
+        catch(error){
+            console.log("Add Poll Error: "+error);
+            continue;
+        }
+        break;
+    }
+}
+
 function refreshPolls(){
     var payload = '{"session" : ""}';
     while(true){
