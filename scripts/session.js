@@ -21,7 +21,7 @@ function lightRefresh(){
 
 function refreshQuestions(){
     var payload = '{"session" : "", "showRead" : "'+(showRead() ? 1 : 0)+'"}';
-    console.log("refress questions payload: " + payload);
+    console.log("refresh questions payload: " + payload);
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", baseURL + "/ListQuestions.php", false);
@@ -30,7 +30,9 @@ function refreshQuestions(){
     try{
         xhr.onreadystatechange = function(){
             if(xhr.readyState === 4){
+                console.log("response (refresh questions): " + xhr.responseText);
                 var data = JSON.parse(xhr.responseText);
+                console.log("data (refresh questions): " + data);
                 var error = data.error;
 
                 if(error != '') {
