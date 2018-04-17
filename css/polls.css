@@ -24,6 +24,13 @@
 	font-size: 22px;
 	font-weight: 600;
 	margin-bottom: 5px;
+	
+	display: flex;
+	align-items: center;
+}
+
+.polls-header p{
+	margin: 0px;
 }
 
 .poll-entry{
@@ -57,4 +64,26 @@
 	font-weight: 500;
 }
 
+.btn-add {
+	height: 22px;
+	width: 22px;
+	
+	cursor: pointer;
+	
+	background-color: white;
+	border: none;
+	
+	margin-top: 0px;
+	margin-left: 10px;
+	line-height: 30px;
+	
+	background-image: url(../images/plus.png);
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	
+}
 
+.btn-add:hover, .btn-add:focus {
+	background-image: url(../images/plusHover.png);
+}
