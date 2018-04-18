@@ -78,7 +78,8 @@ function insertStudent(name, email, joinDate, id){
     joinDateElement.innerHTML = joinDate;
 
     var banButton = document.createElement("button");
-    banButton.className = "btn-ban";
+    banButton.className = "btn-unban";
+    banButton.innerHTML = "Ban";
     banButton.setAttribute("data-toggle", "modal");
     banButton.setAttribute("data-target", "#banStudentModal");
     banButton.setAttribute("onclick", "setBanTarget("+id+", \""+name+"\")");
