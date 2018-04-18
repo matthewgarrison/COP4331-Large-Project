@@ -595,7 +595,7 @@ function insertActivePoll(questionText, answerText, numAnswers, id){
     resultsButton.className = "dropdown-item";
     resultsButton.setAttribute("data-toggle", "modal");
     resultsButton.setAttribute("data-target", "#viewResultsModal"); 
-    resultsButton.setAttribute("onclick", "setChart('"+questionText+"', "+numAnswers+", "+id+");");   
+    resultsButton.setAttribute("onclick", "setChart('"+questionText+"', "+answerText+"', "+numAnswers+", "+id+");");   
     resultsButton.innerHTML = "View Results";
 
     var endButton = document.createElement("button");
@@ -651,6 +651,51 @@ function insertActivePoll(questionText, answerText, numAnswers, id){
 function updateDisplayModal(question, answers){
     // Clear the modal
     var modalContainer = document.getElementById("displayModal");
+    var children = modalContainer.getElementsByClassName("modal-body");
+
+    while(children.length != 0){
+        modalContainer.removeChild(children[0]);
+    }
+
+    // Create new modal body
+    var modalBody = document.createElement("div");
+    modalBody.className = "modal-body";
+
+    var questionText = document.createElement("div");
+    questionText.className = "display-poll-question";
+    questionText.innerHTML = question;
+    modalBody.appendChild(questionText);
+
+    var idx = 0;
+    var letterIdx = 0;
+    while(idx < answers.length){
+        var answerLetter = document.createElement("div");
+        answerLetter.className="answer-letter";
+        answerLetter.innerHTML = letters[letterIdx++] + ".";
+
+        var text = "";
+        while(idx < answers.length && answers.charAt(idx) != '|'){
+            text = text + answers.charAt(idx++);
+        }
+        idx += 2;
+
+        var answerText = document.createElement("div");
+        answerText.className = "answer-text";
+        answerText.innerHTML = text;
+
+        var answerContainer = document.createElement("div");
+        answerContainer.className = "display-answer-choice";
+        answerContainer.appendChild(answerLetter);
+        answerContainer.appendChild(answerText);
+        modalBody.appendChild(answerContainer);
+    }
+
+    modalContainer.insertBefore(modalBody, modalContainer.getElementsByClassName("modal-footer")[0]);
+}
+
+function updateChartModal(question, answers){
+    // Clear the modal
+    var modalContainer = document.getElementById("resultsModal");
     var children = modalContainer.getElementsByClassName("modal-body");
 
     while(children.length != 0){
@@ -847,7 +892,7 @@ function deletePoll(){
     }
 }
 
-function setChart(question, numAnswers, id){
+function setChart(question, answers, numAnswers, id){
     var payload = '{"session" : "", "pollID" : "'+id+'"}';
 
     var xhr = new XMLHttpRequest();
@@ -889,10 +934,16 @@ function setChart(question, numAnswers, id){
                     }
                 }
 
+                updateChartModal(question, answers);
+
                 var chart = new Highcharts.Chart({
                     chart: {
                         renderTo: 'chart-container',
                         type: 'column'
+                    },
+
+                    title: {
+                        text: ""
                     },
 
                     xAxis: {
