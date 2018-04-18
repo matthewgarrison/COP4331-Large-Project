@@ -4,7 +4,7 @@ var baseURL = "http://cop4331-2.com/API";
 var deleteTarget = -1;
 var deletePollTarget = -1;
 var letters = ["A", "B", "C", "D", "E", "F", "G"];
-var colors = ["#F15854", "5DA5DA", "B276B2", "60BD68", "FAA43A", "4D4D4D", "B2912F"];
+var colors = ["#F15854", "#5DA5DA", "#B276B2", "#60BD68", "#FAA43A", "#4D4D4D", "#B2912F"];
 
 var endTarget = -1;
 
