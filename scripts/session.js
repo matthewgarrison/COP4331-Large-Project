@@ -1009,7 +1009,7 @@ function setDisplayText(text){
 }
 
 function setAskerName(name){
-    document.getElementById("askerName").innerHTML = name;
+    document.getElementById("askerName").innerHTML = name + " submitted this question.";
 }
 
 function setDeleteTarget(id){
