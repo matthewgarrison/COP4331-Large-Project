@@ -52,7 +52,7 @@
 .student {
 	display: flex;
 	align-items: center;
-	margin-bottom: 7px;
+	margin-bottom: 12px;
 }
 
 .student-name {
