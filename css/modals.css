@@ -38,6 +38,35 @@
 	
 }
 
+/* DISPLAY RESULTS MODAL */
+.results-container {
+	display: flex;
+	flex-direction: row;	
+}
+
+.results-question-container {
+	font-size: 20px;
+}
+
+.results-question {
+	font-size: 25px;
+	margin-bottom: 50px;
+}
+
+.results-choice {
+	font-size: 20px;
+	margin-bottom: 10px;
+	display: flex;
+}
+
+.results-letter {
+	margin-right: 30px;
+}
+
+.modal-display {
+	min-width: 90%;
+}
+
 
 /* DISPLAY QUESTION MODAL */
 .display-question-text {
