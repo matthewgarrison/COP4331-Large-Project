@@ -716,10 +716,14 @@ function updateChartModal(question, answers){
     chartContainer.appendChild(chart);
     modalBody.appendChild(chartContainer);
 
+    var questionContainer = document.createElement("div");
+    questionContainer.className = "results-question-container";
+    chartContainer.appendChild(questionContainer);
+
     var questionText = document.createElement("div");
     questionText.className = "display-poll-question";
     questionText.innerHTML = question;
-    modalBody.appendChild(questionText);
+    questionContainer.appendChild(questionText);
 
     var idx = 0;
     var letterIdx = 0;
@@ -742,7 +746,7 @@ function updateChartModal(question, answers){
         answerContainer.className = "display-answer-choice";
         answerContainer.appendChild(answerLetter);
         answerContainer.appendChild(answerText);
-        modalBody.appendChild(answerContainer);
+        questionContainer.appendChild(answerContainer);
     }
 
     modalContainer.insertBefore(modalBody, modalContainer.getElementsByClassName("modal-footer")[0]);
