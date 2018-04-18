@@ -281,6 +281,12 @@ function setDeleteTarget(id) {
     deleteTarget = id;
 }
 
+function newestFirst(){
+    var sortMode = document.getElementById("sort-select");
+    if(sortMode.options[sortMode.selectedIndex].value == "newestFirst") return true;
+    return false;
+}
+
 
 function clearSessions(activeSessions) {
     var container = "", classes = "";
@@ -382,7 +388,24 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
 
     // Sessions container
     var container = "";
-    if (isActiveSession) container = document.getElementsByClassName("session-container")[0];
-    else container = document.getElementsByClassName("archive-container")[0];
-    container.appendChild(sessionElement);
+    var sortNewest = newestFirst();
+    if (isActiveSession) {
+        container = document.getElementsByClassName("session-container")[0];
+        container.appendChild(sessionElement);
+    }
+    else {
+        container = document.getElementsByClassName("archive-container")[0];
+        if (sortNewest) {
+            var elements = container.getElementsByClassName("archive-entry");
+            if(elements.length == 0){
+                container.appendChild(container);
+            }
+            else{
+                container.insertBefore(container, elements[0]);
+            }
+        }
+        else {
+            container.appendChild(sessionElement);
+        }
+    }
 }
