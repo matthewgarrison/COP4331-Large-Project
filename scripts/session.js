@@ -890,7 +890,7 @@ function setChart(question, numAnswers, id){
                 var chart = new Highcharts.Chart({
                     chart: {
                         renderTo: 'chart-container',
-                        type: 'bar'
+                        type: 'column'
                     },
 
                     title: {
