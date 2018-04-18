@@ -721,7 +721,7 @@ function updateChartModal(question, answers){
     chartContainer.appendChild(questionContainer);
 
     var questionText = document.createElement("div");
-    questionText.className = "display-poll-question";
+    questionText.className = "results-question";
     questionText.innerHTML = question;
     questionContainer.appendChild(questionText);
 
@@ -729,7 +729,7 @@ function updateChartModal(question, answers){
     var letterIdx = 0;
     while(idx < answers.length){
         var answerLetter = document.createElement("div");
-        answerLetter.className="answer-letter";
+        answerLetter.className="results-letter";
         answerLetter.innerHTML = letters[letterIdx++] + ".";
 
         var text = "";
@@ -739,11 +739,11 @@ function updateChartModal(question, answers){
         idx += 2;
 
         var answerText = document.createElement("div");
-        answerText.className = "answer-text";
+        answerText.className = "results-text";
         answerText.innerHTML = text;
 
         var answerContainer = document.createElement("div");
-        answerContainer.className = "display-answer-choice";
+        answerContainer.className = "results-choice";
         answerContainer.appendChild(answerLetter);
         answerContainer.appendChild(answerText);
         questionContainer.appendChild(answerContainer);
