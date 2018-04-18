@@ -671,7 +671,7 @@ function updateDisplayModal(question, answers){
     while(idx < answers.length){
         var answerLetter = document.createElement("div");
         answerLetter.className="answer-letter";
-        answerLetter.innerHTML = letters[letterIdx++];
+        answerLetter.innerHTML = letters[letterIdx++] + ".";
 
         var text = "";
         while(idx < answers.length && answers.charAt(idx) != '|'){
