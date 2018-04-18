@@ -595,7 +595,7 @@ function insertActivePoll(questionText, answerText, numAnswers, id){
     resultsButton.className = "dropdown-item";
     resultsButton.setAttribute("data-toggle", "modal");
     resultsButton.setAttribute("data-target", "#viewResultsModal"); 
-    resultsButton.setAttribute("onclick", "setChart('"+questionText+"', "+answerText+"', "+numAnswers+", "+id+");");   
+    resultsButton.setAttribute("onclick", "setChart('"+questionText+"', '"+answerText+"', "+numAnswers+", "+id+");");   
     resultsButton.innerHTML = "View Results";
 
     var endButton = document.createElement("button");
