@@ -908,7 +908,7 @@ function setChart(question, numAnswers, id){
 
                     yAxis: {
                         tickInterval: 1,
-                        text: ""
+                        title: ""
                     },
 
                     legend: {
