@@ -41,4 +41,5 @@ function addProfessor() {
 		// include result of creation in HTML
 		document.getElementsByName("response")[0].innerHTML = error.message;
 	}
+	return false;
 }

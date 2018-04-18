@@ -45,12 +45,12 @@
 		<div class="cardRegister">
 			<h1 class="cardTitle">Register</h1>
 			<p name = "response"></p>
-			<form>
+			<form onsubmit="return addProfessor()">
 				<input type="text" id="form-name" placeholder="Full Name" required>
 				<input type="email" id="form-email" placeholder="Email Address" required>
 				<input type="password" id="form-password" placeholder="Password" required>
 				<input type="password" id="form-password-confirm" placeholder="Confirm Password" required>
-                <input type="button" id="form-submit" value="Register" class="btn-custom" onclick="addProfessor()" required>
+                <input type="submit" id="form-submit" value="Register" class="btn-custom" onclick="addProfessor()" required>
 			</form>
 			
 			<div class="login-help">
