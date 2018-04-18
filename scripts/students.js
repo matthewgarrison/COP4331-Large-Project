@@ -35,6 +35,7 @@ function getInfo() {
                 
                 document.getElementsByClassName("class-title")[0].innerHTML = data.className;
                 document.getElementsByClassName("class-id")[0].innerHTML = "Class ID: "+decToHex(data.classID);
+                document.title = data.className + " | Queue & A";
                 className = data.className;
             }
         }
