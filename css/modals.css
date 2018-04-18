@@ -12,7 +12,7 @@
 	font-size: 24px;
 }
 
-.modal-dialog {
+.modal-dialog-centered {
     transform: translate(0, -35%);
     top: 35%;
     margin: 0 auto;
@@ -155,3 +155,9 @@
 	border:none;
 	transform: translate3d(3px,3px,0px);
 }
+
+.modal-full {
+    min-width: 75%;
+	
+}
+
