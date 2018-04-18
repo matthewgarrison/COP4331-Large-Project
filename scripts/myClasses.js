@@ -95,8 +95,6 @@ function refreshClasses(){
                     return;
                 }
                 
-                console.log("VALID SESSION");
-
                 var rawClasses = data.result;
                 var idx = 0;
                 while(idx < rawClasses.length){
