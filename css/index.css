@@ -119,6 +119,7 @@
 
 .btn-outline-success:hover, .btn-outline-success:active, .btn-outline-success:focus {
 	background-color: #16966A;
+	color: white;
 }
 
 .btn-android {
