@@ -706,6 +706,16 @@ function updateChartModal(question, answers){
     var modalBody = document.createElement("div");
     modalBody.className = "modal-body";
 
+    // Create chart container
+    var chart = document.createElement("div");
+    chart.id = "chart-container";
+    chart.style = "min-width: 810px; height: 400px; margin: 0 auto";
+    
+    var chartContainer = document.createElement("div");
+    chartContainer.className = "results-container";
+    chartContainer.appendChild(chart);
+    modalBody.appendChild(chartContainer);
+
     var questionText = document.createElement("div");
     questionText.className = "display-poll-question";
     questionText.innerHTML = question;
