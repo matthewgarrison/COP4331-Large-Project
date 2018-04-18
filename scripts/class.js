@@ -398,10 +398,10 @@ function insertSession(isActiveSession, sessionName, sessionId, date) {
         if (sortNewest) {
             var elements = container.getElementsByClassName("archive-entry");
             if(elements.length == 0){
-                container.appendChild(container);
+                container.appendChild(sessionElement);
             }
             else{
-                container.insertBefore(container, elements[0]);
+                container.insertBefore(sessionElement, elements[0]);
             }
         }
         else {
