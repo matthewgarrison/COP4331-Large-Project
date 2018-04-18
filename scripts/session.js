@@ -895,10 +895,6 @@ function setChart(question, numAnswers, id){
                         type: 'column'
                     },
 
-                    title: {
-                        text: question
-                    },
-
                     xAxis: {
                         categories: letters,
                         labels: {
